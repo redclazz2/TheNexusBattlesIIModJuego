@@ -1,10 +1,10 @@
-const os = require('os');
-
 /**
+ * 
+  const os = require('os');
  * COLYSEUS CLOUD WARNING:
  * ----------------------
  * PLEASE DO NOT UPDATE THIS FILE MANUALLY AS IT MAY CAUSE DEPLOYMENT ISSUES
- */
+
 
 module.exports = {
   apps : [{
@@ -19,5 +19,20 @@ module.exports = {
       NODE_ENV: 'production'
     }
   }],
-};
+};*/
 
+const os = require('os');
+module.exports = {
+    apps: [{
+        port        : 3000,
+        name        : "TheNexusBattlesIIServer",
+        script      : "./build/index.js", // your entrypoint file
+        watch       : true,           // optional
+        instances   : os.cpus().length,
+        exec_mode   : 'fork',         // IMPORTANT: do not use cluster mode.
+        env: {
+            DEBUG: "colyseus:errors",
+            NODE_ENV: "development",
+        }
+    }]
+}

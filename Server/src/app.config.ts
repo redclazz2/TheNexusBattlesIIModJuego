@@ -1,19 +1,25 @@
 import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
+import { RedisDriver,RedisPresence } from "colyseus";
 
-/**
- * Import your Room files
- */
 import { MyRoom } from "./rooms/MyRoom";
+import { Room2v2 } from "./rooms/Room2V2";
 
 export default config({
+
+    options:{
+        presence: new RedisPresence(),
+        driver: new RedisDriver(),
+        publicAddress: "192.168.1.107"
+    },
 
     initializeGameServer: (gameServer) => {
         /**
          * Define your room handlers:
          */
         gameServer.define('my_room', MyRoom);
+        gameServer.define('2v2', Room2v2);
 
     },
 
@@ -47,5 +53,6 @@ export default config({
         /**
          * Before before gameServer.listen() is called.
          */
+        
     }
 });
