@@ -28,7 +28,7 @@ module.exports = {
         name        : "TheNexusBattlesIIServer",
         script      : "./build/index.js", // your entrypoint file
         watch       : true,           // optional
-        instances   : os.cpus().length,
+        instances   : 2,
         exec_mode   : 'fork',         // IMPORTANT: do not use cluster mode.
         env: {
             DEBUG: "colyseus:errors",

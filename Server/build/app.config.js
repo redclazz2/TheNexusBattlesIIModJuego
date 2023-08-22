@@ -13,7 +13,7 @@ exports.default = (0, tools_1.default)({
     options: {
         presence: new colyseus_1.RedisPresence(),
         driver: new colyseus_1.RedisDriver(),
-        publicAddress: "192.168.1.107"
+        publicAddress: "192.168.1.107/server-" + process.env.NODE_APP_INSTANCE
     },
     initializeGameServer: (gameServer) => {
         /**
@@ -21,6 +21,7 @@ exports.default = (0, tools_1.default)({
          */
         gameServer.define('my_room', MyRoom_1.MyRoom);
         gameServer.define('2v2', Room2V2_1.Room2v2);
+        gameServer.define('lobby', colyseus_1.LobbyRoom);
     },
     initializeExpress: (app) => {
         /**
