@@ -32,7 +32,7 @@ module.exports = {
         exec_mode   : 'fork',         // IMPORTANT: do not use cluster mode.
         env: {
             DEBUG: "colyseus:errors",
-            NODE_ENV: "development",
+            NODE_ENV: "production",
         }
     }]
 }

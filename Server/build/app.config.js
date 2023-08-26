@@ -13,7 +13,7 @@ exports.default = (0, tools_1.default)({
     options: {
         presence: new colyseus_1.RedisPresence(),
         driver: new colyseus_1.RedisDriver(),
-        publicAddress: "192.168.1.107/server-" + process.env.NODE_APP_INSTANCE
+        publicAddress: "gamethenexusbattles.azurewebsites.net/server-" + process.env.NODE_APP_INSTANCE
     },
     initializeGameServer: (gameServer) => {
         /**
@@ -29,7 +29,7 @@ exports.default = (0, tools_1.default)({
          * Read more: https://expressjs.com/en/starter/basic-routing.html
          */
         app.get("/hello_world", (req, res) => {
-            res.send("It's time to kick ass and chew bubblegum!");
+            res.send("Colyseus Ready!");
         });
         /**
          * Use @colyseus/playground
