@@ -13,7 +13,7 @@ exports.default = (0, tools_1.default)({
     options: {
         presence: new colyseus_1.RedisPresence(),
         driver: new colyseus_1.RedisDriver(),
-        publicAddress: "gamethenexusbattles.azurewebsites.net/server-" + process.env.NODE_APP_INSTANCE
+        publicAddress: "172.190.6.2/server-" + process.env.NODE_APP_INSTANCE
     },
     initializeGameServer: (gameServer) => {
         /**

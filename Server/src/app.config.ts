@@ -9,9 +9,9 @@ import { Room2v2 } from "./rooms/Room2V2";
 export default config({
 
     options:{
-        //presence: new RedisPresence(),
-        //driver: new RedisDriver(),
-        publicAddress: "gamethenexusbattles.azurewebsites.net/server-" + process.env.NODE_APP_INSTANCE
+        presence: new RedisPresence(),
+        driver: new RedisDriver(),
+        publicAddress: "172.190.6.2/server-" + process.env.NODE_APP_INSTANCE
     },
 
     initializeGameServer: (gameServer) => {
