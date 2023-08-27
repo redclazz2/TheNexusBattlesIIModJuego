@@ -33,6 +33,7 @@ module.exports = {
         env: {
             DEBUG: "colyseus:errors",
             NODE_ENV: "development",
+            DOMAIN: "game.tnb2testing.com"
         }
     }]
 }
