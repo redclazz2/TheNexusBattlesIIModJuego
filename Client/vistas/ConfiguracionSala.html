@@ -19,10 +19,6 @@
     var creditInput = document.getElementById('credit-input');
     creditValue = parseInt(creditInput.value) + 1; // Almacena el valor en la variable creditValue
     creditInput.value = creditValue; // Actualiza el valor del input
-    /*const label = document.getElementById("misLabel");
-
-  // Asigna el valor de la variable como contenido del <label>
-      label.textContent = creditInput.value;*/
   }
   
   function decrementCredits() {
@@ -30,10 +26,6 @@
     if (parseInt(creditInput.value) > 0) {
       creditValue = parseInt(creditInput.value) - 1; // Almacena el valor en la variable creditValue
       creditInput.value = creditValue; // Actualiza el valor del input
-      /*const label = document.getElementById("misLabel");
-
-  // Asigna el valor de la variable como contenido del <label>
-      label.textContent = creditInput.value;*/
     }
 
   }
@@ -410,13 +402,15 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   checkbox3.addEventListener("change", actualizarEstadoBoton);
   checkbox4.addEventListener("change", actualizarEstadoBoton);
 </script>
+
 <script>
   const crearSalaBoton = document.getElementById('crearSalaBoton');
   crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
 
   function guardarJSONEnCookie() {
     const miJSON = {
-      numJugadores: numJugadores,
+      configLoad: 1,
+      numJugadores: numJugadores + 1,
       creditValue: creditValue,
       equipos: equipos,
       tj2: tj2,
@@ -430,8 +424,11 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   // Convierte el objeto JSON a una cadena JSON
     const miJSONString = JSON.stringify(miJSON);
 
+  //Fecha de la Cookie
+  var now = new Date();
+  now.setTime(now.getTime()+(3*60*1000));
     // Guarda la cadena JSON en una cookie
-    document.cookie = `misDatos=${miJSONString}; expires=Thu, 01 Jan 2025 00:00:00 UTC; path=/`;
+    document.cookie = `misDatos=${miJSONString}; expires=${now.toUTCString()}`;
   }
 </script>
 </body>

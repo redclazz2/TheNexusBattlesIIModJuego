@@ -2,21 +2,19 @@ import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
 import { RedisDriver,RedisPresence} from "colyseus";
+import basicAuth from "express-basic-auth";
 
-import { MyRoom } from "./rooms/MyRoom";
-import { Room2v2 } from "./rooms/Room2V2";
+import { room_battle } from "./rooms/RoomBattle";
 
 export default config({
-
     options:{
-        presence: new RedisPresence(),
-        driver: new RedisDriver(),
+        //presence: new RedisPresence(),
+        //driver: new RedisDriver(),
         publicAddress: process.env.DOMAIN + "/server-" + process.env.NODE_APP_INSTANCE
     },
 
     initializeGameServer: (gameServer) => {
-        gameServer.define('my_room', MyRoom);
-        gameServer.define('2v2', Room2v2);
+        gameServer.define('room_battle', room_battle);
     },
 
     initializeExpress: (app) => {
@@ -27,12 +25,14 @@ export default config({
         if (process.env.NODE_ENV !== "production") {
             app.use("/", playground);
         }
+        
+        const basicAuthMiddleware = basicAuth({
+            users:{
+                "TNB_ADMIN2023":"MonitorLog3212!!"
+            },
+            challenge:true
+        });
 
-        app.use("/colyseus", monitor());
-    },
-
-
-    beforeListen: () => {
-
+        app.use("/colyseus", basicAuthMiddleware, monitor());
     }
 });

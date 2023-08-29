@@ -6,18 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tools_1 = __importDefault(require("@colyseus/tools"));
 const monitor_1 = require("@colyseus/monitor");
 const playground_1 = require("@colyseus/playground");
-const colyseus_1 = require("colyseus");
+const express_basic_auth_1 = __importDefault(require("express-basic-auth"));
 const MyRoom_1 = require("./rooms/MyRoom");
-const Room2V2_1 = require("./rooms/Room2V2");
+const RoomBattle_1 = require("./rooms/RoomBattle");
 exports.default = (0, tools_1.default)({
     options: {
-        presence: new colyseus_1.RedisPresence(),
-        driver: new colyseus_1.RedisDriver(),
+        //presence: new RedisPresence(),
+        //driver: new RedisDriver(),
         publicAddress: process.env.DOMAIN + "/server-" + process.env.NODE_APP_INSTANCE
     },
     initializeGameServer: (gameServer) => {
         gameServer.define('my_room', MyRoom_1.MyRoom);
-        gameServer.define('2v2', Room2V2_1.Room2v2);
+        gameServer.define('room_battle', RoomBattle_1.room_battle);
     },
     initializeExpress: (app) => {
         app.get("/hello_world", (req, res) => {
@@ -26,8 +26,12 @@ exports.default = (0, tools_1.default)({
         if (process.env.NODE_ENV !== "production") {
             app.use("/", playground_1.playground);
         }
-        app.use("/colyseus", (0, monitor_1.monitor)());
-    },
-    beforeListen: () => {
+        const basicAuthMiddleware = (0, express_basic_auth_1.default)({
+            users: {
+                "TNB_ADMIN2023": "MonitorLog3212!!"
+            },
+            challenge: true
+        });
+        app.use("/colyseus", basicAuthMiddleware, (0, monitor_1.monitor)());
     }
 });
