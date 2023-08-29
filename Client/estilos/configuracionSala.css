@@ -4,6 +4,9 @@
     padding: 0;
     font-family: Arial, sans-serif;
     height: 100%;
+    background-image: url(../img/fondoCastillo.png); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat;
   }
 
   /*-------------------------------------------------------------------------------------------- 
@@ -31,18 +34,18 @@
   }   
       
   #titleEquipo1 {
-    background-color: #0074FF; /* Color para el cuadro de título */
-    color: #fff; /* Color del texto del título */
+    /*background-color: #0074FF; /* Color para el cuadro de título */
+    /*color: #fff; /* Color del texto del título */
     text-align: center;
     padding: 10px 0;
-    font-size: 24px;
+    font-size: 34px;
   }
   #titleEquipo2 {
-    background-color: #FF2D00; /* Color para el cuadro de título */
-    color: #fff; /* Color del texto del título */
+    /*background-color: #FF2D00; /* Color para el cuadro de título */
+    /*color: #fff; /* Color del texto del título */
     text-align: center;
     padding: 10px 0;
-    font-size: 24px;
+    font-size: 34px;
   }
 
   #contenedorPrincipal { /*contiene todos los demas containers*/
@@ -50,7 +53,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-image: url(../img/fondoCastillo.png); /* Ruta de tu imagen de fondo */
+    /*background-image: url(../img/fondoCastillo.png); /* Ruta de tu imagen de fondo */
     background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
     background-repeat: no-repeat;
     height: 100%;
@@ -381,6 +384,8 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    font-family: 'IrishGrover';
     background-color: #e6e6e6; /* Color del cuadro del jugador */
     padding: 10px;
     margin: 10px;
@@ -388,6 +393,8 @@
     border: 1px solid #ccc; /* Borde del cuadro del jugador */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra del cuadro del jugador */
     width: 150px;
+    background-image: url(../img/papel.png);
+    background-size: 100% 100%;
   }
   
   .invisible {
