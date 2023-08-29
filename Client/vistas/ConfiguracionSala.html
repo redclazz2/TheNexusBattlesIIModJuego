@@ -6,6 +6,40 @@
 <link rel="stylesheet" href="../estilos/configuracionSala.css">
 <title>Configuración de sala</title>
 
+
+<script>
+  window.addEventListener('load', function() {
+    const checkboxesEquipos = document.querySelectorAll('.checkbox[data-columna]');
+    checkboxesEquipos.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+    // Restablecer valores de los checkbox
+    const checkboxes = document.querySelectorAll('.checkboxJugador');
+    checkboxes.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+
+    // Restablecer valores de los inputs numéricos
+    const creditInput = document.getElementById('credit-input');
+    creditInput.value = '0';
+
+    // Restablecer valores de los botones que cambian de texto
+    const botonIA2 = document.getElementById('botonIA2');
+    const botonIA3 = document.getElementById('botonIA3');
+    const botonIA4 = document.getElementById('botonIA4');
+    
+    botonIA2.textContent = 'Humano';
+    botonIA3.textContent = 'Humano';
+    botonIA4.textContent = 'Humano';
+    
+    const boton2vs2 = document.getElementById('boton2vs2');
+    boton2vs2.disabled = true;
+
+    // Habilitar el botón "Crear Sala"
+    const crearSalaBoton = document.getElementById('crearSalaBoton');
+    crearSalaBoton.disabled = true;
+  });
+</script>
 <script>
   /* Definir una variable para almacenar el valor del input */
   var creditValue;
@@ -36,7 +70,7 @@
   <div id="title-box">
     <a class="botonMenu1" href="./UnirseCrearPartida.html">Atrás</a>
     Configuración de sala
-    <button class="botonMenu2" id="crearSalaBoton">Crear Sala</button>
+    <button class="botonMenu2" id="crearSalaBoton" disabled>Crear Sala</button>
   </div>
   <div id="contenedorPrincipal">
     <div id="contenedorIzquierdo">
@@ -272,7 +306,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   checkbox2.addEventListener("change", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox2.checked && botonIA2.textContent === "IA") {
-           nombreJugador2.textContent = "CPU 2";
+           nombreJugador2.textContent = "CPU 1";
            jugador2 = 0;
            tj2 = 0;
       } else if(checkbox2.checked && botonIA2.textContent === "Humano") {
@@ -292,7 +326,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   checkbox3.addEventListener("change", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox3.checked && botonIA3.textContent === "IA") {
-           nombreJugador3.textContent = "CPU 3";
+           nombreJugador3.textContent = "CPU 2";
            jugador3 = 0;
            tj3 = 0;
       } else if(checkbox3.checked && botonIA3.textContent === "Humano") {
@@ -312,7 +346,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   checkbox4.addEventListener("change", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox4.checked && botonIA4.textContent === "IA") {
-           nombreJugador4.textContent = "CPU 4";
+           nombreJugador4.textContent = "CPU 3";
            jugador4 = 0;
            tj4 = 0;
       } else if(checkbox4.checked && botonIA4.textContent === "Humano") {
@@ -332,7 +366,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   botonIA2.addEventListener("click", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox2.checked && botonIA2.textContent === "IA") {
-           nombreJugador2.textContent = "CPU 2";
+           nombreJugador2.textContent = "CPU 1";
            jugador2 = 0;
            tj2 = 0;
       } else if(checkbox2.checked && botonIA2.textContent === "Humano") {
@@ -352,7 +386,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   botonIA3.addEventListener("click", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox3.checked && botonIA3.textContent === "IA") {
-           nombreJugador3.textContent = "CPU 3";
+           nombreJugador3.textContent = "CPU 2";
            jugador3 = 0;
            tj3 = 0;
       } else if(checkbox3.checked && botonIA3.textContent === "Humano") {
@@ -372,7 +406,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   botonIA4.addEventListener("click", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
       if (checkbox4.checked && botonIA4.textContent === "IA") {
-           nombreJugador4.textContent = "CPU 4";
+           nombreJugador4.textContent = "CPU 3";
            jugador4 = 0;
            tj4 = 0;
       } else if(checkbox4.checked && botonIA4.textContent === "Humano") {
@@ -401,6 +435,19 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   checkbox2.addEventListener("change", actualizarEstadoBoton);
   checkbox3.addEventListener("change", actualizarEstadoBoton);
   checkbox4.addEventListener("change", actualizarEstadoBoton);
+
+  function actualizarBotonCrearSala() {
+  // Verifica si al menos uno de los checkbox está seleccionado
+    if (checkbox2.checked || checkbox3.checked || checkbox4.checked) {
+      crearSalaBoton.disabled = false; // Habilita el botón
+    } else {
+      crearSalaBoton.disabled = true; // Deshabilita el botón
+    }   
+  }
+  checkbox2.addEventListener("change", actualizarBotonCrearSala);
+  checkbox3.addEventListener("change", actualizarBotonCrearSala);
+  checkbox4.addEventListener("change", actualizarBotonCrearSala);
+  actualizarBotonCrearSala();
 </script>
 
 <script>
@@ -408,6 +455,9 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
 
   function guardarJSONEnCookie() {
+    if (typeof creditValue === 'undefined') {
+      creditValue = 0;
+    }
     const miJSON = {
       configLoad: 1,
       numJugadores: numJugadores + 1,
