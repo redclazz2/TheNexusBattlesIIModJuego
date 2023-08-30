@@ -1,0 +1,22 @@
+body{
+    background-color: #CCBEA3;
+    font-family: 'Irish Grover';
+}
+
+header{
+    background-image: url('../img/header.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 88px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22px;
+}
+
+h1{
+    display:inline;
+    text-align: center;
+    align-content: center;
+    color: white;
+}

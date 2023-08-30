@@ -11,10 +11,10 @@ const functionBusqueda = async () => {
     await client.getAvailableRooms("room_battle").then(rooms => {
       if (rooms.length > 0) {
         rooms.forEach(room => {
-          console.log(room.roomId);
+          /*console.log(room.roomId);
           console.log(room.clients);
           console.log(room.maxClients);
-          console.log(room.metadata);
+          console.log(room.metadata);*/
           //Div con clase fila donde se guardara la informacion de la partida
           const tableItem = document.createElement("div");
           tableItem.classList.add("fila");
