@@ -458,33 +458,27 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
     if (typeof creditValue === 'undefined') {
       creditValue = 0;
     }
-    /*const miJSON = {
-      configLoad: 1,
-      numJugadores: numJugadores + 1,
-      creditValue: creditValue,
-      equipos: equipos,
-      tj2: tj2,
-      tj3: tj3,
-      tj4: tj4,
-      ej1: ej1,
-      ej2: ej2,
-      ej3: ej3,
-      ej4: ej4
-    };*/
-    var now = new Date();
-    now.setTime(now.getTime()+(3*60*1000));
-    document.cookie = `config=true; expires=${now.toUTCString()}`;
-    document.cookie = `numJugadores = ${numJugadores + 1}; expires=${now.toUTCString()}`;
-    document.cookie = `creditosValor=${creditValue}; expires=${now.toUTCString()}`;
-    document.cookie = `tj2=${tj2}; expires=${now.toUTCString()}`;
-    document.cookie = `tj3=${tj3}; expires=${now.toUTCString()}`;
-    document.cookie = `tj4=${tj4}; expires=${now.toUTCString()}`;
-    document.cookie = `equipos= ${equipos}; expires=${now.toUTCString()}`;
-    document.cookie = `ej1=${ej1}; expires=${now.toUTCString()}`;
-    document.cookie = `ej2=${ej2}; expires=${now.toUTCString()}`;
-    document.cookie = `ej3=${ej3}; expires=${now.toUTCString()}`;
-    document.cookie = `ej4=${ej4}; expires=${now.toUTCString()}`;
-  }
+      
+     var now = new Date();
+      now.setTime(now.getTime()+(3*60*1000));
+      document.cookie = `config='1'; expires=${now.toUTCString()}`;
+      document.cookie = `numJugadores = ${numJugadores + 1}; expires=${now.toUTCString()}`;
+      document.cookie = `creditosValor=${creditValue}; expires=${now.toUTCString()}`;
+      document.cookie = `tj2=${tj2}; expires=${now.toUTCString()}`;
+      document.cookie = `tj3=${tj3}; expires=${now.toUTCString()}`;
+      document.cookie = `tj4=${tj4}; expires=${now.toUTCString()}`;
+      document.cookie = `equipos= ${equipos}; expires=${now.toUTCString()}`;
+      document.cookie = `ej1=${ej1}; expires=${now.toUTCString()}`;
+      document.cookie = `ej2=${ej2}; expires=${now.toUTCString()}`;
+      document.cookie = `ej3=${ej3}; expires=${now.toUTCString()}`;
+      document.cookie = `ej4=${ej4}; expires=${now.toUTCString()}`;
+    
+
+      window.setTimeout(()=>{
+        window.location.replace("./JuegoEnLinea.html");
+      },1000);
+    }
+
 </script>
 </body>
 </html>
