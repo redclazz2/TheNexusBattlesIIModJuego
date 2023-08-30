@@ -33,7 +33,7 @@ if(getCookie("config").includes('1')){
     }
 
     console.log(cookie_data);
-    client.joinOrCreate("room_battle",cookie_data).then(room => {
+    client.create("room_battle",cookie_data).then(room => {
         console.log(room.sessionId, "joined", room.name);
     }).catch(e => {
         console.log("JOIN ERROR", e);
