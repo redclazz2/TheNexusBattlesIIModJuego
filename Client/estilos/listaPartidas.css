@@ -65,6 +65,11 @@ body {
   border-bottom: 1px solid #ddd;
   font-size: 25px;
 }
+.filaE{
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  font-size: 25px;
+}
 
 .encabezado {
   background: #000;
