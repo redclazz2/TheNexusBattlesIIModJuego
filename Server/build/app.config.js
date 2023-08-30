@@ -7,7 +7,6 @@ const tools_1 = __importDefault(require("@colyseus/tools"));
 const monitor_1 = require("@colyseus/monitor");
 const playground_1 = require("@colyseus/playground");
 const express_basic_auth_1 = __importDefault(require("express-basic-auth"));
-const MyRoom_1 = require("./rooms/MyRoom");
 const RoomBattle_1 = require("./rooms/RoomBattle");
 exports.default = (0, tools_1.default)({
     options: {
@@ -16,7 +15,6 @@ exports.default = (0, tools_1.default)({
         publicAddress: process.env.DOMAIN + "/server-" + process.env.NODE_APP_INSTANCE
     },
     initializeGameServer: (gameServer) => {
-        gameServer.define('my_room', MyRoom_1.MyRoom);
         gameServer.define('room_battle', RoomBattle_1.room_battle);
     },
     initializeExpress: (app) => {

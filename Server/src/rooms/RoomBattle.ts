@@ -2,12 +2,17 @@ import { Room, Client, ClientArray } from "@colyseus/core";
 import { MyRoomState } from "./schema/MyRoomState";
 
 export class room_battle extends Room<MyRoomState> {
-  maxClients = 4;
+  maxClients = 1;
   clients: ClientArray<any, any>;
 
   onCreate (options: any) {
     this.setState(new MyRoomState());
-    this.setMetadata({})
+    //console.log(options);
+    this.setMetadata({
+      ganacia: options.numero_creditos
+    })
+
+    this.maxClients = options.numero_jugadores;
     this.onMessage("type", (client, message) => {
       
     });

@@ -8,8 +8,8 @@ import { room_battle } from "./rooms/RoomBattle";
 
 export default config({
     options:{
-        //presence: new RedisPresence(),
-        //driver: new RedisDriver(),
+        presence: new RedisPresence(),
+        driver: new RedisDriver(),
         publicAddress: process.env.DOMAIN + "/server-" + process.env.NODE_APP_INSTANCE
     },
 

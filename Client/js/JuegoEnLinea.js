@@ -1,26 +1,43 @@
 //Importa el cliente de colyseus
-var client = new  Colyseus.Client('ws://game.tnb2testing.com:3000/');
-
-//Lee la Cookie con la data para unirse o crear una sala
-var name = "misDatos=",
-      decoded_cookie = decodeURIComponent(document.cookie),
-      carr = decoded_cookie.split(';'),
-      data_cookie = "";
-
-for(var i=0; i<carr.length;i++){
-    var c = carr[i];
-    while(c.charAt(0)==' '){
-        c=c.substring(1);
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
     }
-    if(c.indexOf(name) == 0) {
-        data_cookie = c.substring(name.length, c.length);
-    }
+    return "";
 }
-         
-console.log(data_cookie);
 
-client.joinOrCreate("room_battle",document.cookie).then(room => {
-    console.log(room.sessionId, "joined", room.name);
-}).catch(e => {
-    console.log("JOIN ERROR", e);
-});
+let client = new  Colyseus.Client('ws://game.tnb2testing.com:3000/');
+     cookie_data= "";
+
+if(getCookie("config").includes('1')){
+    cookie_data = {
+        numero_creditos: getCookie("creditosValor"),
+        numero_jugadores: getCookie("numJugadores"),
+        tj2: getCookie("tj2"),
+        tj3: getCookie("tj3"),
+        tj4: getCookie("tj4"),
+        equipos: getCookie("equipos"),
+        ej1:getCookie("ej1"),
+        ej2:getCookie("ej2"),
+        ej3:getCookie("ej3"),
+        ej4:getCookie("ej4")
+    }
+
+    console.log(cookie_data);
+    client.joinOrCreate("room_battle",cookie_data).then(room => {
+        console.log(room.sessionId, "joined", room.name);
+    }).catch(e => {
+        console.log("JOIN ERROR", e);
+    });
+}else if(getCookie("config").includes('2')){
+    //Codigo de unirse a una partida
+}
