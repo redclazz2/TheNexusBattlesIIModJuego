@@ -69,7 +69,6 @@ const functionBusqueda = async () => {
   }
 };
 
-
 //Traer id de la partida 
 table.addEventListener('click', (event) => {
   //Se trae el elemento al que se le dio click en la tabla
@@ -82,17 +81,19 @@ table.addEventListener('click', (event) => {
     //Por ultimo se imprime en la consola
     if (inputInsideButton) {
       console.log(inputInsideButton.value);
+      var now = new Date();
+      now.setTime(now.getTime()+(3*60*1000));
+      document.cookie = `config='2'; expires=${now.toUTCString()}`;
+      document.cookie = `roomID = ${inputInsideButton.value}; expires=${now.toUTCString()}`;
     
+      window.setTimeout(()=>{
+        window.location.replace("./JuegoEnLinea.html");
+      },1000);
     }
   }
 });
 
-
 document.addEventListener("DOMContentLoaded", functionBusqueda);
-
-
 
 const boton_actualizar = document.getElementById('btn_actualizar');
 boton_actualizar.addEventListener('click', functionBusqueda);
-
-
