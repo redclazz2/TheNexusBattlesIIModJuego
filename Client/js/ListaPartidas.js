@@ -64,9 +64,41 @@ const functionBusqueda = async () => {
       }
     }).catch(e => {
       console.log("JOIN ERROR", e);
+      // Crear el elemento HTML para el mensaje de error
+      const errorPopup = document.createElement("div");
+      errorPopup.classList.add("popup-container");
+      errorPopup.innerHTML = `
+        <div class="popup">
+            <div class="popup-header">
+                <span class="error-icon">!</span>
+            </div>
+            <div class="popup-content">
+                <p>¡Ups! ${e}</p>
+                <div class="btn__confirmar">
+                  <button class="close-button">Confirmar</button>
+                </div>
+            </div>
+        </div>
+      `;
     });
   } catch (error) {
     console.error('Ocurrió un error:', error);
+    // Crear el elemento HTML para el mensaje de error
+    const errorPopup = document.createElement("div");
+    errorPopup.classList.add("popup-container");
+    errorPopup.innerHTML = `
+      <div class="popup">
+          <div class="popup-header">
+              <span class="error-icon">!</span>
+          </div>
+          <div class="popup-content">
+              <p>¡Ups! ${error}</p>
+              <div class="btn__confirmar">
+                <button class="close-button">Confirmar</button>
+              </div>
+          </div>
+      </div>
+    `;
   }
 };
 
