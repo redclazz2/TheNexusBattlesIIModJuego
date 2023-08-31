@@ -121,3 +121,6 @@ button:hover{
 .btn__actualizar{
   margin: 5px auto 50px auto;
 }
+.hidden{
+  display: none;
+}

@@ -1,6 +1,6 @@
-let client = new Colyseus.Client('ws://game.tnb2testing.com:3000/');
+let client = new Colyseus.Client('ws://game.thenexusbattles2.com:3000/');
 
-// Tabla en HTML donde se guardan las filas
+// Tabla en HTML donde se guardan las fila
 const table = document.querySelector(".tabla");
 
 const functionBusqueda = async () => {
@@ -24,8 +24,9 @@ const functionBusqueda = async () => {
             <div class="columna nombreP">${room.roomId}</div>
             <div class="columna">${room.clients}/${room.maxClients}</div>
             <div class="columna">${room.metadata.ganacia}</div>
-            <div class="columna"><button>Join</button></div>
+             <div class="columna"><button class="joinButton"><input id="btnJoins" type="text" class="hidden" value="${room.roomId}">Join</button></div>
           `;
+         
           // Div fila se guarda en la tabla
           table.appendChild(tableItem);
         });
@@ -48,7 +49,7 @@ const functionBusqueda = async () => {
               </div>
           </div>
         `;
-
+        
         // Agregar el mensaje de error al cuerpo del documento
         document.body.appendChild(errorPopup);
 
@@ -67,6 +68,29 @@ const functionBusqueda = async () => {
     console.error('Ocurrió un error:', error);
   }
 };
+
+
+//Traer id de la partida 
+table.addEventListener('click', (event) => {
+  //Se trae el elemento al que se le dio click en la tabla
+  const clickedElement = event.target;
+
+  // Verificar si el elemento clicado es un botón con clase 'joinButton'
+  if (clickedElement.classList.contains('joinButton')) {
+    //Se trae el input dentro del boton el cual guarda el id de la partida
+    const inputInsideButton = clickedElement.querySelector('input.hidden');
+    //Por ultimo se imprime en la consola
+    if (inputInsideButton) {
+      console.log(inputInsideButton.value);
+    
+    }
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", functionBusqueda);
+
+
 
 const boton_actualizar = document.getElementById('btn_actualizar');
 boton_actualizar.addEventListener('click', functionBusqueda);
