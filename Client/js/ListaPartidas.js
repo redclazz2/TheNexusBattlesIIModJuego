@@ -52,7 +52,7 @@ const functionBusqueda = async () => {
         // Agregar el mensaje de error al cuerpo del documento
         document.body.appendChild(errorPopup);
 
-        // Agregar el código para eliminar el mensaje de error al hacer clic en "Confirmar"
+        //Eliminar el mensaje de error al hacer click en "Confirmar"
         const closeButton = document.querySelector(".close-button");
         if (closeButton) {
           closeButton.addEventListener("click", () => {
