@@ -336,6 +336,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
   let tj3;
   let tj4;
   let numJugadores;
+  let nombre;
         // Agregar un evento change al checkbox
   checkbox2.addEventListener("change", function() {
             // Verificar si el checkbox está marcado y el botón dice "IA"
@@ -486,7 +487,10 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
 
 <script>
   const crearSalaBoton = document.getElementById('crearSalaBoton');
-  crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
+            crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
+  const txBox = document.getElementById('nombrePartida');
+            nombre = txBox.value;
+  
 
   function guardarJSONEnCookie() {
     if (typeof creditValue === 'undefined') {
