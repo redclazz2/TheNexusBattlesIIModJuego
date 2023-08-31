@@ -41,7 +41,7 @@ const functionBusqueda = async () => {
                   <span class="error-icon">!</span>
               </div>
               <div class="popup-content">
-                  <p>¡Ups! Algo salió mal. Por favor, intenta de nuevo más tarde.</p>
+                  <p>¡Ups! Parece que no hay partidas aun. Por favor, intenta de nuevo más tarde.</p>
                   <div class="btn__confirmar">
                     <button class="close-button">Confirmar</button>
                   </div>
