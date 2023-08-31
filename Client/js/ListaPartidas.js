@@ -32,7 +32,7 @@ const functionBusqueda = async () => {
       } else {
         console.log("NO DATA");
 
-        // Elemento HTML para el mensaje de error
+        // Crear el elemento HTML para el mensaje de error
         const errorPopup = document.createElement("div");
         errorPopup.classList.add("popup-container");
         errorPopup.innerHTML = `
@@ -43,12 +43,22 @@ const functionBusqueda = async () => {
               <div class="popup-content">
                   <p>¡Ups! Algo salió mal. Por favor, intenta de nuevo más tarde.</p>
                   <div class="btn__confirmar">
-                    <button>Confirmar</button>
+                    <button class="close-button">Confirmar</button>
                   </div>
               </div>
           </div>
         `;
+
+        // Agregar el mensaje de error al cuerpo del documento
         document.body.appendChild(errorPopup);
+
+        // Agregar el código para eliminar el mensaje de error al hacer clic en "Confirmar"
+        const closeButton = document.querySelector(".close-button");
+        if (closeButton) {
+          closeButton.addEventListener("click", () => {
+            errorPopup.remove();
+          });
+        }
       }
     }).catch(e => {
       console.log("JOIN ERROR", e);
