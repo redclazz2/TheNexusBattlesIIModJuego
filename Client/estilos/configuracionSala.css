@@ -8,7 +8,13 @@
     background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
     background-repeat: no-repeat;
   }
-
+h2{
+  font-family: 'Irish Grover';
+  text-align: center;
+  color: #fff;
+  font-size: 35px;
+  font-weight: 600;
+}
   /*-------------------------------------------------------------------------------------------- 
      estilo del titulo principal y los dos secundarios
   ----------------------------------------------------------------------------------------------*/
@@ -21,16 +27,16 @@
     font-size: 24px;
   }*/
   #title-box {
-    width: 100%; /* Ancho del contenedor: ocupa todo el ancho de la pantalla */
-    height: 105px; /* Alto del contenedor */
-    background-size: 100%; /* La imagen se estirará horizontalmente */
-    background-image: url(../img/barraMadera.png); /* Ruta de tu imagen de fondo */
-    color: #fff; /* Color del texto del título */
-    text-align: center;
-    padding: 10px 0;
-    font-size: 60px;
-    font-family: 'Alegreya', sans-serif;
+    background-image: url('../img/header.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 88px; 
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    font-size: 22px;
+    position: relative;
+    z-index: 2;
   }   
       
   #titleEquipo1 {
@@ -38,70 +44,88 @@
     /*color: #fff; /* Color del texto del título */
     text-align: center;
     padding: 10px 0;
-    font-size: 34px;
+    font-size: 24px;
   }
   #titleEquipo2 {
     /*background-color: #FF2D00; /* Color para el cuadro de título */
     /*color: #fff; /* Color del texto del título */
     text-align: center;
     padding: 10px 0;
-    font-size: 34px;
+    font-size: 24px;
   }
 
   #contenedorPrincipal { /*contiene todos los demas containers*/
-    height: 100vh;
+    height: calc(100vh - 88px); /* Toma el 100% del viewport height y resta la altura del header */
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     /*background-image: url(../img/fondoCastillo.png); /* Ruta de tu imagen de fondo */
     background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
     background-repeat: no-repeat;
-    height: 100%;
+   
   }
-
+  
+  
+ 
   #contenedorIzquierdo {
     background-color: transparent;
     /*background-color: #f5e1b4; /* Color estilo juego de mesa */
-    width: 50%;
+    width: 46%;
     padding: 20px;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   #contenedorDerecho {
+
+    padding: 20px;
     background-color: transparent; /* Color del fondo del contenedor */
     /*border: 1px solid #ccc; /* Borde del contenedor */
     /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
-    width: 50%;
-    padding: 20px;
+    width: 46%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .subcontenedor1 {
-    height: 48%;
+  
     background-color: rgba(217, 217, 217, 0.0);
     background-size: 100% 100%;
     background-image: url(../img/pergamino.png);
-    margin-bottom: 20px;
-    margin-top: 30px;
     padding: 10px;
     display: flex; /* Hacer que el contenedor sea un flex container */
     /*align-items: center; /* Centrar verticalmente los elementos en el contenedor */
-    align-items: flex-start;
+
     flex-direction: row; /* Alinear los elementos en una columna */
   }
 
   .subcontenedor2 {
     /*background-color: #D9D9D9/*#c5d6d3; /* Color estilo juego de mesa */
-    height: 48%;
+
+    height: 340px;
     background-color: rgba(217, 217, 217, 0.0);
     background-size: 100% 100%;
     background-image: url(../img/pergamino.png);
     margin-bottom: 20px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
   }
-
+  @media screen and (min-width: 1900px) {
+    .subcontenedor2{
+      height: 500px;
+    }
+  }
   .subcontenedor1-1{
     margin-bottom: 0px;
     /*margin-top: 30px;*/
-    margin-left: 20px;
+    width: 46%;
     padding: 10px;
     display: flex; /* Hacer que el contenedor sea un flex container */
     align-items: center; /* Centrar verticalmente los elementos en el contenedor */
@@ -110,15 +134,13 @@
 
   #nombrePartida {
     font-family: 'Alegreya', sans-serif;
-    width: 340px; /* Ancho del cuadro de texto */
+    width: 80%; /* Ancho del cuadro de texto */
     height: 40px; /* Altura del cuadro de texto */
     border: 2px solid #ccc; /* Borde con color gris claro */
     border-radius: 10px; /* Esquinas redondeadas */
     padding: 10px; /* Espacio interno para el texto */
-    font-size: 16px; /* Tamaño de fuente */
-    margin-bottom: 10px;
-    margin-top: 40px;
-    margin-left: 25px;
+    font-size: 10px; /* Tamaño de fuente */
+   
   }
 
 
@@ -204,12 +226,9 @@
     background-color: rgba(217, 217, 217, 0.0);
     background-image: url(../img/pergamino.png); /* Ruta de tu imagen de fondo */
     background-size: 100% 100%; /* Deformar la imagen para llenar el contenedor */
-    padding: 10px;
-    margin: 10px;
     /*border: 1px solid #ccc; /* Borde del cuadro del jugador */
     /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra del cuadro del jugador */
-    width: calc(98%); /* Ancho de cada cuadro */
-    height: 150px;
+    height: 23%;
     
     /*background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
   }
@@ -306,33 +325,52 @@
   .botonIndividual {
     display: inline-block;  /* Cambiamos de inline a inline-block */
     text-align: center;
-    width: 180px;
-    height: 60px;
+    width: 150px;
+    height: 50px;
     font-family: 'IrishGrover';
     background-color: rgba(49, 7, 7, 0.84);
     color: white;
-    font-size: 35px;
+    font-size: 25px;
     border-radius: 10px;
     line-height: 1.6;
     text-decoration: none;
     margin-right: 30px;
-  }
+    margin-top: 10px;
 
+  }
+  
   .boton2vs2 {
     display: inline-block;  /* Cambiamos de inline a inline-block */
     text-align: center;
-    width: 180px;
-    height: 60px;
+    width: 150px;
+    height: 50px;
     font-family: 'IrishGrover';
     background-color: rgba(49, 7, 7, 0.84);
     color: white;
-    font-size: 35px;
+    font-size: 25px;
     border-radius: 10px;
     line-height: 1.6;
     text-decoration: none;
     /*margin-right: 30px;*/
+    margin-top: 10px;
   }
+  @media screen and (min-width: 1900px) {
+    .botonIndividual {
+      width: 180px;
+      height: 60px;
+      font-size: 35px;
+      margin-top: 34px;
+
+    }
     
+    .boton2vs2 {
+      width: 180px;
+      height: 60px;
+      font-size: 35px;
+      margin-top: 35px;
+
+    }
+  } 
   
   .cuadroJ1 {
     width: 120px;
@@ -389,19 +427,19 @@
      estilo del contenedor de opciones de equipo
   ----------------------------------------------------------------------------------------------*/
   .contenedorEquipos {
-    height: 400%;
+    
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0px 10px;
+   
   }
   
   .imagenEquipos {
-    width: 250px; /* Cambia el ancho de la imagen en píxeles */
-    height: 250px; /* Cambia el alto de la imagen en píxeles */
+    width: 160px; /* Cambia el ancho de la imagen en píxeles */
+   /* Cambia el alto de la imagen en píxeles */
     object-fit: cover;
-    justify-content: center;
+  
   }
   .columna {
     display: flex;
@@ -409,6 +447,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    font-size: 10px;
     font-family: 'IrishGrover';
     background-color: #e6e6e6; /* Color del cuadro del jugador */
     padding: 10px;
@@ -416,11 +455,15 @@
     /*text-align: center;*/
     border: 1px solid #ccc; /* Borde del cuadro del jugador */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra del cuadro del jugador */
-    width: 150px;
+    width: 180px;
+    height: 150px;
     background-image: url(../img/papel.png);
     background-size: 100% 100%;
   }
-  
+  input[type="checkbox"]:not(.checkboxJugador) {
+    width: 19px;
+    height: 19px;
+  }
   .invisible {
     display: none;
   }
