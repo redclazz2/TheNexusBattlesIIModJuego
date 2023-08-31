@@ -10,7 +10,7 @@ class room_battle extends core_1.Room {
     }
     onCreate(options) {
         this.setState(new MyRoomState_1.MyRoomState());
-        console.log(options);
+        //console.log(options);
         this.setMetadata({
             ganacia: options.numero_creditos
         });
