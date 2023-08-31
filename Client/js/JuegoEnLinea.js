@@ -32,12 +32,17 @@ if(getCookie("config").includes('1')){
         ej4:getCookie("ej4")
     }
 
-    console.log(cookie_data);
+    //console.log(cookie_data);
     client.create("room_battle",cookie_data).then(room => {
         console.log(room.sessionId, "joined", room.name);
+        const displayLog = document.getElementsByTagName('h3');
+        displayLog[0].innerHTML = `Conectado a:${room.sessionId}. Esperando jugadores ...`
     }).catch(e => {
         console.log("JOIN ERROR", e);
     });
 }else if(getCookie("config").includes('2')){
     //Codigo de unirse a una partida
+}else{
+  //Mostrar mensaje de error inesperado
+  console.error("Unable to resolve game-command! Please allow cookies in your browser!")
 }
