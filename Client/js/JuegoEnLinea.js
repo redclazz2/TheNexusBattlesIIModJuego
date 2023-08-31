@@ -15,7 +15,7 @@ function getCookie(cname) {
     return "";
 }
 
-let client = new  Colyseus.Client('ws://game.thenexusbattles2.com:3000/'),
+let client = new  Colyseus.Client('https://game.thenexusbattles2.com'),
      cookie_data= "";
 
 if(getCookie("config").includes('1')){
@@ -49,8 +49,39 @@ if(getCookie("config").includes('1')){
     displayLog[0].innerHTML = `Conectado a:${room.sessionId}. Esperando jugadores ...`
   } catch (e) {
     console.error("join error", e);
+    show_modal("No se ha podido establecer una conexión con la sala. Es posible que ya no esté disponible. ERR:2001")
   }
 }else{
   //Mostrar mensaje de error inesperado
+  show_modal("No se puede establecer una conexión al servidor. Intenta de nuevo más tarde. ERR:1001")
   console.error("Unable to resolve game-command! Please allow cookies in your browser!")
+}
+
+function show_modal(code){
+  const errorPopup = document.createElement("div");
+        errorPopup.classList.add("popup-container");
+        errorPopup.innerHTML = `
+          <div class="popup">
+              <div class="popup-header">
+                  <span class="error-icon">!</span>
+              </div>
+              <div class="popup-content">
+                  <p>¡Ups! ${code}</p>
+                  <div class="btn__confirmar">
+                    <button class="close-button">Confirmar</button>
+                  </div>
+              </div>
+          </div>
+        `;
+        
+        // Agregar el mensaje de error al cuerpo del documento
+        document.body.appendChild(errorPopup);
+
+        //Eliminar el mensaje de error al hacer click en "Confirmar"
+        const closeButton = document.querySelector(".close-button");
+        if (closeButton) {
+          closeButton.addEventListener("click", () => {
+            errorPopup.remove();
+          });
+        }
 }
