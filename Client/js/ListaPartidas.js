@@ -22,6 +22,7 @@ const functionBusqueda = async () => {
 
           tableItem.innerHTML = `
             <div class="columna nombreP">${room.roomId}</div>
+            <div class="columna">${room.metadata.nombre}</div>
             <div class="columna">${room.clients}/${room.maxClients}</div>
             <div class="columna">${room.metadata.ganacia}</div>
              <div class="columna"><button class="joinButton"><input id="btnJoins" type="text" class="hidden" value="${room.roomId}">Join</button></div>

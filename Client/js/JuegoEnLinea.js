@@ -22,6 +22,7 @@ if(getCookie("config").includes('1')){
     cookie_data = {
         numero_creditos: getCookie("creditosValor"),
         numero_jugadores: getCookie("numJugadores"),
+        nombre_sala: getCookie("nombre"),
         tj2: getCookie("tj2"),
         tj3: getCookie("tj3"),
         tj4: getCookie("tj4"),

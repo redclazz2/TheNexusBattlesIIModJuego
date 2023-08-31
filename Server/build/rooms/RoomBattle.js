@@ -12,7 +12,8 @@ class room_battle extends core_1.Room {
         this.setState(new MyRoomState_1.MyRoomState());
         //console.log(options);
         this.setMetadata({
-            ganacia: options.numero_creditos
+            ganacia: options.numero_creditos,
+            nombre: options.nombre_sala
         });
         this.maxClients = options.numero_jugadores;
         this.onMessage("type", (client, message) => {
