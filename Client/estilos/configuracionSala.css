@@ -7,6 +7,7 @@
     background-image: url(../img/fondoCastillo.png); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
     background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
     background-repeat: no-repeat;
+    background-color: #CCBEA3;
   }
 h2{
   font-family: 'Irish Grover';

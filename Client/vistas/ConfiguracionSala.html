@@ -494,15 +494,15 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
 <script>
   const crearSalaBoton = document.getElementById('crearSalaBoton');
             crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
-  const txBox = document.getElementById('nombrePartida');
-            nombre = txBox.value;
   
-
   function guardarJSONEnCookie() {
     if (typeof creditValue === 'undefined') {
       creditValue = 0;
     }
       
+    const txBox = document.getElementById('nombrePartida');
+            console.log(txBox)
+            nombre = txBox.value;
      var now = new Date();
       now.setTime(now.getTime()+(3*60*1000));
       document.cookie = `config='1'; expires=${now.toUTCString()}`;
