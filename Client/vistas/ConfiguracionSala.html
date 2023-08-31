@@ -23,6 +23,8 @@
     const creditInput = document.getElementById('credit-input');
     creditInput.value = '0';
 
+    document.getElementById("nombrePartida").value = "";
+
     // Restablecer valores de los botones que cambian de texto
     const botonIA2 = document.getElementById('botonIA2');
     const botonIA3 = document.getElementById('botonIA3');
@@ -64,6 +66,29 @@
 
   }
 </script>
+<script>
+  function validarTexto(nombrePartida) {
+    let nombre = nombrePartida.value;
+    const mensajeError = document.getElementById("mensajeError");
+    
+    const regex = /^[a-zA-Z0-9]+$/;
+
+    if (nombre.length > 15) {
+        mensajeError.textContent = "El nombre no puede tener más de 15 caracteres.";
+        nombrePartida.value = nombre.slice(0, 15); // Truncar el texto a 15 caracteres
+    } else {
+        // Eliminar caracteres especiales usando la expresión regular
+        const textoSinEspeciales = nombre.replace(/[^a-zA-Z0-9]/g, '');
+        
+        if (nombre !== textoSinEspeciales) {
+            mensajeError.textContent = "No se permiten caracteres especiales.";
+            nombrePartida.value = textoSinEspeciales;
+        } else {
+            mensajeError.textContent = "";
+        }
+    }
+  }
+</script>
 
 </head>
 <body>
@@ -77,38 +102,47 @@
       <div class="cuadroJugador">
         <input type="checkbox" class="checkboxJugador" checked disabled>
         <div class="cuadroJ1" id="cuadro1">J1</div>
-        <div class="nombreJugador">DavidParra2312</div>
+        <div class="nombreJugador">Anfitrión</div>
         <button class="botonIA" disabled>Humano</button>
       </div>
       <div class="cuadroJugador">
         <input type="checkbox" id="checkbox2" class="checkboxJugador">
         <div class="cuadro" id="cuadro2">J2</div>
-        <div class="nombreJugador" id="nombreJugador2">Espacio Inhabilitado</div>
+        <div class="nombreJugador" id="nombreJugador2">Espacio inhabilitado</div>
         <button class="botonIA" id="botonIA2">Humano</button>
       </div>
       <div class="cuadroJugador">
         <input type="checkbox" id="checkbox3" class="checkboxJugador">
         <div class="cuadro" id="cuadro3">J3</div>
-        <div class="nombreJugador" id="nombreJugador3">Espacio Inhabilitado</div>
+        <div class="nombreJugador" id="nombreJugador3">Espacio inhabilitado</div>
         <button class="botonIA" id="botonIA3">Humano</button>
       </div>
       <div class="cuadroJugador">
         <input type="checkbox" id="checkbox4" class="checkboxJugador">
         <div class="cuadro" id="cuadro4">J4</div>
-        <div class="nombreJugador" id="nombreJugador4">Espacio Inhabilitado</div>
+        <div class="nombreJugador" id="nombreJugador4">Espacio inhabilitado</div>
         <button class="botonIA" id="botonIA4">Humano</button>
       </div>
     </div>
     <div id="contenedorDerecho">
       <div class="subcontenedor1" id="subcontenedor1">
-        <div class="contenedorTitleCreditos">
-          <label id="credits-label">Créditos:</label>
+        <div class="subcontenedor1-1">
+          <div class="contenedorTitleCreditos">
+            <label id="credits-label">Nombre de la partida:</label>
+          </div>
+          <input type="text" id="nombrePartida" placeholder="Ingrese el nombre de la partida" oninput="validarTexto(this)" style="font-size: 26px;">
+          <label id="mensajeError" style="color: red;"></label>
         </div>
+        <div class="subcontenedor1-1">
+          <div class="contenedorTitleCreditos">
+            <label id="credits-label">Créditos:</label>
+          </div>
           <div class="contenedorCreditos">
             <button onclick="decrementCredits()" class="izquierda" id="izquierda"></button>
             <input type="number" id="credit-input" value="0" min="0">
             <button onclick="incrementCredits()" lass="derecha" id="derecha"></button>
           </div>
+        </div>
       </div>
       <div class="subcontenedor2" id="subcontenedor2">
         <div class="contenedorEquipos">
@@ -463,6 +497,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
       now.setTime(now.getTime()+(3*60*1000));
       document.cookie = `config='1'; expires=${now.toUTCString()}`;
       document.cookie = `numJugadores = ${numJugadores + 1}; expires=${now.toUTCString()}`;
+      document.cookie = `nombre=${nombre}; expires=${now.toUTCString()}`;
       document.cookie = `creditosValor=${creditValue}; expires=${now.toUTCString()}`;
       document.cookie = `tj2=${tj2}; expires=${now.toUTCString()}`;
       document.cookie = `tj3=${tj3}; expires=${now.toUTCString()}`;
