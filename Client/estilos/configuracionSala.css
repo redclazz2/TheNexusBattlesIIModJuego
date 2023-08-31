@@ -83,8 +83,9 @@
     margin-top: 30px;
     padding: 10px;
     display: flex; /* Hacer que el contenedor sea un flex container */
-    align-items: center; /* Centrar verticalmente los elementos en el contenedor */
-    flex-direction: column; /* Alinear los elementos en una columna */
+    /*align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+    align-items: flex-start;
+    flex-direction: row; /* Alinear los elementos en una columna */
   }
 
   .subcontenedor2 {
@@ -97,6 +98,29 @@
     padding: 10px;
   }
 
+  .subcontenedor1-1{
+    margin-bottom: 0px;
+    /*margin-top: 30px;*/
+    margin-left: 20px;
+    padding: 10px;
+    display: flex; /* Hacer que el contenedor sea un flex container */
+    align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+    flex-direction: column;
+  }
+
+  #nombrePartida {
+    font-family: 'Alegreya', sans-serif;
+    width: 340px; /* Ancho del cuadro de texto */
+    height: 40px; /* Altura del cuadro de texto */
+    border: 2px solid #ccc; /* Borde con color gris claro */
+    border-radius: 10px; /* Esquinas redondeadas */
+    padding: 10px; /* Espacio interno para el texto */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-bottom: 10px;
+    margin-top: 40px;
+    margin-left: 25px;
+  }
+
 
   #betting-section {
     display: none;
@@ -107,11 +131,11 @@
     align-items: center;
   }
   #credits-label {
-    font-size: 60px;
+    font-size: 40px;
     margin-right: 20px;
     margin-left: 40px;
     font-family: 'Alegreya', sans-serif;
-    margin-top: 60px;
+    margin-top: 10px;
     justify-content: center;
     align-items: center;
     font-weight: bold;
