@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap');
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background-image: url(../img/fondoCastillo.png); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat;
+    background-color: #CCBEA3;
+  }
+h2{
+  font-family: 'Irish Grover';
+  text-align: center;
+  color: #fff;
+  font-size: 35px;
+  font-weight: 600;
+}
+  /*-------------------------------------------------------------------------------------------- 
+     estilo del titulo principal y los dos secundarios
+  ----------------------------------------------------------------------------------------------*/
+
+  /*#title-box {
+    background-color: #3498db;  Color para el cuadro de título 
+    color: #fff;  Color del texto del título 
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+  }*/
+  #title-box {
+    background-image: url('../img/header.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 88px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22px;
+    position: relative;
+    z-index: 2;
+  }   
+      
+  #titleEquipo1 {
+    /*background-color: #0074FF; /* Color para el cuadro de título */
+    /*color: #fff; /* Color del texto del título */
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+  }
+  #titleEquipo2 {
+    /*background-color: #FF2D00; /* Color para el cuadro de título */
+    /*color: #fff; /* Color del texto del título */
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+  }
+
+  #contenedorPrincipal { /*contiene todos los demas containers*/
+    height: calc(100vh - 88px); /* Toma el 100% del viewport height y resta la altura del header */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /*background-image: url(../img/fondoCastillo.png); /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
+    background-repeat: no-repeat;
+   
+  }
+  
+  
+ 
+  #contenedorIzquierdo {
+    background-color: transparent;
+    /*background-color: #f5e1b4; /* Color estilo juego de mesa */
+    width: 46%;
+    padding: 20px;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #contenedorDerecho {
+
+    padding: 20px;
+    background-color: transparent; /* Color del fondo del contenedor */
+    /*border: 1px solid #ccc; /* Borde del contenedor */
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
+    width: 46%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .subcontenedor1 {
+  
+    background-color: rgba(217, 217, 217, 0.0);
+    background-size: 100% 100%;
+    background-image: url(../img/pergamino.png);
+    padding: 10px;
+    display: flex; /* Hacer que el contenedor sea un flex container */
+    /*align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+
+    flex-direction: row; /* Alinear los elementos en una columna */
+  }
+
+  .subcontenedor2 {
+    /*background-color: #D9D9D9/*#c5d6d3; /* Color estilo juego de mesa */
+
+    height: 340px;
+    background-color: rgba(217, 217, 217, 0.0);
+    background-size: 100% 100%;
+    background-image: url(../img/pergamino.png);
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
+  }
+  @media screen and (min-width: 1900px) {
+    .subcontenedor2{
+      height: 500px;
+    }
+  }
+  .subcontenedor1-1{
+    margin-bottom: 0px;
+    /*margin-top: 30px;*/
+    width: 46%;
+    padding: 10px;
+    display: flex; /* Hacer que el contenedor sea un flex container */
+    align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+    flex-direction: column;
+  }
+
+  #nombrePartida {
+    font-family: 'Alegreya', sans-serif;
+    width: 80%; /* Ancho del cuadro de texto */
+    height: 40px; /* Altura del cuadro de texto */
+    border: 2px solid #ccc; /* Borde con color gris claro */
+    border-radius: 10px; /* Esquinas redondeadas */
+    padding: 10px; /* Espacio interno para el texto */
+    font-size: 10px; /* Tamaño de fuente */
+   
+  }
+
+
+  #betting-section {
+    display: none;
+    align-items: center;
+  }
+  .contenedorTitleCreditos{
+    justify-content: center;
+    align-items: center;
+  }
+  #credits-label {
+    font-size: 40px;
+    margin-right: 20px;
+    margin-left: 40px;
+    font-family: 'Alegreya', sans-serif;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .contenedorCreditos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  #izquierda {
+    background-image: url(../img/izquierda.png); /* Ruta de tu imagen PNG sin fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+    background-size: cover; /* Ajusta el tamaño de la imagen de fondo para cubrir todo el botón */
+    background-color: transparent; /* Fondo completamente transparente */
+    border: none; /* Elimina el borde del botón */
+    width: 100px; /* Ancho del botón */
+    height: 100px; /* Altura del botón */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+    justify-content: center;
+    /* Otros estilos que desees aplicar al botón */
+  }
+  #derecha {
+    background-image: url(../img/derecha.png); /* Ruta de tu imagen PNG sin fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+    background-size: cover; /* Ajusta el tamaño de la imagen de fondo para cubrir todo el botón */
+    background-color: transparent; /* Fondo completamente transparente */
+    border: none; /* Elimina el borde del botón */
+    width: 100px; /* Ancho del botón */
+    height: 100px; /* Altura del botón */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+    /* Otros estilos que desees aplicar al botón */
+  }
+
+  #credit-input {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    font-size: 100px;
+    font-family: 'IrishGrover';
+    background-image: url(../img/papel.png); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen de fondo */
+    background-size: cover; /* Ajusta el tamaño de la imagen de fondo para cubrir todo el elemento */
+    background-position: center center; /* Centra la imagen de fondo */
+    color: black; /* Ajusta el color del texto para que sea legible en la imagen de fondo */
+    font-weight: bold;
+}
+
+  /*-------------------------------------------------------------------------------------------- 
+     estilo del contenedor de los cuatro jugadores
+  ----------------------------------------------------------------------------------------------*/
+
+  .contenedorJugador {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: transparent;
+  }
+
+  .cuadroJugador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinea todos los elementos en el centro vertical */
+    /*background-color: transparent; /* Fondo completamente transparente */
+    background-color: rgba(217, 217, 217, 0.0);
+    background-image: url(../img/pergamino.png); /* Ruta de tu imagen de fondo */
+    background-size: 100% 100%; /* Deformar la imagen para llenar el contenedor */
+    /*border: 1px solid #ccc; /* Borde del cuadro del jugador */
+    /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra del cuadro del jugador */
+    height: 23%;
+    
+    /*background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+  }
+
+  .nombreJugador {
+    flex-grow: 1;
+    margin-right: 10px;
+    justify-content: center;
+    font-size: 35px;
+    font-family: 'Alegreya', sans-serif;
+  }
+
+  .checkboxJugador {
+    display: flex; /* Aplica display: flex al elemento que deseas centrar */
+    align-items: center; /* Centra verticalmente este elemento específico */
+    margin-bottom: 5px;
+    margin-right: 50px;
+    margin-left: 50px;
+    width: 30px;
+    height: 30px;
+    /* Establecer un fondo o estilo personalizado para el checkbox */
+    background-color: #3498db; /* Color de fondo */
+    border: 2px solid #3498db; /* Borde del checkbox */
+    border-radius: 4px; /* Borde redondeado */
+  }
+
+  /*.botonIA {
+    padding: 5px 10px;
+    width: 150px;
+    font-size: 30px;
+    font-family: 'Alegreya', sans-serif;
+    margin-right: 30px;
+  }*/
+  .botonMenu1 {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 250px;
+    height: 60px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 35px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    margin-right: 380px;  /* Añadimos un margen derecho para separar los botones */
+    /*margin-left: 35px;
+    margin-top: 520px;*/
+}
+.botonMenu2 {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 250px;
+    height: 60px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 35px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    margin-left: 380px;  /* Añadimos un margen derecho para separar los botones */
+    /*margin-left: 35px;
+    margin-top: 520px;*/
+}
+  .botonIA {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 150px;
+    height: 60px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 35px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    margin-right: 30px;  /* Añadimos un margen derecho para separar los botones */
+    /*margin-left: 35px;
+    margin-top: 520px;*/
+}
+
+  /*.botonEquipo {
+    padding: 5px 10px;
+    width: 70px;
+  }*/
+  .contenedorBotonesEquipo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .botonIndividual {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 150px;
+    height: 50px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 25px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    margin-right: 30px;
+    margin-top: 10px;
+
+  }
+  
+  .boton2vs2 {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 150px;
+    height: 50px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 25px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    /*margin-right: 30px;*/
+    margin-top: 10px;
+  }
+  @media screen and (min-width: 1900px) {
+    .botonIndividual {
+      width: 180px;
+      height: 60px;
+      font-size: 35px;
+      margin-top: 34px;
+
+    }
+    
+    .boton2vs2 {
+      width: 180px;
+      height: 60px;
+      font-size: 35px;
+      margin-top: 35px;
+
+    }
+  } 
+  
+  .cuadroJ1 {
+    width: 120px;
+    height: 120px;
+    background-image: url(../img/esmeralda.png); /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+    /*background-color: green;*/
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    -webkit-text-stroke: 2px black; /* Para navegadores basados en WebKit (Safari, Chrome) */
+    text-stroke: 2px black; /* Propiedad estándar para otros navegadores */
+    margin-right: 15px;
+    font-size: 6em;
+    font-weight: bold;
+  }
+  .cuadro {
+    width: 120px;
+    height: 120px;
+    background-image: url(../img/rubi.png); /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+    /*background-color: red;*/
+    /*color: white;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*font-size: 20px;*/
+    margin-right: 15px;
+    /*font-size: 6em;*/
+    -webkit-text-stroke: 2px black; /* Para navegadores basados en WebKit (Safari, Chrome) */
+    text-stroke: 2px black; /* Propiedad estándar para otros navegadores */
+    color: white; /* Color del texto */
+    font-size: 100px; /* Tamaño de la fuente */
+    font-weight: bold;
+  }
+  #checkbox2:checked + #cuadro2 {
+    background-image: url(../img/esmeralda.png); /* Nueva imagen de fondo para #cuadro2 */
+  }
+  #checkbox3:checked + #cuadro3 {
+    background-image: url(../img/esmeralda.png); /* Nueva imagen de fondo para #cuadro2 */
+  }
+  #checkbox4:checked + #cuadro4 {
+    background-image: url(../img/esmeralda.png); /* Nueva imagen de fondo para #cuadro2 */
+  }
+
+  /*.cuadro.verde {
+    /*background-color: green;*/
+  /*}
+  /*-------------------------------------------------------------------------------------------- 
+     estilo del contenedor de opciones de equipo
+  ----------------------------------------------------------------------------------------------*/
+  .contenedorEquipos {
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0px 10px;
+   
+  }
+  
+  .imagenEquipos {
+    width: 160px; /* Cambia el ancho de la imagen en píxeles */
+   /* Cambia el alto de la imagen en píxeles */
+    object-fit: cover;
+  
+  }
+  .columna {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    font-family: 'IrishGrover';
+    background-color: #e6e6e6; /* Color del cuadro del jugador */
+    padding: 10px;
+    margin: 10px;
+    /*text-align: center;*/
+    border: 1px solid #ccc; /* Borde del cuadro del jugador */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra del cuadro del jugador */
+    width: 180px;
+    height: 150px;
+    background-image: url(../img/papel.png);
+    background-size: 100% 100%;
+  }
+  input[type="checkbox"]:not(.checkboxJugador) {
+    width: 19px;
+    height: 19px;
+  }
+  .invisible {
+    display: none;
+  }

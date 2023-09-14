@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/configuracionSala.css">
+<link rel="stylesheet" href="../css/normalize.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+
+<title>Configuración de sala</title>
+ 
+<script>
+  window.addEventListener('load', function() {
+    const checkboxesEquipos = document.querySelectorAll('.checkbox[data-columna]');
+    checkboxesEquipos.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+    // Restablecer valores de los checkbox
+    const checkboxes = document.querySelectorAll('.checkboxJugador');
+    checkboxes.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+
+    // Restablecer valores de los inputs numéricos
+    const creditInput = document.getElementById('credit-input');
+    creditInput.value = '0';
+
+    document.getElementById("nombrePartida").value = "";
+
+    // Restablecer valores de los botones que cambian de texto
+    const botonIA2 = document.getElementById('botonIA2');
+    const botonIA3 = document.getElementById('botonIA3');
+    const botonIA4 = document.getElementById('botonIA4');
+    
+    botonIA2.textContent = 'Humano';
+    botonIA3.textContent = 'Humano';
+    botonIA4.textContent = 'Humano';
+    
+    const boton2vs2 = document.getElementById('boton2vs2');
+    boton2vs2.disabled = true;
+
+    // Habilitar el botón "Crear Sala"
+    const crearSalaBoton = document.getElementById('crearSalaBoton');
+    crearSalaBoton.disabled = true;
+  });
+</script>
+<script>
+  /* Definir una variable para almacenar el valor del input */
+  var creditValue;
+
+  function toggleBettingSection() {
+    var bettingSection = document.getElementById('betting-section');
+    bettingSection.style.display = (bettingSection.style.display === 'none') ? 'flex' : 'none';
+  }
+  
+  function incrementCredits() {
+    var creditInput = document.getElementById('credit-input');
+    creditValue = parseInt(creditInput.value) + 1; // Almacena el valor en la variable creditValue
+    creditInput.value = creditValue; // Actualiza el valor del input
+  }
+  
+  function decrementCredits() {
+    var creditInput = document.getElementById('credit-input');
+    if (parseInt(creditInput.value) > 0) {
+      creditValue = parseInt(creditInput.value) - 1; // Almacena el valor en la variable creditValue
+      creditInput.value = creditValue; // Actualiza el valor del input
+    }
+
+  }
+</script>
+<script>
+  function validarTexto(nombrePartida) {
+    let nombre = nombrePartida.value;
+    const mensajeError = document.getElementById("mensajeError");
+    
+    const regex = /^[a-zA-Z0-9]+$/;
+
+    if (nombre.length > 15) {
+        mensajeError.textContent = "El nombre no puede tener más de 15 caracteres.";
+        nombrePartida.value = nombre.slice(0, 15); // Truncar el texto a 15 caracteres
+    } else {
+        // Eliminar caracteres especiales usando la expresión regular
+        const textoSinEspeciales = nombre.replace(/[^a-zA-Z0-9]/g, '');
+        
+        if (nombre !== textoSinEspeciales) {
+            mensajeError.textContent = "No se permiten caracteres especiales.";
+            nombrePartida.value = textoSinEspeciales;
+        } else {
+            mensajeError.textContent = "";
+        }
+    }
+  }
+</script>
+
+</head>
+<body>
+  <div id="title-box">
+    <a class="botonMenu1" href="./UnirseCrearPartida.html">Atrás</a>
+    <h2>
+      Configuración de sala
+    </h2>
+    <button class="botonMenu2" id="crearSalaBoton" disabled>Crear Sala</button>
+  </div>
+  <div id="contenedorPrincipal">
+    <div id="contenedorIzquierdo">
+      <div class="cuadroJugador">
+        <input type="checkbox" class="checkboxJugador" checked disabled>
+        <div class="cuadroJ1" id="cuadro1">J1</div>
+        <div class="nombreJugador">Anfitrión</div>
+        <button class="botonIA" disabled>Humano</button>
+      </div>
+      <div class="cuadroJugador">
+        <input type="checkbox" id="checkbox2" class="checkboxJugador">
+        <div class="cuadro" id="cuadro2">J2</div>
+        <div class="nombreJugador" id="nombreJugador2">Espacio inhabilitado</div>
+        <button class="botonIA" id="botonIA2">Humano</button>
+      </div>
+      <div class="cuadroJugador">
+        <input type="checkbox" id="checkbox3" class="checkboxJugador">
+        <div class="cuadro" id="cuadro3">J3</div>
+        <div class="nombreJugador" id="nombreJugador3">Espacio inhabilitado</div>
+        <button class="botonIA" id="botonIA3">Humano</button>
+      </div>
+      <div class="cuadroJugador">
+        <input type="checkbox" id="checkbox4" class="checkboxJugador">
+        <div class="cuadro" id="cuadro4">J4</div>
+        <div class="nombreJugador" id="nombreJugador4">Espacio inhabilitado</div>
+        <button class="botonIA" id="botonIA4">Humano</button>
+      </div>
+    </div>
+    <div id="contenedorDerecho">
+      <div class="subcontenedor1" id="subcontenedor1">
+        <div class="subcontenedor1-1">
+          <div class="contenedorTitleCreditos">
+            <label id="credits-label">Nombre de la partida:</label>
+          </div>
+          <input type="text" id="nombrePartida" placeholder="Ingrese el nombre de la partida" oninput="validarTexto(this)" style="font-size: 26px;">
+          <label id="mensajeError" style="color: red;"></label>
+        </div>
+        <div class="subcontenedor1-1">
+          <div class="contenedorTitleCreditos">
+            <label id="credits-label">Créditos:</label>
+          </div>
+          <div class="contenedorCreditos">
+            <button onclick="decrementCredits()" class="izquierda" id="izquierda"></button>
+            <input type="number" id="credit-input" value="0" min="0">
+            <button onclick="incrementCredits()" lass="derecha" id="derecha"></button>
+          </div>
+        </div>
+      </div>
+      <div class="subcontenedor2" id="subcontenedor2">
+        <div class="contenedorEquipos">
+          <button class="botonIndividual" id="botonIndividual" onclick="ocultarColumnas()">Individual</button>
+          <button class="boton2vs2" id="boton2vs2" disabled onclick="mostrarColumnas()">2 vs 2</button>
+        </div>
+        <div class="contenedorEquipos">
+          <div class="columna invisible" id="columna1">
+            <div id="titleEquipo1">
+              Equipo 1
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="1" id="j1-c1">
+              <label for="j1-c1">J1</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="1" id="j2-c1">
+              <label for="j2-c1">J2</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="1" id="j3-c1">
+              <label for="j3-c1">J3</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="1" id="j4-c1">
+              <label for="j4-c1">J4</label>
+            </div>
+          </div>
+          <img class="imagenEquipos" id="imagenEquipos" src="../img/TVST.png" alt="Imagen 1">
+          <div class="columna invisible" id="columna2">
+            <div id="titleEquipo2">
+              Equipo 2
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="2" id="j1-c2">
+              <label for="j1-c2">J1</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="2" id="j2-c2">
+              <label for="j2-c2">J2</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="2" id="j3-c2">
+              <label for="j3-c2">J3</label>
+            </div>
+            <div class="jugador">
+              <input type="checkbox" class="checkbox" data-columna="2" id="j4-c2">
+              <label for="j4-c2">J4</label>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      </div>
+    </div>
+  </div>
+  
+<script> /*script para el ocultamiento de columnas y la seleccion de equipos*/
+const boton2vs2 = document.getElementById('boton2vs2');
+const botonIndividual = document.getElementById('botonIndividual');
+const columna1 = document.getElementById('columna1');
+const columna2 = document.getElementById('columna2');
+const checkboxes = document.querySelectorAll('.checkbox');
+const j1c1 = document.getElementById('j1-c1');
+const j1c2 = document.getElementById('j1-c2');
+const j2c1 = document.getElementById('j2-c1');
+const j2c2 = document.getElementById('j2-c2');
+const j3c1 = document.getElementById('j3-c1');
+const j3c2 = document.getElementById('j3-c2');
+const j4c1 = document.getElementById('j4-c1');
+const j4c2 = document.getElementById('j4-c2');
+/*estas cuatro variables almacenan el equipo al que pertenece cada jugador, donde el valor 1 significa equipo1 y el valor 2 significa equipo2*/
+let ej1;
+let ej2;
+let ej3;
+let ej4;
+let equipos = false;
+
+function mostrarColumnas() {
+  columna1.classList.remove('invisible'); //columna del equipo 1(inicialmente invisible)
+  columna2.classList.remove('invisible'); //columna del equipo 2(inicialmente invisible)
+  /*boton2vs2.disabled = true;*/
+  botonIndividual.disabled = false;
+  imagenEquipos.src = "../img/2VS2.png";
+  equipos = true;
+}
+
+function ocultarColumnas() {
+  columna1.classList.add('invisible');
+  columna2.classList.add('invisible');
+  /*boton2vs2.disabled = false;*/
+  botonIndividual.disabled = true;
+  imagenEquipos.src = "../img/TVST.png";
+  equipos = false;
+}
+
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const selectedCheckboxes = Array.from(checkboxes).filter(c => c.checked && c.getAttribute('data-columna') === checkbox.getAttribute('data-columna'));
+
+    if (selectedCheckboxes.length > 2) {
+      checkbox.checked = false;
+    }
+
+    checkboxes.forEach(c => {
+      if(j1c1.checked){
+        j1c2.disabled = true;
+        ej1 = 1;
+      }else {
+        j1c2.disabled = false;
+      }
+      if(j2c1.checked){
+        j2c2.disabled = true;
+        ej2 = 1;
+      }else {
+        j2c2.disabled = false;
+      }
+      if(j3c1.checked){
+        j3c2.disabled = true;1
+        ej3 = 1;
+      }else {
+        j3c2.disabled = false;
+      }
+      if(j4c1.checked){
+        j4c2.disabled = true;
+        ej4 = 1;
+      }else {
+        j4c2.disabled = false;
+      }
+
+      if(j1c2.checked){
+        j1c1.disabled = true;
+        ej1 = 2;
+      }else {
+        j1c1.disabled = false;
+      }
+      if(j2c2.checked){
+        j2c1.disabled = true;
+        ej2 = 2;
+      }else {
+        j2c1.disabled = false;
+      }
+      if(j3c2.checked){
+        j3c1.disabled = true;
+        ej3 = 2;
+      }else {
+        j3c1.disabled = false;
+      }
+      if(j4c2.checked){
+        j4c1.disabled = true;
+        ej4 = 2;
+      }else {
+        j4c1.disabled = false;
+      }
+      if (c !== checkbox && c.getAttribute('data-columna') === checkbox.getAttribute('data-columna')) {
+        c.disabled = selectedCheckboxes.length >= 2 && !c.checked;
+      }
+    });
+  });
+});
+</script>
+
+<script>/*script encargado de modificar el texto del boton de humano a IA*/
+  const playerButtons = document.querySelectorAll(".botonIA");
+
+  playerButtons.forEach(button => {
+    /*button.textContent = "Humano";*/
+    button.addEventListener("click", () => {
+      const buttonText = button.textContent;
+      button.textContent = (buttonText === "Humano") ? "IA" : "Humano";
+    });
+  });
+</script>
+
+<script>/*script encargado de evaluar cuantos espacios de jugador estan habilitados para activar o desactivar el modo 2vs2
+tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
+  const checkbox2 = document.getElementById("checkbox2");
+  const nombreJugador2 = document.getElementById("nombreJugador2");
+  const botonIA2 = document.getElementById("botonIA2");
+  const checkbox3 = document.getElementById("checkbox3");
+  const nombreJugador3 = document.getElementById("nombreJugador3");
+  const botonIA3 = document.getElementById("botonIA3");
+  const checkbox4 = document.getElementById("checkbox4");
+  const nombreJugador4 = document.getElementById("nombreJugador4");
+  const botonIA4 = document.getElementById("botonIA4");
+  const botonEquipo = document.getElementById("botonEquipo");
+  let jugador2 = 0;
+  let jugador3 = 0;
+  let jugador4 = 0;
+  let tj2;
+  let tj3;
+  let tj4;
+  let numJugadores;
+  let nombre;
+        // Agregar un evento change al checkbox
+  checkbox2.addEventListener("change", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox2.checked && botonIA2.textContent === "IA") {
+           nombreJugador2.textContent = "CPU 1";
+           jugador2 = 0;
+           tj2 = 0;
+      } else if(checkbox2.checked && botonIA2.textContent === "Humano") {
+           nombreJugador2.textContent = "Espacio habilitado";
+           jugador2 = 1;
+           tj2 = 1;
+      } else{
+          nombreJugador2.textContent = "Espacio inhabilitado";
+          jugador2 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+  // Asigna el valor de la variable como contenido del <label>
+      label.textContent = numJugadores;*/
+  });
+  checkbox3.addEventListener("change", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox3.checked && botonIA3.textContent === "IA") {
+           nombreJugador3.textContent = "CPU 2";
+           jugador3 = 0;
+           tj3 = 0;
+      } else if(checkbox3.checked && botonIA3.textContent === "Humano") {
+           nombreJugador3.textContent = "Espacio habilitado";
+           jugador3 = 1;
+           tj3 = 1;
+      } else{
+        nombreJugador3.textContent = "Espacio inhabilitado";
+        jugador3 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+  // Asigna el valor de la variable como contenido del <label>
+    label.textContent = numJugadores;*/
+  });
+  checkbox4.addEventListener("change", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox4.checked && botonIA4.textContent === "IA") {
+           nombreJugador4.textContent = "CPU 3";
+           jugador4 = 0;
+           tj4 = 0;
+      } else if(checkbox4.checked && botonIA4.textContent === "Humano") {
+           nombreJugador4.textContent = "Espacio habilitado";
+           jugador4 = 1;
+           tj4 = 1;
+      } else{
+        nombreJugador4.textContent = "Espacio inhabilitado";
+        jugador4 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+    // Asigna el valor de la variable como contenido del <label>
+      label.textContent = numJugadores;*/
+  });
+  botonIA2.addEventListener("click", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox2.checked && botonIA2.textContent === "IA") {
+           nombreJugador2.textContent = "CPU 1";
+           jugador2 = 0;
+           tj2 = 0;
+      } else if(checkbox2.checked && botonIA2.textContent === "Humano") {
+           nombreJugador2.textContent = "Espacio habilitado";
+           jugador2 = 1;
+           tj2 = 1;
+      } else{
+        nombreJugador2.textContent = "Espacio inhabilitado";
+        jugador2 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+    // Asigna el valor de la variable como contenido del <label>
+      label.textContent = numJugadores;*/
+  });
+  botonIA3.addEventListener("click", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox3.checked && botonIA3.textContent === "IA") {
+           nombreJugador3.textContent = "CPU 2";
+           jugador3 = 0;
+           tj3 = 0;
+      } else if(checkbox3.checked && botonIA3.textContent === "Humano") {
+           nombreJugador3.textContent = "Espacio habilitado";
+           jugador3 = 1;
+           tj3 = 1;
+      } else{
+        nombreJugador3.textContent = "Espacio inhabilitado";
+        jugador3 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+    // Asigna el valor de la variable como contenido del <label>
+      label.textContent = numJugadores;*/
+  });
+  botonIA4.addEventListener("click", function() {
+            // Verificar si el checkbox está marcado y el botón dice "IA"
+      if (checkbox4.checked && botonIA4.textContent === "IA") {
+           nombreJugador4.textContent = "CPU 3";
+           jugador4 = 0;
+           tj4 = 0;
+      } else if(checkbox4.checked && botonIA4.textContent === "Humano") {
+           nombreJugador4.textContent = "Espacio habilitado";
+           jugador4 = 1;
+           tj4 = 1;
+      } else{
+        nombreJugador4.textContent = "Espacio inhabilitado";
+        jugador4 = 0;
+      }
+      numJugadores = jugador2 + jugador3 + jugador4;
+      /*const label = document.getElementById("miLabel");
+
+    // Asigna el valor de la variable como contenido del <label>
+      label.textContent = numJugadores;*/
+  });
+  function actualizarEstadoBoton() {
+    if (checkbox2.checked && checkbox3.checked && checkbox4.checked) {
+      boton2vs2.disabled = false; // Habilitar el botón
+    } else {
+      boton2vs2.disabled = true; // Deshabilitar el botón
+      botonIndividual.click();
+    }
+  }
+  
+  checkbox2.addEventListener("change", actualizarEstadoBoton);
+  checkbox3.addEventListener("change", actualizarEstadoBoton);
+  checkbox4.addEventListener("change", actualizarEstadoBoton);
+
+  function actualizarBotonCrearSala() {
+  // Verifica si al menos uno de los checkbox está seleccionado
+    if (checkbox2.checked || checkbox3.checked || checkbox4.checked) {
+      crearSalaBoton.disabled = false; // Habilita el botón
+    } else {
+      crearSalaBoton.disabled = true; // Deshabilita el botón
+    }   
+  }
+  checkbox2.addEventListener("change", actualizarBotonCrearSala);
+  checkbox3.addEventListener("change", actualizarBotonCrearSala);
+  checkbox4.addEventListener("change", actualizarBotonCrearSala);
+  actualizarBotonCrearSala();
+</script>
+
+<script>
+  const crearSalaBoton = document.getElementById('crearSalaBoton');
+            crearSalaBoton.addEventListener('click', guardarJSONEnCookie);
+  
+  function guardarJSONEnCookie() {
+    if (typeof creditValue === 'undefined') {
+      creditValue = 0;
+    }
+      
+    const txBox = document.getElementById('nombrePartida');
+            console.log(txBox)
+            nombre = txBox.value;
+     var now = new Date();
+      now.setTime(now.getTime()+(3*60*1000));
+      document.cookie = `config='1'; expires=${now.toUTCString()}`;
+      document.cookie = `numJugadores = ${numJugadores + 1}; expires=${now.toUTCString()}`;
+      document.cookie = `nombre=${nombre}; expires=${now.toUTCString()}`;
+      document.cookie = `creditosValor=${creditValue}; expires=${now.toUTCString()}`;
+      document.cookie = `tj2=${tj2}; expires=${now.toUTCString()}`;
+      document.cookie = `tj3=${tj3}; expires=${now.toUTCString()}`;
+      document.cookie = `tj4=${tj4}; expires=${now.toUTCString()}`;
+      document.cookie = `equipos= ${equipos}; expires=${now.toUTCString()}`;
+      document.cookie = `ej1=${ej1}; expires=${now.toUTCString()}`;
+      document.cookie = `ej2=${ej2}; expires=${now.toUTCString()}`;
+      document.cookie = `ej3=${ej3}; expires=${now.toUTCString()}`;
+      document.cookie = `ej4=${ej4}; expires=${now.toUTCString()}`;
+    
+      window.setTimeout(()=>{
+        window.location.replace("./JuegoEnLinea.html");
+      },1000);
+    }
+
+</script>
+</body>
+</html>

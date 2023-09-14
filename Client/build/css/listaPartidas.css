@@ -1,0 +1,126 @@
+
+body {
+    
+    font-family: 'Irish Grover';
+  }
+
+.contenedor {
+  background-color: #CCBEA3;
+  height: calc(100vh - 88px); /* Toma el 100% del viewport height y resta la altura del header */
+  -webkit-text-stroke: .5px black; /* Borde de 2 píxeles de ancho, color negro */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header {
+  background-image: url('../img/header.jpeg');
+  background-size: cover;
+  background-position: center;
+  height: 88px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tabla__contenedor__titulo{
+  color: white;
+  text-align: center;
+  font-size: 47px;
+  margin-top: 0;
+  padding: 20px;
+}
+
+.tabla {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 760px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+}
+
+.fila {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  font-size: 25px;
+}
+.filaE{
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  font-size: 25px;
+}
+
+.encabezado {
+  background: #000;
+  color: white;
+}
+
+.columna {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  border-radius: 20px;
+  background-image: url(../img/Rectangle.png);
+  background-size: cover;
+  cursor: pointer;
+  border: none;
+  padding: 5px 20px;
+  font-size: 22px;
+  color: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  font-family: 'Irish Grover';
+  transition: .8s ease;
+}
+button:hover{
+  transform: scale(1.05);
+}
+
+.tabla__contenedor__padre{
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.contenedor img{
+  margin-left: 20px;
+  position: absolute;
+  margin-top: -100px;
+}
+.tabla__contenedor{
+  flex-grow: 2; /* Hace que este elemento sea más grande dentro del flex */
+
+
+}
+.nombreP{
+  flex-grow: 2;
+}
+.btn__actualizar{
+  margin: 5px auto 50px auto;
+}
+.hidden{
+  display: none;
+}
