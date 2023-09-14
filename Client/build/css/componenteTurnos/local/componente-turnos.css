@@ -1,0 +1,40 @@
+.componente-turnos{
+    background-image: "../../assets/img/turnos-imagen.png";
+    position: absolute;
+    top: 1%;
+    left: 85%;
+    max-width: 250px;
+    min-width: 100px;
+    max-height: 95px;
+}
+
+.componente-turnos img{
+    width: 100%;
+    height: auto;
+}
+
+.componente-turnos p{
+    width: 100%;
+    position:absolute;
+    top: 36%;
+    left: 35%;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Irish Grover';
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 1251px) {
+    .componente-turnos p {
+      font-size: 20px;
+    }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 1250px) {
+    .componente-turnos p {
+      font-size: 1vw;
+    }
+  }
