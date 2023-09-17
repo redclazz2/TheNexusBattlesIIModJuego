@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../estilos/SalaDeEspera.css">
+<title>Sala de espera</title>
+</head>
+
+<script>
+  fetch('https://') //url pendiente
+  .then(response => response.json())
+  .then(newPlayerData => {
+    // Actualiza la interfaz de usuario con el nombre del jugador en el label correspondiente
+    const jugadorLabel = document.getElementById(`labelJugador${newPlayerData.id}`);//revisar parametros pendiente
+    if (jugadorLabel) {
+      jugadorLabel.textContent = newPlayerData.user;
+    }
+  })
+  .catch(error => {
+    console.error('Error al obtener los datos del jugador recién ingresado: ', error);
+  });
+</script>
+
+<body>
+  <div id="title-box">
+    <a class="botonMenu1" href="./ConfiguracionSala.html">Atrás</a>
+    Sala de espera
+    <button class="botonMenu2" id="crearSalaBoton">Iniciar Partida</button>
+  </div>
+  <div id="contenedorPrincipal">
+    <div id = estadoSala>
+        <div id="textoEsperar">Esperando Jugadores...</div>
+      </div>
+    <div class="jugadores">
+      
+      <div id="jugador">
+        <div class="labelJugador" id="labelJugador1">Anfitrión</div>
+      </div>
+      <div id="jugador">
+        <div class="labelJugador" id="labelJugador2">Jugador 2</div>
+      </div>
+      <div id="jugador">
+        <div class="labelJugador" id="labelJugador3">Jugador 3</div>
+      </div>
+      <div id="jugador">
+        <div class="labelJugador" id="labelJugador4">Jugador 4</div>
+      </div>  
+    </div>
+  </div>
+
+  <div id="overlay"></div>
+  <div id="popup">
+    <p>No tienes las cartas suficientes para continuar</p>
+    <button id="cerrarPopup">Cerrar</button>
+  </div>
+
+  <div id="overlay"></div>
+  <div id="popupCreditos">
+    <p>No tienes los suficientes creditos para la apuesta</p>
+    <button id="cerrarPopupCreditos">Cerrar</button>
+  </div>
+
+  <script>
+    // script para el cuadro emergente a falta de cartas
+    function mostrarPopup() {
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("popup").style.display = "block";
+    }
+
+    // Función para cerrar el cuadro emergente
+    function cerrarPopup() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // Agregar un evento al botón "Iniciar Partida" para mostrar el cuadro emergente
+    document.getElementById("---crearSalaBoton").addEventListener("click", mostrarPopup);//función inhabilitada tempotalmente
+
+    // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
+    document.getElementById("cerrarPopup").addEventListener("click", cerrarPopup);
+  </script>
+
+  <script>
+    // script para el cuadro emergente a falta de creditos
+    function mostrarPopupCreditos() {
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("popupCreditos").style.display = "block";
+    }
+
+    // Función para cerrar el cuadro emergente
+    function cerrarPopupCreditos() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("popupCreditos").style.display = "none";
+    }
+
+    // Agregar un evento al botón "Iniciar Partida" para mostrar el cuadro emergente
+    document.getElementById("---crearSalaBoton").addEventListener("click", mostrarPopupCreditos);//función inhabilitada tempotalmente
+
+    // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
+    document.getElementById("cerrarPopupCreditos").addEventListener("click", cerrarPopupCreditos);
+  </script>
+</body>
+</html>
