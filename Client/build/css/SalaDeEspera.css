@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap');
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background-image: url(../img/fondoCastillo.png); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat;
+  }
+
+  /*-------------------------------------------------------------------------------------------- 
+     estilo del titulo principal y los dos secundarios
+  ----------------------------------------------------------------------------------------------*/
+
+  /*#title-box {
+    background-color: #3498db;  Color para el cuadro de título 
+    color: #fff;  Color del texto del título 
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+  }*/
+  #title-box {
+    width: 100%; /* Ancho del contenedor: ocupa todo el ancho de la pantalla */
+    height: 105px; /* Alto del contenedor */
+    background-size: 100%; /* La imagen se estirará horizontalmente */
+    background-image: url(../img/barraMadera.png); /* Ruta de tu imagen de fondo */
+    color: #fff; /* Color del texto del título */
+    text-align: center;
+    padding: 10px 0;
+    font-size: 60px;
+    font-family: 'Alegreya', sans-serif;
+    justify-content: space-between;
+  }   
+  .botonMenu1 {
+    display: inline-block;  /* Cambiamos de inline a inline-block */
+    text-align: center;
+    width: 250px;
+    height: 60px;
+    font-family: 'IrishGrover';
+    background-color: rgba(49, 7, 7, 0.84);
+    color: white;
+    font-size: 35px;
+    border-radius: 10px;
+    line-height: 1.6;
+    text-decoration: none;
+    margin-right: 380px;  /* Añadimos un margen derecho para separar los botones */
+    /*margin-left: 35px;
+    margin-top: 520px;*/
+  }
+  .botonMenu2 {
+      display: inline-block;  /* Cambiamos de inline a inline-block */
+      text-align: center;
+      width: 250px;
+      height: 60px;
+      font-family: 'IrishGrover';
+      background-color: rgba(49, 7, 7, 0.84);
+      color: white;
+      font-size: 35px;
+      border-radius: 10px;
+      line-height: 1.6;
+      text-decoration: none;
+      margin-left: 380px;  /* Añadimos un margen derecho para separar los botones */
+      /*margin-left: 35px;
+      margin-top: 520px;*/
+  }
+      
+
+  #contenedorPrincipal { /*contiene todos los demas containers*/
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*background-image: url(../img/fondoCastillo.png); /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Puedes cambiar a 'contain' u otros valores según tu preferencia */
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+  .jugadores {
+    width: 50%;
+  }
+
+  #estadoSala {
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center; /* Alinea todos los elementos en el centro vertical */
+    background-color: #8B4513;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-size: 100% 100%; /* Deformar la imagen para llenar el contenedor */
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    width: calc(30%); /* Ancho de cada cuadro */
+    height: 130px;
+    
+    /*background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+  }
+
+  #jugador {
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center; /* Alinea todos los elementos en el centro vertical */
+    /*background-color: transparent; /* Fondo completamente transparente */
+    background-color: rgba(217, 217, 217, 0.0);
+    background-image: url(../img/pergamino.png); /* Ruta de tu imagen de fondo */
+    background-size: 100% 100%; /* Deformar la imagen para llenar el contenedor */
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    width: calc(98%); /* Ancho de cada cuadro */
+    height: 110px;
+    
+    /*background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+  }
+
+  .labelJugador {
+    /*flex-grow: 1;*/
+    justify-content: center;
+    font-size: 60px;
+    font-family: 'Alegreya', sans-serif;
+  }
+
+  #textoEsperar {
+    /*flex-grow: 1;*/
+    justify-content: center;
+    font-size: 50px;
+    font-family: 'Alegreya', sans-serif;
+    color: #fff;
+  }
+  #popup {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #8B4513; /* Color marrón oscuro para el fondo */
+    padding: 20px;
+    border: 2px solid #D2B48C; /* Borde dorado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    font-family: 'Alegreya', sans-serif; /* Fuente medieval */
+    font-size: 30px;
+    color: #D2B48C; /* Color dorado para el texto */
+  }
+  #popupCreditos {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #8B4513; /* Color marrón oscuro para el fondo */
+    padding: 20px;
+    border: 2px solid #D2B48C; /* Borde dorado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    font-family: 'Alegreya', sans-serif; /* Fuente medieval */
+    font-size: 30px;
+    color: #D2B48C; /* Color dorado para el texto */
+  }
+
+  /* Estilo para el fondo oscurecido detrás del cuadro emergente */
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    align-items: center;
+  }
+
+  /* Estilo para el botón "Cerrar" */
+  #cerrarPopup {
+    display: inline-block; 
+      text-align: center;
+      width: 250px;
+      height: 60px;
+      font-family: 'IrishGrover';
+      background-color: rgba(49, 7, 7, 0.84);
+      color: white;
+      font-size: 35px;
+      border-radius: 10px;
+      line-height: 1.6;
+      text-decoration: none;
+      align-items: center;
+      justify-content: center;
+      margin-left: 28%;
+  }
+  #cerrarPopupCreditos {
+    display: inline-block; 
+      text-align: center;
+      width: 250px;
+      height: 60px;
+      font-family: 'IrishGrover';
+      background-color: rgba(49, 7, 7, 0.84);
+      color: white;
+      font-size: 35px;
+      border-radius: 10px;
+      line-height: 1.6;
+      text-decoration: none;
+      align-items: center;
+      justify-content: center;
+      margin-left: 28%;
+  }
+
+  
+
