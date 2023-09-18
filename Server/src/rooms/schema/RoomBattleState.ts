@@ -7,6 +7,6 @@ export class Player extends Schema{
 
 export class RoomBattleState extends Schema {
   @type("number") currentTurn:number = 1;
-  @type("number") expectedUsers:number = 4;
+  @type("string") expectedUsers:string = "4";
   @type({map: Player}) clients = new MapSchema<Player>();
 }

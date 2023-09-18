@@ -13,7 +13,7 @@ export class room_battle extends Room<RoomBattleState> {
     })
 
     this.maxClients = options.numero_jugadores;
-    this.state.expectedUsers = this.maxClients;
+    this.state.expectedUsers = this.maxClients.toString();
 
     this.onMessage("type", (client, message) => {
     
