@@ -21,7 +21,10 @@ export class room_battle extends Room<RoomBattleState> {
 
   onJoin (client: Client, options: any) {
     console.log(client.sessionId, "joined!");
-    this.state.clients.push(new Player("Player",client.sessionId));
+    let _player = new Player();
+    _player.sessionID = client.sessionId;
+    _player.username = "Player";
+    this.state.clients.push(new Player(_player));
   }
 
   onLeave (client: Client, consented: boolean) {
