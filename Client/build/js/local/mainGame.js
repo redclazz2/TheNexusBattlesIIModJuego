@@ -1,7 +1,7 @@
 import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
 import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
-import * as Colyseus from "../build/js/Vendors/colyseus.js";
+
 //Definir Controladores
 const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera(), new viewSalaEspera());
 function getCookie(cname) {
