@@ -9,107 +9,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
 <title>Contienda: The Nexus Battles 2</title>
 </head>
-
-<script>//posiblemente a eliminar
-  fetch('https://') //url pendiente    
-  .then(response => response.json())
-  .then(newPlayerData => {
-    // Actualiza la interfaz de usuario con el nombre del jugador en el label correspondiente
-    const jugadorLabel = document.getElementById(`labelJugador${newPlayerData.id}`);//revisar parametros pendiente
-    if (jugadorLabel) {
-      jugadorLabel.textContent = newPlayerData.user;
-    }
-  })
-  .catch(error => {
-    console.error('Error al obtener los datos del jugador recién ingresado: ', error);
-  });
-</script>
-
 <script>// este es el actual-------------------------------------------------------------------------------------------------------------------
-  //aquí se hace la lectura de las cadenas entregadas
-  const apiUrl = "";
+  let userName = null;
+  let userCredits = null;
+  let contadorJoin = 0;
 
-// Variables locales para almacenar datos individuales
-let userId = null;
-let userName = null;
-let userGames = null;
-let userSub = null;
-let userCredits = null;
-
-// Variable local para almacenar datos del inventario
-let inventarioItems = [];
-
-// Función para obtener y guardar los datos del perfil
-function obtenerPerfil() {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Guardar datos del perfil en variables locales
-            userId = data.id;
-            userName = data.user;
-            userGames = data.games;
-            userSub = data.sub;
-            userCredits = data.credits;
-
-            // Puedes acceder a los datos del perfil individualmente a través de las variables locales
-            console.log('ID del usuario:', userId);
-            console.log('Nombre de usuario:', userName);
-            console.log('Número de juegos:', userGames);
-            console.log('¿Es subscriptor?', userSub);
-            console.log('Créditos:', userCredits);
-        })
-        .catch(error => {
-            console.error('Error al obtener el perfil:', error);
-        });
-}
-
-// Función para obtener y guardar los datos del inventario
-function obtenerInventario() {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Guardar datos del inventario en la variable local
-            inventarioItems = data.inventario;
-
-            // Puedes acceder a los datos del inventario a través de la variable local inventarioItems
-            console.log('Inventario:', inventarioItems);
-        })
-        .catch(error => {
-            console.error('Error al obtener el inventario:', error);
-        });
-}
-
-// Llamar a las funciones para obtener los datos
-obtenerPerfil();
-obtenerInventario();
-</script>
-
-<script> //actualiza nombre de jugadores
-  //const apiUrl = '';
-
-  // Función para obtener los nombres de usuario de la API
-  async function obtenerNombresDeUsuarios() {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error al obtener los nombres de usuario:', error);
-      return [];
-    }
+  // Función para obtener el perfil del usuario
+  function obtenerPerfil() {
+      fetch('http://20.25.36.114:8004/api/perfil/monoconchudo')
+          .then(response => response.json())
+          .then(data => {
+              userName = data.user;
+              userCredits = data.credits;
+              verificarCreditos();
+          })
+          .catch(error => {
+              console.error('Error al obtener el perfil:', error);
+          });
   }
 
-  // Función para actualizar los nombres de los jugadores
-  async function actualizarNombresDeJugadores() {
-    const jugadores = document.querySelectorAll('.labelJugador');
-    const nombresDeUsuarios = await obtenerNombresDeUsuarios();
-    for (let i = 0; i < nombresDeUsuarios.length && i < jugadores.length; i++) {
-      jugadores[i].textContent = `Jugador ${i + 2}: ${nombresDeUsuarios[i]}`;
-    }
+  // Función para verificar los créditos y tomar acción
+  function verificarCreditos() {
+      // Recupera el valor de la cookie 'creditosValor'
+      function getCookieValue(cookieName) {
+          const name = cookieName + '=';
+          const decodedCookie = decodeURIComponent(document.cookie);
+          const cookieArray = decodedCookie.split(';');
+
+          for (let i = 0; i < cookieArray.length; i++) {
+              let cookie = cookieArray[i].trim();
+              if (cookie.indexOf(name) === 0) {
+                  // Convierte el valor de la cookie a número
+                  return parseInt(cookie.substring(name.length, cookie.length));
+              }
+          }
+          return null;
+      }
+
+      // Recupera el valor de 'creditosValor' desde la cookie
+      const creditosValor = getCookieValue('creditosValor');
+
+      if (userCredits < creditosValor) {
+          // Si userCredits es menor que creditosValor, muestra el popup de créditos
+          mostrarPopupCreditos();
+      } else {
+          // Si userCredits es igual o mayor que creditosValor, permite poner el nombre en el label
+          if (contadorJoin === 1) {
+              const labelJugador1 = document.getElementById('labelJugador1');
+              labelJugador1.textContent = userName;
+          } else if (contadorJoin === 2) {
+              const labelJugador2 = document.getElementById('labelJugador2');
+              labelJugador2.textContent = userName;
+          } else if (contadorJoin === 3) {
+              const labelJugador3 = document.getElementById('labelJugador3');
+              labelJugador3.textContent = userName;
+          }
+      }
   }
 
-  // Llama a la función para actualizar los nombres de los jugadores
-  actualizarNombresDeJugadores();
+  // Manejar el evento "join" en el servidor
+  io.on('connection', socket => {
+      // Incrementa el contador de "join"
+      contadorJoin++;
+      // Obtén el perfil del usuario
+      obtenerPerfil();
+  });
+
+  server.listen(3000, () => {
+      console.log('Servidor escuchando en el puerto 3000');
+  });
+
+  // Función para mostrar el popup de créditos
+  function mostrarPopupCreditos() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popupCreditos").style.display = "block";
+  }
+
+  // Función para cerrar el cuadro emergente
+  function cerrarPopupCreditos() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popupCreditos").style.display = "none";
+  }
+
 </script>
 
 <script>
@@ -146,24 +127,5 @@ obtenerInventario();
     document.getElementById("cerrarPopup").addEventListener("click", cerrarPopup);
   </script>
 
-  <script>
-    // script para el cuadro emergente a falta de creditos
-    function mostrarPopupCreditos() {
-      document.getElementById("overlay").style.display = "block";
-      document.getElementById("popupCreditos").style.display = "block";
-    }
-
-    // Función para cerrar el cuadro emergente
-    function cerrarPopupCreditos() {
-      document.getElementById("overlay").style.display = "none";
-      document.getElementById("popupCreditos").style.display = "none";
-    }
-
-    // Agregar un evento al botón "Iniciar Partida" para mostrar el cuadro emergente
-    document.getElementById("---crearSalaBoton").addEventListener("click", mostrarPopupCreditos);//función inhabilitada tempotalmente
-
-    // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
-    document.getElementById("cerrarPopupCreditos").addEventListener("click", cerrarPopupCreditos);
-  </script>
 </body>
 </html>
