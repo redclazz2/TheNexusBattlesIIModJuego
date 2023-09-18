@@ -3,6 +3,35 @@ import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
 import * as Colyseus from "../build/js/Vendors/colyseus.js";
 
+function show_modal(code:string){
+    const errorPopup = document.createElement("div");
+          errorPopup.classList.add("popup-container");
+          errorPopup.innerHTML = `
+            <div class="popup">
+                <div class="popup-header">
+                    <span class="error-icon">!</span>
+                </div>
+                <div class="popup-content">
+                    <p>¡Ups! ${code}</p>
+                    <div class="btn__confirmar">
+                      <button class="close-button">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+          `;
+          
+          // Agregar el mensaje de error al cuerpo del documento
+          document.body.appendChild(errorPopup);
+  
+          //Eliminar el mensaje de error al hacer click en "Confirmar"
+          const closeButton = document.querySelector(".close-button");
+          if (closeButton) {
+            closeButton.addEventListener("click", () => {
+              errorPopup.remove();
+            });
+          }
+}
+
 //Definir Controladores
 const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera() ,new viewSalaEspera());
 
@@ -23,7 +52,6 @@ function getCookie(cname:string) {
 }
 //'https://game.thenexusbattles2.com/server-0'
 let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
-     clientArray: any[] = [],
      cookie_data;
 
 //Validacion cartas y creditos
@@ -62,35 +90,6 @@ if(getCookie("config").includes('1')){
   console.error("Unable to resolve game-command! Please allow cookies in your browser!")
 }
 
-function show_modal(code:string){
-  const errorPopup = document.createElement("div");
-        errorPopup.classList.add("popup-container");
-        errorPopup.innerHTML = `
-          <div class="popup">
-              <div class="popup-header">
-                  <span class="error-icon">!</span>
-              </div>
-              <div class="popup-content">
-                  <p>¡Ups! ${code}</p>
-                  <div class="btn__confirmar">
-                    <button class="close-button">Confirmar</button>
-                  </div>
-              </div>
-          </div>
-        `;
-        
-        // Agregar el mensaje de error al cuerpo del documento
-        document.body.appendChild(errorPopup);
-
-        //Eliminar el mensaje de error al hacer click en "Confirmar"
-        const closeButton = document.querySelector(".close-button");
-        if (closeButton) {
-          closeButton.addEventListener("click", () => {
-            errorPopup.remove();
-          });
-        }
-}
-
 const HandleJoinAction = (room:any):void =>{
     console.log(room.sessionId, "joined", room.name);
     sala_espera_controller.init();
@@ -102,12 +101,9 @@ const HandleJoinAction = (room:any):void =>{
 
     room.state.clients.onAdd((client:any, key:any) => {
         console.log(client, "has been added at", key);
-        clientArray.push(client);
     })
 
     room.state.clients.onRemove((client:any, key:any) => {
         console.log(client, "has been removed at", key);
-        const index = clientArray.indexOf(client);
-        if(index > -1) clientArray.splice(index,1);
     });
 }

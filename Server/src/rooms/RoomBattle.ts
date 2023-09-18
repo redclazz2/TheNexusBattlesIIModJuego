@@ -1,9 +1,8 @@
-import { Room, Client, ClientArray } from "@colyseus/core";
+import { Room, Client } from "@colyseus/core";
 import { RoomBattleState, Player } from "./schema/RoomBattleState";
 
 export class room_battle extends Room<RoomBattleState> {
   maxClients = 1;
-  clients: ClientArray<any, any>;
 
   onCreate (options: any) {
     this.setState(new RoomBattleState());
@@ -31,7 +30,7 @@ export class room_battle extends Room<RoomBattleState> {
 
   onLeave (client: Client, consented: boolean) {
     console.log(client.sessionId, "left!");
-    const _session_exit = this.state.clients.delete(client.sessionId);
+    this.state.clients.delete(client.sessionId);
   }
 
   onDispose() {
