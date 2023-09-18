@@ -1,5 +1,25 @@
 export default class viewSalaEspera {
     constructor() {
+        this.updatePlayerName = (clientMap, expectedUsers) => {
+            const _labels = [document.getElementById('labelJugador1'), document.getElementById('labelJugador2'),
+                document.getElementById('labelJugador3'), document.getElementById('labelJugador4')];
+            let _index = 0;
+            for (let current_label of _labels) {
+                if (current_label != null)
+                    current_label.textContent = "No Disponible .";
+            }
+            for (let [key, value] of clientMap.entries()) {
+                let currentBox;
+                currentBox = _labels[_index];
+                currentBox.textContent = value._username;
+                _index++;
+            }
+        };
+        this.updateRoomStatus = () => {
+            const textoEsperar = document.getElementById('textoEsperar');
+            if (textoEsperar != null)
+                textoEsperar.textContent = 'Jugadores listos';
+        };
         this.int = () => {
             const elemetoDiv = document.getElementById("elementoPrincipal");
             elemetoDiv.innerHTML = `

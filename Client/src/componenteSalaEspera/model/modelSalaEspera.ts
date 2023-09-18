@@ -1,12 +1,16 @@
 export default class modelSalaEspera{
-    clients = []
+    clientMap = new Map();
     constructor(){}
 
-    public addPlayer = (client:any):void =>{
-        //this.clients.push(client);
+    public addPlayer = (key:string,client:any):void =>{
+        this.clientMap.set(key,client);
     }
 
-    public removePlayer = () =>{
+    public removePlayer = (key:string) =>{
+        this.clientMap.delete(key);
+    }
 
+    public getMap = ():Map<any,any> =>{
+        return this.clientMap;
     }
 }
