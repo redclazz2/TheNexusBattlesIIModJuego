@@ -14,8 +14,10 @@ export class room_battle extends Room<RoomBattleState> {
     })
 
     this.maxClients = options.numero_jugadores;
+    this.state.expectedUsers = this.maxClients;
+
     this.onMessage("type", (client, message) => {
-      
+    
     });
   }
 
@@ -24,11 +26,12 @@ export class room_battle extends Room<RoomBattleState> {
     let _player = new Player();
     _player.sessionID = client.sessionId;
     _player.username = "Player";
-    this.state.clients.push(new Player(_player));
+    this.state.clients.set(_player.sessionID,new Player(_player));
   }
 
   onLeave (client: Client, consented: boolean) {
     console.log(client.sessionId, "left!");
+    const _session_exit = this.state.clients.delete(client.sessionId);
   }
 
   onDispose() {
