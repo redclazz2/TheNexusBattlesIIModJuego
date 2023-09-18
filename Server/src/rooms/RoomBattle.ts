@@ -25,7 +25,7 @@ export class room_battle extends Room<RoomBattleState> {
     let _player = new Player();
     _player.sessionID = client.sessionId;
     _player.username = "Player";
-    this.state.clients.set(_player.sessionID,new Player(_player));
+    this.state.clients.set(_player.sessionID,_player);
   }
 
   onLeave (client: Client, consented: boolean) {
