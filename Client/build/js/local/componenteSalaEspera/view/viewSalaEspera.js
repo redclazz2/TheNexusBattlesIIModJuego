@@ -19,13 +19,13 @@ export default class viewSalaEspera {
                 <div class="labelJugador" id="labelJugador1">Anfitrión</div>
             </div>
             <div id="jugador">
-                <div class="labelJugador" id="labelJugador2">Jugador 2</div>
+                <div class="labelJugador" id="labelJugador2">Esperando...</div>
             </div>
             <div id="jugador">
-                <div class="labelJugador" id="labelJugador3">Jugador 3</div>
+                <div class="labelJugador" id="labelJugador3">Esperando...</div>
             </div>
             <div id="jugador">
-                <div class="labelJugador" id="labelJugador4">Jugador 4</div>
+                <div class="labelJugador" id="labelJugador4">Esperando...</div>
             </div>  
             </div>
         </div>

@@ -5,6 +5,7 @@ export default class controladorSalaEspera {
         this.init = () => {
             console.log("Iniciando Controlador de Sala Espera");
             this.view.int();
+            console.log("Controlador listo!");
         };
     }
 }

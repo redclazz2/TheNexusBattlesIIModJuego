@@ -22,12 +22,12 @@ function getCookie(cname:string) {
     return "";
 }
 //'https://game.thenexusbattles2.com/server-0'
-let client = new  Colyseus.Client('http://40.88.126.72:3000'),
+let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
+     clientArray: any[] = [],
      cookie_data;
 
 //Validacion cartas y creditos
 //Si si pasa a leer las cookies y si no muestra el error
-
 
 if(getCookie("config").includes('1')){
     cookie_data = {
@@ -44,15 +44,13 @@ if(getCookie("config").includes('1')){
         ej4:getCookie("ej4")
     }
 
-    client.create("room_battle",cookie_data).then(room => {
-        console.log(room.sessionId, "joined", room.name);
-        sala_espera_controller.init();
-    }).catch(e => {
+    client.create("room_battle",cookie_data).then((room) => HandleJoinAction(room)).catch(e => {
         console.log("JOIN ERROR", e);
     });
 }else if(getCookie("config").includes('2')){
   try {
     const room =  client.joinById(getCookie("roomID"), {/* options */});
+    sala_espera_controller.init();
     console.log("joined successfully", room); 
   } catch (e) {
     console.error("join error", e);
@@ -91,4 +89,25 @@ function show_modal(code:string){
             errorPopup.remove();
           });
         }
+}
+
+const HandleJoinAction = (room:any):void =>{
+    console.log(room.sessionId, "joined", room.name);
+    sala_espera_controller.init();
+
+    room.state.listen("currentTurn",(currentValue:any,previousValue:any) =>{
+        console.log(`currentTurn is now ${currentValue}`);
+        console.log(`previous value was: ${previousValue}`);
+    });
+
+    room.state.clients.onAdd((client:any, key:any) => {
+        console.log(client, "has been added at", key);
+        clientArray.push(client);
+    })
+
+    room.state.clients.onRemove((client:any, key:any) => {
+        console.log(client, "has been removed at", key);
+        const index = clientArray.indexOf(client);
+        if(index > -1) clientArray.splice(index,1);
+    });
 }

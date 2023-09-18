@@ -120,7 +120,7 @@ table.addEventListener('click', (event) => {
       document.cookie = `roomID = ${inputInsideButton.value}; expires=${now.toUTCString()}`;
     
       window.setTimeout(()=>{
-        window.location.replace("./JuegoEnLinea.html");
+        window.location.replace("./mainGame.html");
       },1000);
     }
   }

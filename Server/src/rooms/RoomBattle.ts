@@ -1,13 +1,13 @@
 import { Room, Client, ClientArray } from "@colyseus/core";
-import { MyRoomState } from "./schema/MyRoomState";
+import { RoomBattleState, Player } from "./schema/RoomBattleState";
 
-export class room_battle extends Room<MyRoomState> {
+export class room_battle extends Room<RoomBattleState> {
   maxClients = 1;
   clients: ClientArray<any, any>;
 
   onCreate (options: any) {
-    this.setState(new MyRoomState());
-    //console.log(options);
+    this.setState(new RoomBattleState());
+    
     this.setMetadata({
       ganacia: options.numero_creditos,
       nombre: options.nombre_sala
@@ -21,6 +21,7 @@ export class room_battle extends Room<MyRoomState> {
 
   onJoin (client: Client, options: any) {
     console.log(client.sessionId, "joined!");
+    this.state.clients.push(new Player("Player",client.sessionId));
   }
 
   onLeave (client: Client, consented: boolean) {

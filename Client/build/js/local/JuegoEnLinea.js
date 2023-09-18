@@ -15,7 +15,7 @@ function getCookie(cname) {
     return "";
 }
 
-let client = new  Colyseus.Client('ws://40.88.126.72:3000/'),
+let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
      cookie_data= "";
 
 if(getCookie("config").includes('1')){
