@@ -1,5 +1,12 @@
-//Importa el cliente de colyseus
-function getCookie(cname) {
+import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
+import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
+import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
+import * as Colyseus from "../build/js/Vendors/colyseus.js";
+
+//Definir Controladores
+const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera() ,new viewSalaEspera());
+
+function getCookie(cname:string) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -14,9 +21,13 @@ function getCookie(cname) {
     }
     return "";
 }
+//'https://game.thenexusbattles2.com/server-0'
+let client = new  Colyseus.Client('http://40.88.126.72:3000'),
+     cookie_data;
 
-let client = new  Colyseus.Client('ws://40.88.126.72:3000/'),
-     cookie_data= "";
+//Validacion cartas y creditos
+//Si si pasa a leer las cookies y si no muestra el error
+
 
 if(getCookie("config").includes('1')){
     cookie_data = {
@@ -33,20 +44,16 @@ if(getCookie("config").includes('1')){
         ej4:getCookie("ej4")
     }
 
-    //console.log(cookie_data);
     client.create("room_battle",cookie_data).then(room => {
         console.log(room.sessionId, "joined", room.name);
-        const displayLog = document.getElementsByTagName('h3');
-        displayLog[0].innerHTML = `Conectado a:${room.sessionId}. Esperando jugadores ...`
+        sala_espera_controller.init();
     }).catch(e => {
         console.log("JOIN ERROR", e);
     });
 }else if(getCookie("config").includes('2')){
   try {
-    const room = await client.joinById(getCookie("roomID"), {/* options */});
+    const room =  client.joinById(getCookie("roomID"), {/* options */});
     console.log("joined successfully", room); 
-    const displayLog = document.getElementsByTagName('h3');
-    displayLog[0].innerHTML = `Conectado a:${room.sessionId}. Esperando jugadores ...`
   } catch (e) {
     console.error("join error", e);
     show_modal("No se ha podido establecer una conexión con la sala. Es posible que ya no esté disponible. ERR:2001")
@@ -57,7 +64,7 @@ if(getCookie("config").includes('1')){
   console.error("Unable to resolve game-command! Please allow cookies in your browser!")
 }
 
-function show_modal(code){
+function show_modal(code:string){
   const errorPopup = document.createElement("div");
         errorPopup.classList.add("popup-container");
         errorPopup.innerHTML = `

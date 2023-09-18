@@ -33,7 +33,7 @@ module.exports = {
         env: {
             DEBUG: "colyseus:errors",
             NODE_ENV: "production",
-            DOMAIN: "game.thenexusbattles2.com"
+            DOMAIN: "game.thenexusbattles2.cloud"
         }
     }]
 }

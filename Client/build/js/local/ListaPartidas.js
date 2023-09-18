@@ -1,4 +1,4 @@
-let client = new Colyseus.Client('https://game.thenexusbattles2.com/server-0');
+let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0');
 
 // Tabla en HTML donde se guardan las fila
 const table = document.querySelector(".tabla");

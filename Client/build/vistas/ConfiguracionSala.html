@@ -502,7 +502,7 @@ tambien cambia el texto de inhabilitado a habilitado en cada espacio*/
             console.log(txBox)
             nombre = txBox.value;
      var now = new Date();
-      now.setTime(now.getTime()+(3*60*1000));
+      now.setTime(now.getTime()+(10000*60*1000));
       document.cookie = `config='1'; expires=${now.toUTCString()}`;
       document.cookie = `numJugadores = ${numJugadores + 1}; expires=${now.toUTCString()}`;
       document.cookie = `nombre=${nombre}; expires=${now.toUTCString()}`;

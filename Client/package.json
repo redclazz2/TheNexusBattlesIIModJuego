@@ -12,5 +12,8 @@
     "ts-standard": "^12.0.2",
     "typescript": "^5.2.2"
   },
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "colyseus.js": "^0.15.13"
+  }
 }
