@@ -1,7 +1,24 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
 import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
-
+//import * as Colyseus from "../build/js/Vendors/colyseus.js";
+import controllerJuego from "./componenteJuego/controller/controllerJuego.js";
+import modelJuego from "./componenteJuego/model/modelJuego.js";
+import viewJuego from "./componenteJuego/view/viewJuego.js";
+import TurnosController from "./componenteTurnos/controller/TurnosController.js";
+import TurnosView from "./componenteTurnos/view/TurnosView.js";
+import MazoController from "./componenteMazo/controller/MazoController.js";
+import MazoModel from "./componenteMazo/model/MazoModel.js";
+import MazoView from "./componenteMazo/view/MazoView.js";
 //#region Funciones Generales de la Vista
 function show_modal(code) {
     const errorPopup = document.createElement("div");
@@ -47,8 +64,11 @@ function getCookie(cname) {
 //#endregion
 //#region Definición de Controladores
 const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera(), new viewSalaEspera());
+const juego_controller = new controllerJuego(new modelJuego(), new viewJuego());
+const turnos_controller = new TurnosController(new TurnosView());
+const mazo_controller = new MazoController(new MazoModel(), new MazoView());
 //#endregion
-let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data;
+let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data, local_session_id, local_room;
 //Bloque de unión a la partida
 try {
     //En caso de que se intente crear una partida
@@ -83,12 +103,15 @@ catch (e) {
 }
 //Función que se encarga del control de juego
 const HandleJoinAction = (room) => {
+    local_session_id = room.sessionId;
+    local_room = room;
     console.log(room.sessionId, "joined", room.name);
-    sala_espera_controller.init();
+    sala_espera_controller.init(StartGameView);
     //#region Room State Listeners
     room.state.listen("currentTurn", (currentValue, previousValue) => {
         console.log(`currentTurn is now ${currentValue}`);
         console.log(`previous value was: ${previousValue}`);
+        //if(currentValue > previousValue) turnos_controller.updateTurnNumber();
     });
     room.state.listen("expectedUsers", (currentValue, previousValue) => {
         console.log(`expectedUsers is now ${currentValue}`);
@@ -104,9 +127,41 @@ const HandleJoinAction = (room) => {
         sala_espera_controller.removePlayer(key);
     });
     //#endregion
-    room.onMessage("RoomReady", (message) => {
-        const textoEsperar = document.getElementById('textoEsperar');
-        if (textoEsperar != null)
-            textoEsperar.textContent = 'Jugadores listos';
+    room.onMessage("CardSync", (message) => {
+        console.log(message);
+        juego_controller.updateCardValue(message.sender, message.card);
     });
 };
+const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
+    //console.log(sala_espera_controller.getPlayerMap());
+    juego_controller.init(sala_espera_controller.getPlayerMap().size);
+    //Carta Seleccionada:
+    const my_hero_card_api = fetch('https://cards.thenexusbattles2.cloud/api/heroes/65035fb3cd1283c97b876f9d');
+    let my_hero_card = {};
+    yield my_hero_card_api.then(response => response.json()).then(data => {
+        my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
+            my_hero_card.vida = data.Vida,
+            my_hero_card.defensa = data.Defensa,
+            my_hero_card.ataque_base = data.AtaqueBase,
+            my_hero_card.poder = 1,
+            my_hero_card.ataque_maximo = data.AtaqueDado,
+            my_hero_card.daño_maximo = data.DanoMax;
+        my_hero_card.descripcion = data.Desc;
+    });
+    //console.log(client.sessionId);
+    let player_pos = 1;
+    for (let [key, value] of sala_espera_controller.getPlayerMap().entries()) {
+        if (key == local_session_id) {
+            juego_controller.registerClient(value.sessionID, my_hero_card, 0);
+        }
+        else {
+            juego_controller.registerClient(value.sessionID, {}, player_pos);
+            player_pos++;
+        }
+    }
+    //console.log("READY");
+    local_room.send("CardSync", { sender: local_session_id, card: my_hero_card });
+    juego_controller.updateCardValue(local_session_id, my_hero_card);
+    turnos_controller.init();
+    mazo_controller.init();
+});

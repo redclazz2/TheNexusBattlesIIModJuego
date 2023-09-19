@@ -4,6 +4,8 @@
 body {
   font-size: 14px;
 }
+
+
 .v858_301 {
   width: 195px;
   height: 313px;
@@ -12,9 +14,9 @@ body {
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
+  position: absolute;
+  bottom: 46px;
+  left: 34%;
   overflow: hidden;
 }
 .v858_299 {

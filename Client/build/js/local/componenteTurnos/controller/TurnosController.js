@@ -1,7 +1,7 @@
 export default class TurnosController {
     constructor(vista) {
         this.vista = vista;
-        this.turno_actual = 1;
+        this.turno_actual = 0;
         this.updateTurnNumber = () => {
             try {
                 this.turno_actual++;

@@ -3,11 +3,13 @@ import viewSalaEspera from "../view/viewSalaEspera.js";
 
 export default class controladorSalaEspera{
     expectedUsers:number = 4;
+    functionInit:any;
     constructor(private readonly model:modelSalaEspera, private readonly view:viewSalaEspera){}
 
-    init = ():void =>{
+    init = (funcionIniciarPartida:()=>void):void =>{
         console.log("Iniciando Controlador de Sala Espera");
         this.view.int();
+        this.functionInit = funcionIniciarPartida;
         console.log("Controlador listo!");
     }
 
@@ -31,6 +33,11 @@ export default class controladorSalaEspera{
         const currentMap = this.model.getMap();
         if(currentMap.size == this.expectedUsers){
             this.view.updateRoomStatus();
+            this.functionInit();
         }
+    }
+
+    getPlayerMap = ():Map<string,any> => {
+        return this.model.getMap();
     }
 }
