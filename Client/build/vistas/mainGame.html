@@ -103,8 +103,10 @@
   }
 </script>
 
-<body>
-  <div id="elementoPrincipal"></div>
+<body class="body">
+  <div id="elementoPrincipal">
+
+
   <script src="../js/local/mainGame.js" type="module"></script>
   <script src="../js/Vendors/colyseus.js"></script>
   <script>
@@ -125,7 +127,9 @@
 
     // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
     document.getElementById("cerrarPopup").addEventListener("click", cerrarPopup);
-  </script>
-
+    </script>
+    <button id="btnTest">Cambiar</button>
+    </div>
+    <script src="../js/local/salaEspera.js"></script>
 </body>
 </html>
