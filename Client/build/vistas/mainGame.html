@@ -6,9 +6,13 @@
 <link rel="stylesheet" href="../css/SalaDeEspera.css">
 <link rel="stylesheet" href="../css/normalize.css">
 <link rel="stylesheet" href="../css/popup.css">
+<link rel="stylesheet" href="../css/componenteTurnos/local/componente-turnos.css">
+<link href="../css/componenteMazo/mazo.css" rel="stylesheet">
+
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
 <title>Contienda: The Nexus Battles 2</title>
 </head>
+<!--
 <script>// este es el actual-------------------------------------------------------------------------------------------------------------------
   let userName = null;
   let userCredits = null;
@@ -102,13 +106,14 @@
     }
   }
 </script>
-
+-->
 <body class="body">
-  <div id="elementoPrincipal">
-
-
+  <div id="elementoPrincipal"></div>
+  <div id="turnos-content"></div>
+  <div id="mazo"></div>
   <script src="../js/local/mainGame.js" type="module"></script>
   <script src="../js/Vendors/colyseus.js"></script>
+  <!--
   <script>
     // script para el cuadro emergente a falta de cartas
     function mostrarPopup() {
@@ -128,8 +133,7 @@
     // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
     document.getElementById("cerrarPopup").addEventListener("click", cerrarPopup);
     </script>
-    <button id="btnTest">Cambiar</button>
-    </div>
     <script src="../js/local/salaEspera.js"></script>
+  -->
 </body>
 </html>

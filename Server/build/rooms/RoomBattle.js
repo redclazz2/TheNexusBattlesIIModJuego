@@ -15,15 +15,31 @@ class room_battle extends core_1.Room {
             nombre: options.nombre_sala
         });
         this.maxClients = options.numero_jugadores;
-        this.onMessage("type", (client, message) => {
+        this.state.expectedUsers = this.maxClients.toString();
+        this.state.clients;
+        //Lista -> idSession -> idSession
+        //LocalTurn = 0 - 1 0 - 2  0 - 3
+        this.onMessage("CardSync", (client, message) => {
+            this.broadcast("CardSync", message, { except: client });
+        });
+        this.onMessage("ataque", (client, message) => {
+        });
+        this.onMessage("asdnad", (client, message) => {
         });
     }
     onJoin(client, options) {
         console.log(client.sessionId, "joined!");
-        this.state.clients.push(new RoomBattleState_1.Player("Player", client.sessionId));
+        let _player = new RoomBattleState_1.Player();
+        _player.sessionID = client.sessionId;
+        _player.username = "Player";
+        this.state.clients.set(_player.sessionID, _player);
+        this.state.turnos.push(_player.sessionID);
     }
     onLeave(client, consented) {
         console.log(client.sessionId, "left!");
+        this.state.clients.delete(client.sessionId);
+        const _i = this.state.turnos.indexOf(client.sessionId);
+        this.state.turnos.deleteAt(_i);
     }
     onDispose() {
         console.log("room", this.roomId, "disposing...");

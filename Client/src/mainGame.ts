@@ -1,7 +1,17 @@
 import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
 import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
-import * as Colyseus from "../build/js/Vendors/colyseus.js";
+//import * as Colyseus from "../build/js/Vendors/colyseus.js";
+import controllerJuego from "./componenteJuego/controller/controllerJuego.js";
+import modelJuego from "./componenteJuego/model/modelJuego.js";
+import viewJuego from "./componenteJuego/view/viewJuego.js";
+import TurnosController from "./componenteTurnos/controller/TurnosController.js";
+import TurnosView from "./componenteTurnos/view/TurnosView.js";
+import MazoController from "./componenteMazo/controller/MazoController.js";
+import MazoModel from "./componenteMazo/model/MazoModel.js";
+import MazoView from "./componenteMazo/view/MazoView.js";
+import CartaHeroe from "./cartas/CartaHeroe.js";
+import Carta from "./cartas/Carta.js";
 
 //#region Funciones Generales de la Vista
 function show_modal(code:string){
@@ -53,11 +63,14 @@ function getCookie(cname:string) {
 
 //#region Definición de Controladores
 const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera() ,new viewSalaEspera());
-
+const juego_controller = new controllerJuego(new modelJuego(),new viewJuego());
+const turnos_controller = new TurnosController(new TurnosView());
+const mazo_controller =  new MazoController(new MazoModel(),new MazoView());
 //#endregion
 
 let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
-     cookie_data;
+     cookie_data,
+     local_session_id:string;
 
 //Bloque de unión a la partida
 try{
@@ -77,10 +90,10 @@ try{
             ej4:getCookie("ej4")
         }
         //Acción crear en Colyseus
-        client.create("room_battle",cookie_data).then((room) => HandleJoinAction(room));
+        client.create("room_battle",cookie_data).then((room:any) => HandleJoinAction(room));
     //En caso de que se intente unir a una partida
     }else if(getCookie("config").includes('2')){
-        client.joinById(getCookie("roomID"), {/* options */}).then((room) => HandleJoinAction(room));
+        client.joinById(getCookie("roomID"), {/* options */}).then((room:any) => HandleJoinAction(room));
     }else{
         //Error en caso de que no exista la cookie
       show_modal("No se ha logrado inicializar el cliente de juego. Intenta de nuevo más tarde. ERR:1001");
@@ -91,13 +104,15 @@ try{
 
 //Función que se encarga del control de juego
 const HandleJoinAction = (room:any):void =>{
+    local_session_id = room.sessionId;
     console.log(room.sessionId, "joined", room.name);
-    sala_espera_controller.init();
+    sala_espera_controller.init(StartGameView);
 
     //#region Room State Listeners
     room.state.listen("currentTurn",(currentValue:any,previousValue:any) =>{
         console.log(`currentTurn is now ${currentValue}`);
         console.log(`previous value was: ${previousValue}`);
+        //if(currentValue > previousValue) turnos_controller.updateTurnNumber();
     });
 
     room.state.listen("expectedUsers",(currentValue:any,previousValue:any) =>{
@@ -117,8 +132,46 @@ const HandleJoinAction = (room:any):void =>{
     });
     //#endregion
 
-    room.onMessage("RoomReady",(message:any)=>{
-        const textoEsperar = document.getElementById('textoEsperar');
-        if(textoEsperar != null) textoEsperar.textContent = 'Jugadores listos';
+    room.onMessage("CardSync",(message:any)=>{
+        console.log(message);
+        juego_controller.updateCardValue(message.sender,message.card);
     });
+}
+
+const StartGameView = async():Promise<void> => {
+    //console.log(sala_espera_controller.getPlayerMap());
+    juego_controller.init(sala_espera_controller.getPlayerMap().size);
+
+     //Carta Seleccionada:
+    const my_hero_card_api = fetch('https://cards.thenexusbattles2.cloud/api/heroes/65035fb3cd1283c97b876f9d');
+    let my_hero_card:CartaHeroe = {} as CartaHeroe;
+        
+    await my_hero_card_api.then(response => response.json()).then(
+        data=>{
+            my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
+            my_hero_card.vida = data.Vida,
+            my_hero_card.defensa = data.Defensa,
+            my_hero_card.ataque_base = data.AtaqueBase,
+            my_hero_card.poder = 1,
+            my_hero_card.ataque_maximo = data.AtaqueDado,
+            my_hero_card.daño_maximo = data.DanoMax
+            my_hero_card.descripcion = data.Desc
+        }
+    );
+    //console.log(client.sessionId);
+
+    let player_pos = 1;
+    for(let [key,value] of sala_espera_controller.getPlayerMap().entries()){
+        if(key == local_session_id){
+            juego_controller.registerClient(value.sessionID,my_hero_card,0);
+        }else{
+            juego_controller.registerClient(value.sessionID,{} as CartaHeroe,player_pos);
+            player_pos++;
+        }
+    }
+    //console.log("READY");
+    client.send("CardSync",{sender:local_session_id,card:my_hero_card});
+    juego_controller.updateCardValue(local_session_id,my_hero_card);
+    turnos_controller.init();
+    mazo_controller.init();
 }
