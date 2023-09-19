@@ -68,7 +68,7 @@ const juego_controller = new controllerJuego(new modelJuego(), new viewJuego());
 const turnos_controller = new TurnosController(new TurnosView());
 const mazo_controller = new MazoController(new MazoModel(), new MazoView());
 //#endregion
-let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data, local_session_id;
+let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data, local_session_id, local_room;
 //Bloque de unión a la partida
 try {
     //En caso de que se intente crear una partida
@@ -104,6 +104,7 @@ catch (e) {
 //Función que se encarga del control de juego
 const HandleJoinAction = (room) => {
     local_session_id = room.sessionId;
+    local_room = room;
     console.log(room.sessionId, "joined", room.name);
     sala_espera_controller.init(StartGameView);
     //#region Room State Listeners
@@ -159,7 +160,7 @@ const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     //console.log("READY");
-    client.send("CardSync", { sender: local_session_id, card: my_hero_card });
+    local_room.send("CardSync", { sender: local_session_id, card: my_hero_card });
     juego_controller.updateCardValue(local_session_id, my_hero_card);
     turnos_controller.init();
     mazo_controller.init();
