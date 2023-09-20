@@ -8,6 +8,7 @@ export default class controllerJuego{
     local_session_id:string = "";
     local_room:any;
     local_current_turn:number = 0;
+    local_action_timer = 20;
     
     constructor(private readonly model:modelJuego,private readonly view:viewJuego){}
 
@@ -68,6 +69,8 @@ export default class controllerJuego{
     registerCurrentTurnChange = (newTurnData:number):void =>{
         this.local_current_turn = newTurnData;
         this.handleTurnChange();
+        this.removeTimer();
+        this.countdown();
     }
 
     checkPermission = ():boolean => {
@@ -85,5 +88,25 @@ export default class controllerJuego{
         this.local_room.send(1);
     }
 
+    //#endregion
+
+    //#region Action Timer
+    intervID:any;
+
+    countdown = ():void => {
+            let timeleft = 60;
+            this.intervID = setInterval(()=>{
+                if(timeleft > -1) timeleft --;
+                if(timeleft == 0){
+                    if(this.checkPermission()) {this.turn_action_pass();}
+                }else{
+                    this.view.viewUpdateActionTimer(timeleft);
+                }
+            },1000);
+    }
+
+    removeTimer = () =>{
+        clearInterval(this.intervID);
+    }
     //#endregion
 }

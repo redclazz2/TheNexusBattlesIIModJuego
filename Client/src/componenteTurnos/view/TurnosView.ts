@@ -8,6 +8,7 @@ export default class TurnosView{
             <div class="componente-turnos">
             <img src="../img/componenteTurnos/turnos-imagen.png"/>
             <p id="turnos-texto">Esperando</p>
+            <p id="tiempo-juego">Esperando</p>
             </div>
             `;
     }

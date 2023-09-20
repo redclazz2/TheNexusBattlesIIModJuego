@@ -190,5 +190,14 @@ export default class viewJuego {
             const healthRate = ((Number(card.vidaActual) * 100) / Number(card.vida)) / 100;
             dynamicHealthBar.style.background = healthRate > 0.6 ? "rgba(25,66,10,1)" : healthRate >= 0.4 ? "rgba(255, 204, 102, 0.5)" : "rgba(255, 0, 0, 0.5)";
         };
+        /*
+            Esta funcion permite actualizar el texto HTML del contador
+            de acción para un turno.
+        */
+        this.viewUpdateActionTimer = (current) => {
+            const docHTMLTimer = document.getElementById('tiempo-juego');
+            if (docHTMLTimer != null)
+                docHTMLTimer.innerText = "Tiempo Desición: " + current.toString();
+        };
     }
 }
