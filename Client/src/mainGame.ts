@@ -112,7 +112,7 @@ const HandleJoinAction = (room:any):void =>{
     room.state.listen("currentTurn",(currentValue:any,previousValue:any) =>{
         console.log(`currentTurn is now ${currentValue}`);
         console.log(`previous value was: ${previousValue}`);
-        //if(currentValue > previousValue) turnos_controller.updateTurnNumber();
+        turnos_controller.updateTurnNumber();
     });
 
     room.state.listen("expectedUsers",(currentValue:any,previousValue:any) =>{

@@ -1,18 +1,19 @@
 export default class viewJuego {
     constructor() {
         this.permissionControllerFunction = function () { return true; };
+        this.passTurnFunction = function () { };
         this.myHTMLCards = {
             0: "carta_inf",
             1: "carta_sup",
             2: "carta_izq",
             3: "carta_der" //En 3
         };
-        this.viewInit = (permissionFunction) => {
+        this.viewInit = (permissionFunction, passFunction) => {
             this.permissionControllerFunction = permissionFunction;
+            this.passTurnFunction = passFunction;
             const contenedorVista = document.querySelector('#elementoPrincipal');
             const body = document.body;
             if (contenedorVista) {
-                //contenedorVista.classList.add('none');
                 contenedorVista.innerHTML = "";
                 body.classList.remove('body');
             }
@@ -133,6 +134,7 @@ export default class viewJuego {
             const pasarTurno = document.getElementById("controlTurnoPasar");
             pasarTurno === null || pasarTurno === void 0 ? void 0 : pasarTurno.addEventListener('click', () => {
                 if (this.permissionControllerFunction()) {
+                    this.passTurnFunction();
                     console.log("Se ha presionado el boton para saltar de turno");
                 }
                 else {
