@@ -1,7 +1,5 @@
 export default class viewSalaEspera{
-    constructor(){
-
-    }
+    constructor(){}
 
     updatePlayerName = (clientMap:Map<any,any>,expectedUsers:number):void =>{
 

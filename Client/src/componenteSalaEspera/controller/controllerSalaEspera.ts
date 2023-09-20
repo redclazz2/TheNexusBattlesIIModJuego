@@ -7,10 +7,8 @@ export default class controladorSalaEspera{
     constructor(private readonly model:modelSalaEspera, private readonly view:viewSalaEspera){}
 
     init = (funcionIniciarPartida:()=>void):void =>{
-        console.log("Iniciando Controlador de Sala Espera");
         this.view.int();
         this.functionInit = funcionIniciarPartida;
-        console.log("Controlador listo!");
     }
 
     addPlayer = (key:string,client:any):void =>{

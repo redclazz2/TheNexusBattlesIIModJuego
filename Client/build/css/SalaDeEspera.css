@@ -489,6 +489,7 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
 .v49_20 {
   width: 21px;
@@ -506,6 +507,7 @@
   overflow: hidden;
 }
 .v49_21 {
+  cursor: pointer;
   width: 6px;
   color: rgba(255,255,255,1);
   position: absolute;

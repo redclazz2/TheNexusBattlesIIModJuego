@@ -11,7 +11,6 @@ import MazoController from "./componenteMazo/controller/MazoController.js";
 import MazoModel from "./componenteMazo/model/MazoModel.js";
 import MazoView from "./componenteMazo/view/MazoView.js";
 import CartaHeroe from "./cartas/CartaHeroe.js";
-import Carta from "./cartas/Carta.js";
 
 //#region Funciones Generales de la Vista
 function show_modal(code:string){
@@ -69,9 +68,7 @@ const mazo_controller =  new MazoController(new MazoModel(),new MazoView());
 //#endregion
 
 let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
-     cookie_data,
-     local_session_id:string,
-     local_room:any;
+     cookie_data;
 
 //Bloque de unión a la partida
 try{
@@ -105,8 +102,9 @@ try{
 
 //Función que se encarga del control de juego
 const HandleJoinAction = (room:any):void =>{
-    local_session_id = room.sessionId;
-    local_room = room;
+    juego_controller.registerLocalSessionID(room.sessionId);
+    juego_controller.registerLocalRoom(room);
+
     console.log(room.sessionId, "joined", room.name);
     sala_espera_controller.init(StartGameView);
 
@@ -121,6 +119,24 @@ const HandleJoinAction = (room:any):void =>{
         console.log(`expectedUsers is now ${currentValue}`);
         console.log(`previous value was: ${previousValue}`);
         sala_espera_controller.setExpectedUsers(currentValue.toString());
+    });
+
+    room.state.listen("localTurnStatus",(currentValue:any,previousValue:any) =>{
+        console.log(`localTurnStatus is now ${currentValue}`);
+        console.log(`previous value was: ${previousValue}`);
+        juego_controller.registerCurrentTurnChange(currentValue);
+    });
+
+    room.state.turnos.onAdd((client:any, key:any) => {
+        console.log(client, "turn has been added at", key);
+        juego_controller.addCurrentTurnArray(client);
+        console.log(juego_controller.getTurnRegister());
+    })
+
+    room.state.turnos.onRemove((client:any, key:any) => {
+        console.log(client, "turn has been removed at", key);
+        juego_controller.removeCurrentTurnArray(client);
+        console.log(juego_controller.getTurnRegister());
     });
 
     room.state.clients.onAdd((client:any, key:any) => {
@@ -141,7 +157,6 @@ const HandleJoinAction = (room:any):void =>{
 }
 
 const StartGameView = async():Promise<void> => {
-    //console.log(sala_espera_controller.getPlayerMap());
     juego_controller.init(sala_espera_controller.getPlayerMap().size);
 
      //Carta Seleccionada:
@@ -160,20 +175,19 @@ const StartGameView = async():Promise<void> => {
             my_hero_card.descripcion = data.Desc
         }
     );
-    //console.log(client.sessionId);
 
     let player_pos = 1;
     for(let [key,value] of sala_espera_controller.getPlayerMap().entries()){
-        if(key == local_session_id){
+        if(key == juego_controller.getLocalSessionID()){
             juego_controller.registerClient(value.sessionID,my_hero_card,0);
         }else{
             juego_controller.registerClient(value.sessionID,{} as CartaHeroe,player_pos);
             player_pos++;
         }
     }
-    //console.log("READY");
-    local_room.send("CardSync",{sender:local_session_id,card:my_hero_card});
-    juego_controller.updateCardValue(local_session_id,my_hero_card);
+    
+    juego_controller.getLocalRoom().send("CardSync",{sender:juego_controller.getLocalSessionID(),card:my_hero_card});
+    juego_controller.updateCardValue(juego_controller.getLocalSessionID(),my_hero_card);
     turnos_controller.init();
     mazo_controller.init();
 }

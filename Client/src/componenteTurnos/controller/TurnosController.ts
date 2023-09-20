@@ -2,7 +2,7 @@ import TurnosView from "../view/TurnosView.js";
 
 export default class TurnosController{
 
-    private turno_actual = 0;
+    private turno_actual = 1;
 
     constructor(private readonly vista:TurnosView){}
 

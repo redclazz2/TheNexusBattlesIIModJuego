@@ -1,6 +1,9 @@
 import CartaHeroe from "../../cartas/CartaHeroe";
 
 export default class viewJuego{
+
+    permissionControllerFunction:()=>boolean = function(){return true};
+
     myHTMLCards:{[number:string]:string} = {
         0:"carta_inf", //Carta local
         1:"carta_sup", //En 1
@@ -9,7 +12,8 @@ export default class viewJuego{
     }
     constructor(){}
 
-    viewInit = ():void =>{
+    viewInit = (permissionFunction:()=>boolean):void =>{
+        this.permissionControllerFunction = permissionFunction;
         const contenedorVista = document.querySelector('#elementoPrincipal');
         const body = document.body;
 
@@ -94,7 +98,7 @@ export default class viewJuego{
                 <span class="v49_18 ">Mejorar</span>
                 <div class="v49_19"></div>
                 <div class="v49_20"></div>
-                <span class="v49_21">P</span>
+                <span class="v49_21" id="controlTurnoPasar">P</span>
                 <span class="v49_22">+</span>
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
@@ -133,6 +137,16 @@ export default class viewJuego{
         `;
 
         body.insertAdjacentHTML('beforeend', fragmentoHTML);
+
+        //Agregar Controles
+        const pasarTurno = document.getElementById("controlTurnoPasar");
+                  pasarTurno?.addEventListener('click',()=>{
+                    if(this.permissionControllerFunction()){
+                        console.log("Se ha presionado el boton para saltar de turno");
+                    }else{
+                        console.log("No es tu turno!");
+                    }
+                  });
     }
 
     hideExtraCards = (number_of_players:number):void => {

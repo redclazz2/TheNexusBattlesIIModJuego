@@ -1,12 +1,14 @@
 export default class viewJuego {
     constructor() {
+        this.permissionControllerFunction = function () { return true; };
         this.myHTMLCards = {
             0: "carta_inf",
             1: "carta_sup",
             2: "carta_izq",
             3: "carta_der" //En 3
         };
-        this.viewInit = () => {
+        this.viewInit = (permissionFunction) => {
+            this.permissionControllerFunction = permissionFunction;
             const contenedorVista = document.querySelector('#elementoPrincipal');
             const body = document.body;
             if (contenedorVista) {
@@ -89,7 +91,7 @@ export default class viewJuego {
                 <span class="v49_18 ">Mejorar</span>
                 <div class="v49_19"></div>
                 <div class="v49_20"></div>
-                <span class="v49_21">P</span>
+                <span class="v49_21" id="controlTurnoPasar">P</span>
                 <span class="v49_22">+</span>
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
@@ -127,6 +129,16 @@ export default class viewJuego {
         </div>
         `;
             body.insertAdjacentHTML('beforeend', fragmentoHTML);
+            //Agregar Controles
+            const pasarTurno = document.getElementById("controlTurnoPasar");
+            pasarTurno === null || pasarTurno === void 0 ? void 0 : pasarTurno.addEventListener('click', () => {
+                if (this.permissionControllerFunction()) {
+                    console.log("Se ha presionado el boton para saltar de turno");
+                }
+                else {
+                    console.log("No es tu turno!");
+                }
+            });
         };
         this.hideExtraCards = (number_of_players) => {
             if (number_of_players == 2) {

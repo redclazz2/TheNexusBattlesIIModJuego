@@ -14,12 +14,7 @@ export class room_battle extends Room<RoomBattleState> {
 
     this.maxClients = options.numero_jugadores;
     this.state.expectedUsers = this.maxClients.toString();
-
     this.state.clients;
-
-    //Lista -> idSession -> idSession
-    //LocalTurn = 0 - 1 0 - 2  0 - 3
-
 
     this.onMessage("CardSync", (client, message) => {
         this.broadcast("CardSync", message, { except: client });

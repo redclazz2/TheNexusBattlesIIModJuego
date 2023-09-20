@@ -2,11 +2,11 @@ import CartaHeroe from "../../cartas/CartaHeroe";
 
 export default class modelJuego{
     clientMap = new Map();
+    turnArray = new Array();
     constructor(){}
 
     public addPlayer = (key:string,elemento_carta:any,carta_data:CartaHeroe):void =>{
         this.clientMap.set(key,[elemento_carta,carta_data]);
-        //console.log(this.clientMap);
     }
 
     public removePlayer = (key:string) =>{
@@ -19,10 +19,21 @@ export default class modelJuego{
 
     public updateCard = (key:string,card:CartaHeroe):[HTMLDivElement,CartaHeroe] =>{
         const htmlElement = this.clientMap.get(key);
-        //console.log(key)
-        //console.log(htmlElement);
         this.clientMap.set(key,[htmlElement[0],card]);
 
         return this.clientMap.get(key);
+    }
+
+    public addTurnRegister = (session:string):void => {
+        this.turnArray.push(session);
+    }
+
+    public removeTurnRegister = (session:string):void => {
+        const _at = this.turnArray.indexOf(session);
+        this.turnArray.slice(_at,1);
+    }
+
+    public getTurnRegister = ():Array<string> =>{
+        return this.turnArray;
     }
 }

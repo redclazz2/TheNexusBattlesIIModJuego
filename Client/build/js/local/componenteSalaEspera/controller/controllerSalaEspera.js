@@ -4,10 +4,8 @@ export default class controladorSalaEspera {
         this.view = view;
         this.expectedUsers = 4;
         this.init = (funcionIniciarPartida) => {
-            console.log("Iniciando Controlador de Sala Espera");
             this.view.int();
             this.functionInit = funcionIniciarPartida;
-            console.log("Controlador listo!");
         };
         this.addPlayer = (key, client) => {
             this.model.addPlayer(key, client);
