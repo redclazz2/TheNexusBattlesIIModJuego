@@ -8,7 +8,7 @@ export default class TurnosController{
 
     public init():void{
         this.vista.init();
-        setTimeout(() => this.vista.drawTurnData(this.turno_actual),3000);
+        this.vista.drawTurnData(this.turno_actual);
     }
 
     updateTurnNumber = ():boolean =>{

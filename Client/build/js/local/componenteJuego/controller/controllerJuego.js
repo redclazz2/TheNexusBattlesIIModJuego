@@ -5,6 +5,7 @@ export default class controllerJuego {
         this.playerHasPermission = false;
         this.local_session_id = "";
         this.local_current_turn = 0;
+        this.local_action_timer = 20;
         this.init = (number_of_players) => {
             this.view.viewInit(this.checkPermission, this.turn_action_pass);
             this.view.hideExtraCards(number_of_players);
@@ -51,6 +52,8 @@ export default class controllerJuego {
         this.registerCurrentTurnChange = (newTurnData) => {
             this.local_current_turn = newTurnData;
             this.handleTurnChange();
+            this.removeTimer();
+            this.countdown();
         };
         this.checkPermission = () => {
             return this.playerHasPermission;
@@ -63,6 +66,24 @@ export default class controllerJuego {
         */
         this.turn_action_pass = () => {
             this.local_room.send(1);
+        };
+        this.countdown = () => {
+            let timeleft = 60;
+            this.intervID = setInterval(() => {
+                if (timeleft > -1)
+                    timeleft--;
+                if (timeleft == 0) {
+                    if (this.checkPermission()) {
+                        this.turn_action_pass();
+                    }
+                }
+                else {
+                    this.view.viewUpdateActionTimer(timeleft);
+                }
+            }, 1000);
+        };
+        this.removeTimer = () => {
+            clearInterval(this.intervID);
         };
     }
 }

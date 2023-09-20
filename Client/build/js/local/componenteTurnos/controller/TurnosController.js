@@ -15,6 +15,6 @@ export default class TurnosController {
     }
     init() {
         this.vista.init();
-        setTimeout(() => this.vista.drawTurnData(this.turno_actual), 3000);
+        this.vista.drawTurnData(this.turno_actual);
     }
 }

@@ -25,6 +25,18 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
+#tiempo-juego{
+  width: 100%;
+  position:absolute;
+  top: 100%;
+  left: 15%;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Irish Grover';
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 1251px) {
     .componente-turnos p {

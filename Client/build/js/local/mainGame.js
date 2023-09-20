@@ -178,4 +178,8 @@ const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
     juego_controller.handleTurnChange();
     turnos_controller.init();
     mazo_controller.init();
+    if (juego_controller.checkPermission()) {
+        juego_controller.removeTimer();
+        juego_controller.countdown();
+    }
 });
