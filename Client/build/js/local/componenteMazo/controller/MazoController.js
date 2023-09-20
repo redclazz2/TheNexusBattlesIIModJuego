@@ -6,6 +6,5 @@ export default class MazoController {
             this.view.init();
             this.view.cardNumber(this.model.cardCount);
         };
-        console.log('MazoController');
     }
 }

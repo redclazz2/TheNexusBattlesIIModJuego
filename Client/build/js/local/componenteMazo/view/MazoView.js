@@ -16,6 +16,5 @@ export default class MazoView {
             if (mynumber != null)
                 mynumber.innerHTML = "Cartas restantes: " + getCartasNumber().toString();
         };
-        console.log('MazoView');
     }
 }

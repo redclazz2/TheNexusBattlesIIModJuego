@@ -12,7 +12,6 @@ export default class MazoModel {
         this.cardCount = () => {
             return this.mazo.length;
         };
-        console.log('MazoModel');
         this.mazo = [];
     }
 }

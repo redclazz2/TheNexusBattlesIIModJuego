@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    text-align: center;
+    background-image: url('../img/fondo-madera.jpg');
+}
+
+.tituloimagen{
+    width: 500px;
+}
+.container-inventory {
+    max-width: 1000px; 
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 255, 255);
+    background-image: url('../img/fondo-papel-grunge.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 15px; 
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;  
+}
+
+.card {
+    flex-basis: calc(25% - 10px); 
+    margin-bottom: 20px;
+    padding: 0; 
+    border: 10px solid transparent; 
+    border-radius: 5px;
+    position: relative; 
+    background-color: none;
+    border-color: none; 
+}
+
+
+.card button {
+    background-color: #4f220f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: 17px;; 
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    margin-left: 20px; 
+
+}
+
+
+
+.card-structure {
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Agrega esta clase para las cartas seleccionadas */
+.seleccionada {
+    background-color: green;
+}

@@ -8,132 +8,21 @@
 <link rel="stylesheet" href="../css/popup.css">
 <link rel="stylesheet" href="../css/componenteTurnos/local/componente-turnos.css">
 <link href="../css/componenteMazo/mazo.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/InventarioDeCartas.css">
+<link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+<link href="../css/EstiloCarta.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
 <title>Contienda: The Nexus Battles 2</title>
 </head>
-<!--
-<script>// este es el actual-------------------------------------------------------------------------------------------------------------------
-  let userName = null;
-  let userCredits = null;
-  let contadorJoin = 0;
-
-  // Función para obtener el perfil del usuario
-  function obtenerPerfil() {
-      fetch('http://20.25.36.114:8004/api/perfil/monoconchudo')
-          .then(response => response.json())
-          .then(data => {
-              userName = data.user;
-              userCredits = data.credits;
-              verificarCreditos();
-          })
-          .catch(error => {
-              console.error('Error al obtener el perfil:', error);
-          });
-  }
-
-  // Función para verificar los créditos y tomar acción
-  function verificarCreditos() {
-      // Recupera el valor de la cookie 'creditosValor'
-      function getCookieValue(cookieName) {
-          const name = cookieName + '=';
-          const decodedCookie = decodeURIComponent(document.cookie);
-          const cookieArray = decodedCookie.split(';');
-
-          for (let i = 0; i < cookieArray.length; i++) {
-              let cookie = cookieArray[i].trim();
-              if (cookie.indexOf(name) === 0) {
-                  // Convierte el valor de la cookie a número
-                  return parseInt(cookie.substring(name.length, cookie.length));
-              }
-          }
-          return null;
-      }
-
-      // Recupera el valor de 'creditosValor' desde la cookie
-      const creditosValor = getCookieValue('creditosValor');
-
-      if (userCredits < creditosValor) {
-          // Si userCredits es menor que creditosValor, muestra el popup de créditos
-          mostrarPopupCreditos();
-      } else {
-          // Si userCredits es igual o mayor que creditosValor, permite poner el nombre en el label
-          if (contadorJoin === 1) {
-              const labelJugador1 = document.getElementById('labelJugador1');
-              labelJugador1.textContent = userName;
-          } else if (contadorJoin === 2) {
-              const labelJugador2 = document.getElementById('labelJugador2');
-              labelJugador2.textContent = userName;
-          } else if (contadorJoin === 3) {
-              const labelJugador3 = document.getElementById('labelJugador3');
-              labelJugador3.textContent = userName;
-          }
-      }
-  }
-
-  // Manejar el evento "join" en el servidor
-  io.on('connection', socket => {
-      // Incrementa el contador de "join"
-      contadorJoin++;
-      // Obtén el perfil del usuario
-      obtenerPerfil();
-  });
-
-  server.listen(3000, () => {
-      console.log('Servidor escuchando en el puerto 3000');
-  });
-
-  // Función para mostrar el popup de créditos
-  function mostrarPopupCreditos() {
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("popupCreditos").style.display = "block";
-  }
-
-  // Función para cerrar el cuadro emergente
-  function cerrarPopupCreditos() {
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("popupCreditos").style.display = "none";
-  }
-
-</script>
-
-<script>
-  function recibirOrdenDelServidor(orden) {
-    if (orden === 'Jugadores listos') {
-      // Cambia el texto en la vista de sala de espera
-      const textoEsperar = document.getElementById('textoEsperar');
-      textoEsperar.textContent = 'Jugadores listos';
-    }
-  }
-</script>
--->
 <body class="body">
+
+  <div id="ElementoInventario"></div>
   <div id="elementoPrincipal"></div>
   <div id="turnos-content"></div>
   <div id="mazo"></div>
+  
   <script src="../js/local/mainGame.js" type="module"></script>
   <script src="../js/Vendors/colyseus.js"></script>
-  <!--
-  <script>
-    // script para el cuadro emergente a falta de cartas
-    function mostrarPopup() {
-      document.getElementById("overlay").style.display = "block";
-      document.getElementById("popup").style.display = "block";
-    }
-
-    // Función para cerrar el cuadro emergente
-    function cerrarPopup() {
-      document.getElementById("overlay").style.display = "none";
-      document.getElementById("popup").style.display = "none";
-    }
-
-    // Agregar un evento al botón "Iniciar Partida" para mostrar el cuadro emergente
-    document.getElementById("---crearSalaBoton").addEventListener("click", mostrarPopup);//función inhabilitada tempotalmente
-
-    // Agregar un evento al botón "Cerrar" en el cuadro emergente para cerrarlo
-    document.getElementById("cerrarPopup").addEventListener("click", cerrarPopup);
-    </script>
-    <script src="../js/local/salaEspera.js"></script>
-  -->
 </body>
 </html>

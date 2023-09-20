@@ -1,7 +1,6 @@
 import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
 import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
-//import * as Colyseus from "../build/js/Vendors/colyseus.js";
 import controllerJuego from "./componenteJuego/controller/controllerJuego.js";
 import modelJuego from "./componenteJuego/model/modelJuego.js";
 import viewJuego from "./componenteJuego/view/viewJuego.js";
@@ -11,6 +10,9 @@ import MazoController from "./componenteMazo/controller/MazoController.js";
 import MazoModel from "./componenteMazo/model/MazoModel.js";
 import MazoView from "./componenteMazo/view/MazoView.js";
 import CartaHeroe from "./cartas/CartaHeroe.js";
+import inventarioModel from "./inventarioCartas/model.js";
+import inventarioVista from './inventarioCartas/view.js'
+import InventarioController from "./inventarioCartas/controller.js";
 
 //#region Funciones Generales de la Vista
 function show_modal(code:string){
@@ -57,7 +59,6 @@ function getCookie(cname:string) {
     }
     return "";
 }
-
 //#endregion
 
 //#region Definición de Controladores
@@ -65,6 +66,7 @@ const sala_espera_controller = new controladorSalaEspera(new modelSalaEspera() ,
 const juego_controller = new controllerJuego(new modelJuego(),new viewJuego());
 const turnos_controller = new TurnosController(new TurnosView());
 const mazo_controller =  new MazoController(new MazoModel(),new MazoView());
+const inventario_controller = new InventarioController(new inventarioModel(),new inventarioVista());
 //#endregion
 
 let client = new  Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'),
@@ -105,47 +107,43 @@ const HandleJoinAction = (room:any):void =>{
     juego_controller.registerLocalSessionID(room.sessionId);
     juego_controller.registerLocalRoom(room);
 
-    console.log(room.sessionId, "joined", room.name);
-    sala_espera_controller.init(StartGameView);
+    //console.log(room.sessionId, "joined", room.name);
+    sala_espera_controller.init(StartInventario);
 
     //#region Room State Listeners
-    room.state.listen("currentTurn",(currentValue:any,previousValue:any) =>{
-        console.log(`currentTurn is now ${currentValue}`);
-        console.log(`previous value was: ${previousValue}`);
+    room.state.listen("currentTurn",() =>{
+        //console.log(`currentTurn is now ${currentValue}`);
+        //console.log(`previous value was: ${previousValue}`);
         turnos_controller.updateTurnNumber();
     });
 
-    room.state.listen("expectedUsers",(currentValue:any,previousValue:any) =>{
-        console.log(`expectedUsers is now ${currentValue}`);
-        console.log(`previous value was: ${previousValue}`);
+    room.state.listen("expectedUsers",(currentValue:any) =>{
         sala_espera_controller.setExpectedUsers(currentValue.toString());
     });
 
-    room.state.listen("localTurnStatus",(currentValue:any,previousValue:any) =>{
-        console.log(`localTurnStatus is now ${currentValue}`);
-        console.log(`previous value was: ${previousValue}`);
+    room.state.listen("localTurnStatus",(currentValue:any) =>{
         juego_controller.registerCurrentTurnChange(currentValue);
     });
 
     room.state.turnos.onAdd((client:any, key:any) => {
-        console.log(client, "turn has been added at", key);
+        //console.log(client, "turn has been added at", key);
         juego_controller.addCurrentTurnArray(client);
-        console.log(juego_controller.getTurnRegister());
+        //console.log(juego_controller.getTurnRegister());
     })
 
     room.state.turnos.onRemove((client:any, key:any) => {
-        console.log(client, "turn has been removed at", key);
+       // console.log(client, "turn has been removed at", key);
         juego_controller.removeCurrentTurnArray(client);
-        console.log(juego_controller.getTurnRegister());
+        //console.log(juego_controller.getTurnRegister());
     });
 
     room.state.clients.onAdd((client:any, key:any) => {
-        console.log(client, "has been added at", key);
+        //console.log(client, "has been added at", key);
         sala_espera_controller.addPlayer(key,client);
     })
 
     room.state.clients.onRemove((client:any, key:any) => {
-        console.log(client, "has been removed at", key);
+        //console.log(client, "has been removed at", key);
         sala_espera_controller.removePlayer(key);
     });
     //#endregion
@@ -154,6 +152,10 @@ const HandleJoinAction = (room:any):void =>{
         console.log(message);
         juego_controller.updateCardValue(message.sender,message.card);
     });
+}
+
+const StartInventario = ():void => {
+    inventario_controller.init();
 }
 
 const StartGameView = async():Promise<void> => {
