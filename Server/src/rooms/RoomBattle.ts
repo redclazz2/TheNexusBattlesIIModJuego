@@ -48,7 +48,7 @@ export class room_battle extends Room<RoomBattleState> {
 
   handleTurnTermination = ():void =>{
     this.state.localTurnStatus++;
-      if(this.state.localTurnStatus > this.state.turnos.length){ 
+      if(this.state.localTurnStatus > Number(this.state.expectedUsers)){ 
         this.state.currentTurn++;
         this.state.localTurnStatus = 0;
       }
