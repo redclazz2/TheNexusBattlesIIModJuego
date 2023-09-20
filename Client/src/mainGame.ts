@@ -165,6 +165,7 @@ const StartGameView = async():Promise<void> => {
         
     await my_hero_card_api.then(response => response.json()).then(
         data=>{
+            my_hero_card.vidaActual = data.Vida,
             my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
             my_hero_card.vida = data.Vida,
             my_hero_card.defensa = data.Defensa,

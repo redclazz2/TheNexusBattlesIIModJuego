@@ -41,7 +41,7 @@ export default class viewJuego {
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
-                <span class="v49_26">15</span>
+                <span class="v49_26" id="vida_actual_carta_izq"></span>
                 <div class="v49_27"></div>
             </div>
         </div>
@@ -68,7 +68,7 @@ export default class viewJuego {
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
-                <span class="v49_26">15</span>
+                <span class="v49_26" id="vida_actual_carta_sup"></span>
                 <div class="v49_27"></div>
             </div>
 
@@ -97,7 +97,7 @@ export default class viewJuego {
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
-                <span class="v49_26">15</span>
+                <span class="v49_26" id="vida_actual_carta_inf"></span>
                 <div class="v49_27"></div>
             </div>
         </div>
@@ -123,7 +123,7 @@ export default class viewJuego {
                 <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
-                <span class="v49_26">15</span>
+                <span class="v49_26" id="vida_actual_carta_der"></span>
                 <div class="v49_27"></div>
             </div>
         </div>
@@ -165,6 +165,7 @@ export default class viewJuego {
             const clase = document.getElementById('clase_' + completeValue);
             const poder = document.getElementById('poder_' + completeValue);
             const vida = document.getElementById('vida_' + completeValue);
+            const vidaActual = document.getElementById('vida_actual_' + completeValue);
             const defensa = document.getElementById('defensa_' + completeValue);
             const ataqueDado = document.getElementById('ataque_dado_' + completeValue);
             const daño = document.getElementById('daño_' + completeValue);
@@ -175,12 +176,19 @@ export default class viewJuego {
                 poder.innerText = `Poder: ${card.poder}`;
             if (vida != null)
                 vida.innerText = `Vida: ${card.vida}`;
+            if (vidaActual != null)
+                vidaActual.innerText = card.vidaActual.toString();
             if (defensa != null)
                 defensa.innerText = `Defensa: ${card.defensa}`;
             if (ataqueDado != null)
                 ataqueDado.innerText = `Ataque Dado: ${card.ataque_maximo}`;
             if (daño != null)
                 daño.innerText = `Daño: ${card.daño_maximo}`;
+            //Actualizar vida de la carta
+            const dynamicHealthBar = htmlElement.querySelector(".v49_25");
+            dynamicHealthBar.style.width = String((Number(card.vidaActual) * 155) / Number(card.vida)) + "px";
+            const healthRate = ((Number(card.vidaActual) * 100) / Number(card.vida)) / 100;
+            dynamicHealthBar.style.background = healthRate > 0.6 ? "rgba(25,66,10,1)" : healthRate >= 0.4 ? "rgba(255, 204, 102, 0.5)" : "rgba(255, 0, 0, 0.5)";
         };
     }
 }
