@@ -153,7 +153,8 @@ const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
     const my_hero_card_api = fetch('https://cards.thenexusbattles2.cloud/api/heroes/65035fb3cd1283c97b876f9d');
     let my_hero_card = {};
     yield my_hero_card_api.then(response => response.json()).then(data => {
-        my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
+        my_hero_card.vidaActual = data.Vida,
+            my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
             my_hero_card.vida = data.Vida,
             my_hero_card.defensa = data.Defensa,
             my_hero_card.ataque_base = data.AtaqueBase,

@@ -20,7 +20,6 @@ export default class modelJuego{
     public updateCard = (key:string,card:CartaHeroe):[HTMLDivElement,CartaHeroe] =>{
         const htmlElement = this.clientMap.get(key);
         this.clientMap.set(key,[htmlElement[0],card]);
-
         return this.clientMap.get(key);
     }
 
