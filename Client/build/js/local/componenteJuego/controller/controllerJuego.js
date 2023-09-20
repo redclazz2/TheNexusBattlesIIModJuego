@@ -6,7 +6,7 @@ export default class controllerJuego {
         this.local_session_id = "";
         this.local_current_turn = 0;
         this.init = (number_of_players) => {
-            this.view.viewInit(this.checkPermission);
+            this.view.viewInit(this.checkPermission, this.turn_action_pass);
             this.view.hideExtraCards(number_of_players);
         };
         this.registerLocalSessionID = (session) => {
@@ -54,6 +54,15 @@ export default class controllerJuego {
         };
         this.checkPermission = () => {
             return this.playerHasPermission;
+        };
+        //#region Acciones en los turnos
+        /*
+            Tabla de Acciones:
+            0 - Sync Inicial de las Cartas
+            1 - Pasar de Turno
+        */
+        this.turn_action_pass = () => {
+            this.local_room.send(1);
         };
     }
 }

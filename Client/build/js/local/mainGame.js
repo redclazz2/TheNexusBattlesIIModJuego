@@ -142,7 +142,7 @@ const HandleJoinAction = (room) => {
         sala_espera_controller.removePlayer(key);
     });
     //#endregion
-    room.onMessage("CardSync", (message) => {
+    room.onMessage(0, (message) => {
         console.log(message);
         juego_controller.updateCardValue(message.sender, message.card);
     });
@@ -172,8 +172,9 @@ const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
             player_pos++;
         }
     }
-    juego_controller.getLocalRoom().send("CardSync", { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
+    juego_controller.getLocalRoom().send(0, { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
     juego_controller.updateCardValue(juego_controller.getLocalSessionID(), my_hero_card);
+    juego_controller.handleTurnChange();
     turnos_controller.init();
     mazo_controller.init();
 });

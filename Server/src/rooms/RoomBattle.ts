@@ -16,16 +16,13 @@ export class room_battle extends Room<RoomBattleState> {
     this.state.expectedUsers = this.maxClients.toString();
     this.state.clients;
 
-    this.onMessage("CardSync", (client, message) => {
-        this.broadcast("CardSync", message, { except: client });
+    this.onMessage(0, (client, message) => {
+        this.broadcast(0, message, { except: client });
     });
 
-    this.onMessage("ataque", (client, message) => {
-    
-    });
-
-    this.onMessage("asdnad", (client, message) => {
-    
+    //Skip Turn
+    this.onMessage(1,()=>{
+      this.handleTurnTermination();
     });
   }
 
@@ -47,5 +44,9 @@ export class room_battle extends Room<RoomBattleState> {
 
   onDispose() {
     console.log("room", this.roomId, "disposing...");
+  }
+
+  handleTurnTermination = ():void =>{
+    this.state.localTurnStatus++;
   }
 }

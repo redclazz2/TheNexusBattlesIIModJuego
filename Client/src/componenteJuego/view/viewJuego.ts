@@ -3,6 +3,7 @@ import CartaHeroe from "../../cartas/CartaHeroe";
 export default class viewJuego{
 
     permissionControllerFunction:()=>boolean = function(){return true};
+    passTurnFunction:()=>void=function(){};
 
     myHTMLCards:{[number:string]:string} = {
         0:"carta_inf", //Carta local
@@ -12,13 +13,15 @@ export default class viewJuego{
     }
     constructor(){}
 
-    viewInit = (permissionFunction:()=>boolean):void =>{
+    viewInit = (permissionFunction:()=>boolean,
+                      passFunction:()=>void):void =>{
         this.permissionControllerFunction = permissionFunction;
+        this.passTurnFunction = passFunction;
+        
         const contenedorVista = document.querySelector('#elementoPrincipal');
         const body = document.body;
 
         if (contenedorVista) {
-            //contenedorVista.classList.add('none');
             contenedorVista.innerHTML = "";
             body.classList.remove('body');
         }
@@ -142,6 +145,7 @@ export default class viewJuego{
         const pasarTurno = document.getElementById("controlTurnoPasar");
                   pasarTurno?.addEventListener('click',()=>{
                     if(this.permissionControllerFunction()){
+                        this.passTurnFunction();
                         console.log("Se ha presionado el boton para saltar de turno");
                     }else{
                         console.log("No es tu turno!");

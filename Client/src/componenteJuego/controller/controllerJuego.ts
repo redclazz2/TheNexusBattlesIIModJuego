@@ -12,7 +12,7 @@ export default class controllerJuego{
     constructor(private readonly model:modelJuego,private readonly view:viewJuego){}
 
     init = (number_of_players:number):void  => {
-        this.view.viewInit(this.checkPermission);
+        this.view.viewInit(this.checkPermission,this.turn_action_pass);
         this.view.hideExtraCards(number_of_players);
     }
 
@@ -73,4 +73,17 @@ export default class controllerJuego{
     checkPermission = ():boolean => {
         return this.playerHasPermission;
     }
+
+    //#region Acciones en los turnos
+    /* 
+        Tabla de Acciones:
+        0 - Sync Inicial de las Cartas
+        1 - Pasar de Turno
+    */
+
+    turn_action_pass=():void =>{
+        this.local_room.send(1);
+    }
+
+    //#endregion
 }
