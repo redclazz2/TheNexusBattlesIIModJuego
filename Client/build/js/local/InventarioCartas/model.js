@@ -276,78 +276,78 @@ export default class InventarioModel {
     // En InventarioModel
     getUserInventory() {
         return __awaiter(this, void 0, void 0, function* () {
-            const _dataSource = "../cartas.json"; // Cambiar esta línea por la API
+            const _dataSource = "https://store.thenexusbattles2.cloud/webserver/ver-inventario"; // Cambiar esta línea por la API
             try {
-                //const userInventory = await fetch(_dataSource);
-                //const cartasJSON = await userInventory.json();
-                const cartasJSON = [
-                    {
-                        "id": 2,
-                        "user": "Administrador",
-                        "id_carta": "64e582f509a1f203598f17ed",
-                        "type": "Arma"
-                    },
-                    {
-                        "id": 3,
-                        "user": "Administrador",
-                        "id_carta": "64e582f509a1f203598f17ed",
-                        "type": "Arma"
-                    },
-                    {
-                        "id": 1,
-                        "user": "Administrador",
-                        "id_carta": "64e5830109a1f203598f17f9",
-                        "type": "Armadura"
-                    },
-                    {
-                        "id": 4,
-                        "user": "Administrador",
-                        "id_carta": "64e5830a09a1f203598f17ff",
-                        "type": "Item"
-                    },
-                    {
-                        "id": 6,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b28",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 15,
-                        "user": "Administrador",
-                        "id_carta": "65035fefcd1283c97b876fa1",
-                        "type": "Heroe"
-                    }
-                ];
+                const userInventory = yield fetch(_dataSource);
+                const cartasJSON = yield userInventory.json();
+                /*const cartasJSON = [
+                  {
+                    "id": 2,
+                    "user": "Administrador",
+                    "id_carta": "64e582f509a1f203598f17ed",
+                    "type": "Arma"
+                  },
+                  {
+                    "id": 3,
+                    "user": "Administrador",
+                    "id_carta": "64e582f509a1f203598f17ed",
+                    "type": "Arma"
+                  },
+                  {
+                    "id": 1,
+                    "user": "Administrador",
+                    "id_carta": "64e5830109a1f203598f17f9",
+                    "type": "Armadura"
+                  },
+                  {
+                    "id": 4,
+                    "user": "Administrador",
+                    "id_carta": "64e5830a09a1f203598f17ff",
+                    "type": "Item"
+                  },
+                  {
+                    "id": 6,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b27",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 7,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b27",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 7,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b27",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 7,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b27",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 7,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b27",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 7,
+                    "user": "Administrador",
+                    "id_carta": "64eb906091c55d02fe369b28",
+                    "type": "Epica"
+                  },
+                  {
+                    "id": 15,
+                    "user": "Administrador",
+                    "id_carta": "65035fefcd1283c97b876fa1",
+                    "type": "Heroe"
+                  }
+                ]*/
                 const cartasPromises = [];
                 for (const e of cartasJSON) {
                     switch (e.type) {

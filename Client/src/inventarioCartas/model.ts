@@ -134,12 +134,26 @@ export default class InventarioModel {
 
   // En InventarioModel
   async getUserInventory() {
-    const _dataSource = "https://store.thenexusbattles2.cloud/webserver/ver-inventario"; // Cambiar esta línea por la API
-    try {
-      const userInventory = await fetch(_dataSource);
-      const cartasJSON = await userInventory.json();
+    const accessToken = localStorage.getItem('access_token');
 
-      /*const cartasJSON = [
+    if(!accessToken){
+      console.error("No se ha encontrado el token de acceso");
+      return;
+    }
+
+    const _dataSource = "https://store.thenexusbattles2.cloud/webserver/ver-inventario"; // Cambiar esta línea por la API
+    
+    try {
+      const userInventory = await fetch(_dataSource,{
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization':`Bearer ${accessToken}`
+        }
+      });
+
+     // const cartasJSON = await userInventory.json();
+
+      const cartasJSON = [
         {
           "id": 2,
           "user": "Administrador",
@@ -206,7 +220,7 @@ export default class InventarioModel {
           "id_carta": "65035fefcd1283c97b876fa1",
           "type": "Heroe"
         }
-      ]*/
+      ]
 
       const cartasPromises = [];
 
