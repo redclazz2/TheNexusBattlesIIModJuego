@@ -24,8 +24,9 @@ export default class InterpreteHandler {
         const ataque:number = cartaLocal.ataque_base + Math.floor(Math.random() * (cartaLocal.ataque_maximo - 1 + 1) + 1);
         if (ataque > cartaObjetivo.defensa) {
             const daño = Math.floor(Math.random() * (cartaLocal.daño_maximo - 1 + 1) + 1) + cartaLocal.modificador_daño_total;
-            cartaObjetivo.vida -=daño;
+            cartaObjetivo.vidaActual -=daño;
             controladorJuego.updateCardValue(idObjetivo,cartaObjetivo)
+            controladorJuego.match_sync_set_card(idObjetivo,cartaObjetivo)
         }else{
             //Display en la interfaz un modal de que el daño no fué efectivo
         }
