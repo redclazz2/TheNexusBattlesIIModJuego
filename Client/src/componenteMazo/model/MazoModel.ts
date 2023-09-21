@@ -2,7 +2,6 @@ export default class MazoModel {
     mazo: string[];
 
     constructor() {
-        console.log('MazoModel');
         this.mazo = [];
     }
 

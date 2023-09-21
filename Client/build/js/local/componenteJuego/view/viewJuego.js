@@ -9,10 +9,17 @@ export default class viewJuego {
             3: "carta_der" //En 3
         };
         this.viewInit = (permissionFunction, passFunction) => {
+            var _a, _b;
             this.permissionControllerFunction = permissionFunction;
             this.passTurnFunction = passFunction;
-            const contenedorVista = document.querySelector('#elementoPrincipal');
+            const contenedorVista = document.querySelector('#ElementoInventario');
             const body = document.body;
+            const inventorySheet = document.getElementById('InventarioCartasCSS');
+            inventorySheet.disabled = true;
+            (_a = inventorySheet.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(inventorySheet);
+            const cardInventorySheet = document.getElementById('CartaInventarioCSS');
+            cardInventorySheet.disabled = true;
+            (_b = cardInventorySheet.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(cardInventorySheet);
             if (contenedorVista) {
                 contenedorVista.innerHTML = "";
                 body.classList.remove('body');
@@ -171,7 +178,7 @@ export default class viewJuego {
             const daño = document.getElementById('daño_' + completeValue);
             // Asignar las proiedades correspondientes a los elementos con texto adicional
             if (clase != null)
-                clase.innerText = ` ${card.tipo_heroe}`;
+                clase.innerText = ` ${card.nombre}`;
             if (poder != null)
                 poder.innerText = `Poder: ${card.poder}`;
             if (vida != null)
@@ -181,7 +188,7 @@ export default class viewJuego {
             if (defensa != null)
                 defensa.innerText = `Defensa: ${card.defensa}`;
             if (ataqueDado != null)
-                ataqueDado.innerText = `Ataque Dado: ${card.ataque_maximo}`;
+                ataqueDado.innerText = `Ataque: ${card.ataque_maximo}`;
             if (daño != null)
                 daño.innerText = `Daño: ${card.daño_maximo}`;
             //Actualizar vida de la carta
