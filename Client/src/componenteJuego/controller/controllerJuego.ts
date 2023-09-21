@@ -1,6 +1,7 @@
-import CartaHeroe from "../../cartas/CartaHeroe";
-import modelJuego from "../model/modelJuego";
-import viewJuego from "../view/viewJuego";
+import CartaHeroe from "../../cartas/CartaHeroe.js";
+import InterpreteHandler from "../../utils/interpreteEfectos/interpreteMain.js";
+import modelJuego from "../model/modelJuego.js";
+import viewJuego from "../view/viewJuego.js";
 
 export default class controllerJuego{
     
@@ -13,8 +14,27 @@ export default class controllerJuego{
     constructor(private readonly model:modelJuego,private readonly view:viewJuego){}
 
     init = (number_of_players:number):void  => {
-        this.view.viewInit(this.checkPermission,this.turn_action_pass);
+        this.view.viewInit(this.checkPermission,this.turn_action_pass,this.handlerAttack);
         this.view.hideExtraCards(number_of_players);
+    }
+
+    handlerAttack = (ObjectiveCard:string):void => {
+        //Busca el ID en el mapa de clientes
+        //Con el mapa tenemos el session ID
+        //Con el mapa tmb tenemos el local
+
+        let ClientMap = this.model.getMap(),
+             ObjectiveSessionID = "";
+
+        for(let [key,val] of ClientMap){
+            if(val[0].id == ObjectiveCard){
+                ObjectiveSessionID = key;
+                break;
+            }
+        }
+
+        InterpreteHandler.atackObjective(ClientMap.get(this.local_session_id)[1],ClientMap.get(ObjectiveSessionID)[1],
+        ObjectiveSessionID,this);
     }
 
     registerLocalSessionID = (session:string) => {

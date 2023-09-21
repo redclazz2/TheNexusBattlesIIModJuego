@@ -1,4 +1,4 @@
-import CartaHeroe from "../../cartas/CartaHeroe";
+import CartaHeroe from "../../cartas/CartaHeroe.js";
 
 export default class viewJuego{
 
@@ -14,7 +14,9 @@ export default class viewJuego{
     constructor(){}
 
     viewInit = (permissionFunction:()=>boolean,
-                      passFunction:()=>void):void =>{
+                      passFunction:()=>void,
+                      handlerAttack:(a:string) => void) =>
+        {
         this.permissionControllerFunction = permissionFunction;
         this.passTurnFunction = passFunction;
         
@@ -54,14 +56,13 @@ export default class viewJuego{
                 <div class="v49_15"></div>
                 <span class="v49_16"></span>
                 <div class="v49_17"></div>
-                <span class="v49_18">Atacar</span>
+                <span class="v49_18" id="btn_ataque_carta_izq">Atacar</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_izq"></span>
                 <div class="v49_27"></div>
             </div>
         </div>
-
 
         <div class="columna c2">
             <div class="v49_153" id="carta_sup">
@@ -80,7 +81,7 @@ export default class viewJuego{
                 <div class="v49_15"></div>
                 <span class="v49_16"></span>
                 <div class="v49_17"></div>
-                <span class="v49_18">Atacar</span>
+                <span class="v49_18" id="btn_ataque_carta_sup">Atacar</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_sup"></span>
@@ -132,8 +133,8 @@ export default class viewJuego{
                 <span class="v49_14" id="daño_carta_der"></span>
                 <div class="v49_15"></div>
                 <span class="v49_16"></span>
-                <div class="v49_17"></div>
-                <span class="v49_18">Atacar</span>
+                <div class="v49_17"  ></div>
+                <span class="v49_18" id="btn_ataque_carta_der">Atacar</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_der"></span>
@@ -155,6 +156,22 @@ export default class viewJuego{
                         console.log("No es tu turno!");
                     }
                   });
+
+        const btnAtaqueDer = document.getElementById('btn_ataque_carta_der');
+                  btnAtaqueDer?.addEventListener('click',()=>{
+                    if(this.permissionControllerFunction()) handlerAttack('carta_izq');
+                  });
+        const btnAtaqueSup = document.getElementById('btn_ataque_carta_sup');
+                  btnAtaqueSup?.addEventListener('click',()=>{
+                    if(this.permissionControllerFunction()) handlerAttack('carta_sup');
+                  });
+        const btnAtaqueIzq = document.getElementById('btn_ataque_carta_izq');
+                  btnAtaqueIzq?.addEventListener('click',()=>{
+                    if(this.permissionControllerFunction()) handlerAttack('carta_izq');
+                  });
+        //CONST BTN ATACAR
+        //LISTENER CLICK
+        //IF(THIS.PERMISSIONCONTROLLERFUNCTION()){//FUNCION Q UD IMPORTE DEL CONTROLAR PARA ATACAR}
     }
 
     hideExtraCards = (number_of_players:number):void => {

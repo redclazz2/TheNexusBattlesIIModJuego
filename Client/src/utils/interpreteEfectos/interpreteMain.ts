@@ -1,7 +1,7 @@
-import CartaConsumible from "../../cartas/CartaConsumible";
-import CartaHeroe from "../../cartas/CartaHeroe";
-import controllerJuego from "../../componenteJuego/controller/controllerJuego";
-import EfectoAplicado from "../../efectos/efectoAplicado";
+import CartaConsumible from "../../cartas/CartaConsumible.js";
+import CartaHeroe from "../../cartas/CartaHeroe.js";
+import controllerJuego from "../../componenteJuego/controller/controllerJuego.js";
+import EfectoAplicado from "../../efectos/efectoAplicado.js";
 
 ///0. ataque inputs: [CartaLocal,CartaObjetivo]
 ///0. Aplica el daño
@@ -20,14 +20,20 @@ export default class InterpreteHandler {
     listaEfectos:EfectoAplicado[] = [];
 
     //[Función ataque]
-    atackObjective = (cartaLocal:CartaHeroe,cartaObjetivo:CartaHeroe,idObjetivo:string,controladorJuego:controllerJuego):void=>{
+    static atackObjective = (cartaLocal:CartaHeroe,cartaObjetivo:CartaHeroe,idObjetivo:string,controladorJuego:controllerJuego):void=>{
         const ataque:number = cartaLocal.ataque_base + Math.floor(Math.random() * (cartaLocal.ataque_maximo - 1 + 1) + 1);
+        console.log("LOGRE ATACAR? ");
         if (ataque > cartaObjetivo.defensa) {
+            console.log("SI ");
             const daño = Math.floor(Math.random() * (cartaLocal.daño_maximo - 1 + 1) + 1) + cartaLocal.modificador_daño_total;
+            console.log(daño);
             cartaObjetivo.vidaActual -=daño;
+            
             controladorJuego.updateCardValue(idObjetivo,cartaObjetivo)
             controladorJuego.match_sync_set_card(idObjetivo,cartaObjetivo)
+            controladorJuego.turn_action_pass();
         }else{
+            console.log("NO");
             //Display en la interfaz un modal de que el daño no fué efectivo
         }
     }

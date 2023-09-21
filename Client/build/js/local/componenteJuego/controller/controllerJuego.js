@@ -1,3 +1,4 @@
+import InterpreteHandler from "../../utils/interpreteEfectos/interpreteMain.js";
 export default class controllerJuego {
     constructor(model, view) {
         this.model = model;
@@ -7,8 +8,21 @@ export default class controllerJuego {
         this.local_current_turn = 0;
         this.local_action_timer = 20;
         this.init = (number_of_players) => {
-            this.view.viewInit(this.checkPermission, this.turn_action_pass);
+            this.view.viewInit(this.checkPermission, this.turn_action_pass, this.handlerAttack);
             this.view.hideExtraCards(number_of_players);
+        };
+        this.handlerAttack = (ObjectiveCard) => {
+            //Busca el ID en el mapa de clientes
+            //Con el mapa tenemos el session ID
+            //Con el mapa tmb tenemos el local
+            let ClientMap = this.model.getMap(), ObjectiveSessionID = "";
+            for (let [key, val] of ClientMap) {
+                if (val[0].id == ObjectiveCard) {
+                    ObjectiveSessionID = key;
+                    break;
+                }
+            }
+            InterpreteHandler.atackObjective(ClientMap.get(this.local_session_id)[1], ClientMap.get(ObjectiveSessionID)[1], ObjectiveSessionID, this);
         };
         this.registerLocalSessionID = (session) => {
             this.local_session_id = session;
@@ -38,16 +52,15 @@ export default class controllerJuego {
         this.getTurnRegister = () => {
             return this.model.getTurnRegister();
         };
+        //TODO: Quitar el alert y poner un modal bonito
         this.handleTurnChange = () => {
             const turnData = this.model.getTurnRegister();
             if (turnData[this.local_current_turn] == this.local_session_id) {
                 this.playerHasPermission = true;
                 alert("Te toca!");
-                console.log("Turno Local");
             }
             else {
                 this.playerHasPermission = false;
-                console.log("Turno Enemigo");
             }
         };
         this.registerCurrentTurnChange = (newTurnData) => {
