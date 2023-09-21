@@ -63,9 +63,13 @@ export default class controllerJuego {
             Tabla de Acciones:
             0 - Sync Inicial de las Cartas
             1 - Pasar de Turno
+            2 - Indicar que el cliente está listo
         */
         this.turn_action_pass = () => {
             this.local_room.send(1);
+        };
+        this.match_status_ready = () => {
+            this.local_room.send(2);
         };
         this.countdown = () => {
             let timeleft = 60;
