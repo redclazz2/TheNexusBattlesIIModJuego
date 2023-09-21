@@ -178,7 +178,7 @@ export default class viewJuego {
             const daño = document.getElementById('daño_' + completeValue);
             // Asignar las proiedades correspondientes a los elementos con texto adicional
             if (clase != null)
-                clase.innerText = ` ${card.tipo_heroe}`;
+                clase.innerText = ` ${card.nombre}`;
             if (poder != null)
                 poder.innerText = `Poder: ${card.poder}`;
             if (vida != null)
@@ -188,7 +188,7 @@ export default class viewJuego {
             if (defensa != null)
                 defensa.innerText = `Defensa: ${card.defensa}`;
             if (ataqueDado != null)
-                ataqueDado.innerText = `Ataque Dado: ${card.ataque_maximo}`;
+                ataqueDado.innerText = `Ataque: ${card.ataque_maximo}`;
             if (daño != null)
                 daño.innerText = `Daño: ${card.daño_maximo}`;
             //Actualizar vida de la carta

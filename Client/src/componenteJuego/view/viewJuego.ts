@@ -25,7 +25,6 @@ export default class viewJuego{
         inventorySheet.disabled = true;
         inventorySheet.parentNode?.removeChild(inventorySheet);
 
-
         const cardInventorySheet = document.getElementById('CartaInventarioCSS') as HTMLLinkElement;
         cardInventorySheet.disabled = true;
         cardInventorySheet.parentNode?.removeChild(cardInventorySheet);
@@ -191,12 +190,12 @@ export default class viewJuego{
         const ataqueDado = document.getElementById('ataque_dado_' + completeValue);
         const daño = document.getElementById('daño_' + completeValue);
         // Asignar las proiedades correspondientes a los elementos con texto adicional
-        if(clase != null) clase.innerText = ` ${card.tipo_heroe}`;
+        if(clase != null) clase.innerText = ` ${card.nombre}`;
         if(poder != null) poder.innerText = `Poder: ${card.poder}`;
         if(vida != null) vida.innerText = `Vida: ${card.vida}`;
         if(vidaActual !=null) vidaActual.innerText = card.vidaActual.toString();
         if(defensa != null) defensa.innerText = `Defensa: ${card.defensa}`;
-        if(ataqueDado != null) ataqueDado.innerText = `Ataque Dado: ${card.ataque_maximo}`;
+        if(ataqueDado != null) ataqueDado.innerText = `Ataque: ${card.ataque_maximo}`;
         if(daño != null) daño.innerText = `Daño: ${card.daño_maximo}`;
         //Actualizar vida de la carta
         const dynamicHealthBar:HTMLDivElement = htmlElement.querySelector(".v49_25") as HTMLDivElement
