@@ -66,6 +66,7 @@ export default class controllerJuego{
         }
     }
 
+    //Cambia el turno local y reiniciar el timer
     registerCurrentTurnChange = (newTurnData:number):void =>{
         this.local_current_turn = newTurnData;
         this.handleTurnChange();
