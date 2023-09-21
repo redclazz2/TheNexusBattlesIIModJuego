@@ -129,11 +129,10 @@ const HandleJoinAction = (room:any):void =>{
     room.state.listen("matchReady",(currentValue:any) =>{
         if(currentValue == 1){
             juego_controller.getLocalRoom().send(0,{sender:juego_controller.getLocalSessionID(),card:my_hero_card});
-            if(juego_controller.checkPermission()){
-                    juego_controller.handleTurnChange();
-                    juego_controller.removeTimer();
-                    juego_controller.countdown();
-            }
+            console.log("Iniciando Turno:");
+            
+            juego_controller.handleTurnChange();
+            juego_controller.countdown();
         }
      });
 

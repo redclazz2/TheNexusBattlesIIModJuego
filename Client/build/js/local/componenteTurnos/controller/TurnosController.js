@@ -3,6 +3,7 @@ export default class TurnosController {
         this.vista = vista;
         this.turno_actual = 0;
         this.updateTurnNumber = () => {
+            console.log("Updated Turn Count!");
             try {
                 this.turno_actual++;
                 this.vista.drawTurnData(this.turno_actual);

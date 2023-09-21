@@ -11,6 +11,7 @@ export default class TurnosController{
     }
 
     updateTurnNumber = ():boolean =>{
+        console.log("Updated Turn Count!")
         try{
             this.turno_actual ++;
             this.vista.drawTurnData(this.turno_actual);

@@ -32,6 +32,7 @@ export class room_battle extends Room<RoomBattleState> {
       this.currentMatchReadyNotices ++;
       if(this.currentMatchReadyNotices == Number(this.state.expectedUsers)){
         this.state.matchReady = 1;
+        this.state.currentTurn++;
       }
     })
   }

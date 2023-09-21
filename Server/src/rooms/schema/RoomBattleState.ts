@@ -6,7 +6,7 @@ export class Player extends Schema{
 }
 
 export class RoomBattleState extends Schema {
-  @type("number") currentTurn:number = 1;
+  @type("number") currentTurn:number = 0;
   @type("number") localTurnStatus:number = 0;
   @type("number") matchReady:number = 0;
   @type("string") expectedUsers:string = "4";
