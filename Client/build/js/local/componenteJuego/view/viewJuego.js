@@ -198,7 +198,7 @@ export default class viewJuego {
             if (poder != null)
                 poder.innerText = `Poder: ${card.poder}`;
             if (vida != null)
-                vida.innerText = `D/EFCT: ${card.daño_maximo}`; //
+                vida.innerText = `Daño Efectivo: ${card.dano_efectivo}`; //
             if (vidaActual != null)
                 vidaActual.innerText = card.vidaActual.toString();
             if (defensa != null)

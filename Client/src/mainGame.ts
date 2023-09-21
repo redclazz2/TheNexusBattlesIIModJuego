@@ -176,6 +176,7 @@ const StartGameView = (mazo:Array<any>):void => {
     //Obtiene la carta del heroe q siempre es la primera
     my_hero_card = mazo[0];
     my_hero_card.modificador_daño_total = 0;
+    my_hero_card.dano_efectivo = 0;
     mazo.splice(0,1);
     
     for(let [key,value] of sala_espera_controller.getPlayerMap().entries()){

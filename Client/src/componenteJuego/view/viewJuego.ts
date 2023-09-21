@@ -207,7 +207,7 @@ export default class viewJuego{
         if(img != null) img.src = `${card.urlImagen}`;
         if(clase != null) clase.innerText = ` ${card.nombre}`;
         if(poder != null) poder.innerText = `Poder: ${card.poder}`;
-        if(vida != null) vida.innerText = `D/EFCT: ${card.daño_maximo}`; //
+        if(vida != null) vida.innerText = `Daño Efectivo: ${card.dano_efectivo}`; //
         if(vidaActual !=null) vidaActual.innerText = card.vidaActual.toString();
         if(defensa != null) defensa.innerText = `Defensa: ${card.defensa}`;
         if(ataqueDado != null) ataqueDado.innerText = `Ataque: ${card.ataque_maximo}`;

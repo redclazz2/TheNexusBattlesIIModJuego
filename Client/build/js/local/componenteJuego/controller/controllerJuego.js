@@ -22,7 +22,7 @@ export default class controllerJuego {
                     break;
                 }
             }
-            InterpreteHandler.atackObjective(ClientMap.get(this.local_session_id)[1], ClientMap.get(ObjectiveSessionID)[1], ObjectiveSessionID, this);
+            InterpreteHandler.atackObjective(ClientMap.get(this.local_session_id)[1], ClientMap.get(ObjectiveSessionID)[1], ObjectiveSessionID, this, this.local_session_id);
         };
         this.registerLocalSessionID = (session) => {
             this.local_session_id = session;

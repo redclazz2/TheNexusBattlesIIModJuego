@@ -34,7 +34,7 @@ export default class controllerJuego{
         }
 
         InterpreteHandler.atackObjective(ClientMap.get(this.local_session_id)[1],ClientMap.get(ObjectiveSessionID)[1],
-        ObjectiveSessionID,this);
+        ObjectiveSessionID,this,this.local_session_id);
     }
 
     registerLocalSessionID = (session:string) => {

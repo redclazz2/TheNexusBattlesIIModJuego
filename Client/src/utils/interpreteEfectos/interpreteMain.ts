@@ -20,7 +20,7 @@ export default class InterpreteHandler {
     listaEfectos:EfectoAplicado[] = [];
 
     //[Función ataque]
-    static atackObjective = (cartaLocal:CartaHeroe,cartaObjetivo:CartaHeroe,idObjetivo:string,controladorJuego:controllerJuego):void=>{
+    static atackObjective = (cartaLocal:CartaHeroe,cartaObjetivo:CartaHeroe,idObjetivo:string,controladorJuego:controllerJuego,localID:string):void=>{
         const ataque:number = cartaLocal.ataque_base + Math.floor(Math.random() * (cartaLocal.ataque_maximo - 1 + 1) + 1);
         console.log("LOGRE ATACAR? ");
         if (ataque > cartaObjetivo.defensa) {
@@ -28,9 +28,16 @@ export default class InterpreteHandler {
             const daño = Math.floor(Math.random() * (cartaLocal.daño_maximo - 1 + 1) + 1) + cartaLocal.modificador_daño_total;
             console.log(daño);
             cartaObjetivo.vidaActual -=daño;
-            
-            controladorJuego.updateCardValue(idObjetivo,cartaObjetivo)
-            controladorJuego.match_sync_set_card(idObjetivo,cartaObjetivo)
+            cartaLocal.dano_efectivo = daño;
+
+            //Actualiza carta rival
+            controladorJuego.updateCardValue(idObjetivo,cartaObjetivo);
+            controladorJuego.match_sync_set_card(idObjetivo,cartaObjetivo);
+
+            //Actualiza la actual con el daño
+            controladorJuego.updateCardValue(localID,cartaLocal);
+            controladorJuego.match_sync_set_card(localID,cartaLocal);
+
             controladorJuego.turn_action_pass();
         }else{
             console.log("NO");
