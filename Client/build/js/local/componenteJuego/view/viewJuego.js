@@ -33,7 +33,7 @@ export default class viewJuego {
                 <div class="v49_4"></div>
                 <div class="v49_5"></div>
                 <div class="v49_6"></div>
-                <div class="v49_8"></div>
+                <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_izq"></div>
 
                 <span class="v49_9" id="clase_carta_izq"></span>
                 <span class="v49_10" id="poder_carta_izq"></span>
@@ -60,7 +60,7 @@ export default class viewJuego {
                 <div class="v49_4"></div>
                 <div class="v49_5"></div>
                 <div class="v49_6"></div>
-                <div class="v49_8"></div>
+                <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_sup"></div>
 
                 <span class="v49_9" id="clase_carta_sup"></span>
                 <span class="v49_10" id="poder_carta_sup"></span>
@@ -85,7 +85,7 @@ export default class viewJuego {
                 <div class="v49_4"></div>
                 <div class="v49_5"></div>
                 <div class="v49_6"></div>
-                <div class="v49_8"></div>
+                <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_inf"></div>
 
                 <span class="v49_9" id="clase_carta_inf"></span>
                 <span class="v49_10" id="poder_carta_inf"></span>
@@ -115,7 +115,7 @@ export default class viewJuego {
                 <div class="v49_4"></div>
                 <div class="v49_5"></div>
                 <div class="v49_6"></div>
-                <div class="v49_8"></div>
+                <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_der"></div>
 
                 <span class="v49_9" id="clase_carta_der"></span>
                 <span class="v49_10" id="poder_carta_der"></span>
@@ -169,6 +169,7 @@ export default class viewJuego {
         };
         this.viewUpdateCard = (htmlElement, card) => {
             const completeValue = htmlElement.id;
+            const img = document.getElementById('imagen_' + completeValue);
             const clase = document.getElementById('clase_' + completeValue);
             const poder = document.getElementById('poder_' + completeValue);
             const vida = document.getElementById('vida_' + completeValue);
@@ -177,6 +178,8 @@ export default class viewJuego {
             const ataqueDado = document.getElementById('ataque_dado_' + completeValue);
             const daño = document.getElementById('daño_' + completeValue);
             // Asignar las proiedades correspondientes a los elementos con texto adicional
+            if (img != null)
+                img.src = `${card.urlImagen}`;
             if (clase != null)
                 clase.innerText = ` ${card.nombre}`;
             if (poder != null)

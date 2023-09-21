@@ -335,7 +335,7 @@
 .v49_8 {
   width: 181px;
   height: 166px;
-  background: rgba(217,217,217,1);
+  background: rgb(97, 97, 97);
   opacity: 1;
   position: absolute;
   top: 45px;
@@ -347,6 +347,13 @@
   border-bottom-right-radius: 5px;
   overflow: hidden;
 }
+
+.v49_8 img{
+  width: 100%;
+
+  object-fit: cover;
+}
+
 .v49_9 {
   width: 198px;
   color: rgba(255,255,255,1);

@@ -102,10 +102,11 @@ const HandleJoinAction = (room) => {
     //console.log(room.sessionId, "joined", room.name);
     sala_espera_controller.init(StartInventario);
     //#region Room State Listeners
-    room.state.listen("currentTurn", () => {
+    room.state.listen("currentTurn", (currentValue) => {
         //console.log(`currentTurn is now ${currentValue}`);
         //console.log(`previous value was: ${previousValue}`);
-        turnos_controller.updateTurnNumber();
+        if (currentValue > 0)
+            turnos_controller.updateTurnNumber();
     });
     room.state.listen("expectedUsers", (currentValue) => {
         sala_espera_controller.setExpectedUsers(currentValue.toString());
