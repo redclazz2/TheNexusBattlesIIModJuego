@@ -4,7 +4,7 @@
     padding: 0;
     font-family: Arial, sans-serif;
     height: 100%;
-    background-image: url(../img/fondoCastillo.png); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+    background-color: #D2B48C;
     background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
     background-repeat: no-repeat;
   }
@@ -362,7 +362,7 @@
   
   font-family: Inter;
   font-weight: Regular;
-  font-size: 14px;
+  font-size: 13px;
   opacity: 1;
   text-align: center;
 }
@@ -374,7 +374,7 @@
   left: 28px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 14px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: left;
 }
@@ -386,7 +386,7 @@
   left: 28px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 14px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: left;
 }
@@ -398,7 +398,7 @@
   left: 28px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 14px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: left;
 }
@@ -422,7 +422,7 @@
   left: 97px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 14px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: left;
 }
@@ -449,7 +449,7 @@
   left: 28px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 8px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: left;
 }
@@ -478,7 +478,7 @@
   left: 140px;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 1;
   text-align: center;
 }

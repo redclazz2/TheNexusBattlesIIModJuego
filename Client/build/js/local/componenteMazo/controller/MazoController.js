@@ -6,5 +6,12 @@ export default class MazoController {
             this.view.init();
             this.view.cardNumber(this.model.cardCount);
         };
+        this.updateMazoNumber = () => {
+            this.view.cardNumber(this.model.cardCount);
+        };
+        this.setAllNewMazo = (cartas) => {
+            this.model.setAll(cartas);
+            this.updateMazoNumber();
+        };
     }
 }

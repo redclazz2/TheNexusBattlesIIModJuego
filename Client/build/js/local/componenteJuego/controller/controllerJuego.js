@@ -63,6 +63,7 @@ export default class controllerJuego {
                 this.playerHasPermission = false;
             }
         };
+        //Cambia el turno local y reiniciar el timer
         this.registerCurrentTurnChange = (newTurnData) => {
             this.local_current_turn = newTurnData;
             this.handleTurnChange();

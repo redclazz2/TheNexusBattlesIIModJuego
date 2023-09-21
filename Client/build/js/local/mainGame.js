@@ -157,7 +157,7 @@ const StartGameView = (mazo) => {
     //Obtiene la carta del heroe q siempre es la primera
     my_hero_card = mazo[0];
     my_hero_card.modificador_daño_total = 0;
-    mazo.slice(0, 1);
+    mazo.splice(0, 1);
     for (let [key, value] of sala_espera_controller.getPlayerMap().entries()) {
         if (key == juego_controller.getLocalSessionID()) {
             juego_controller.registerClient(value.sessionID, my_hero_card, 0);
@@ -170,5 +170,6 @@ const StartGameView = (mazo) => {
     juego_controller.updateCardValue(juego_controller.getLocalSessionID(), my_hero_card);
     turnos_controller.init();
     mazo_controller.init();
+    mazo_controller.setAllNewMazo(mazo);
     juego_controller.match_status_ready();
 };
