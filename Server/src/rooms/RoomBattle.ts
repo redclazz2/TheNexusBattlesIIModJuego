@@ -30,7 +30,7 @@ export class room_battle extends Room<RoomBattleState> {
     //A client is ready to begin
     this.onMessage(2,()=>{
       if(this.currentMatchReadyNotices == Number(this.state.expectedUsers)){
-        this.state.matchReady = true;
+        this.state.matchReady = 1;
       }
     })
   }
