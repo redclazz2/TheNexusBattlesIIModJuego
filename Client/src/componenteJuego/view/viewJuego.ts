@@ -18,8 +18,17 @@ export default class viewJuego{
         this.permissionControllerFunction = permissionFunction;
         this.passTurnFunction = passFunction;
         
-        const contenedorVista = document.querySelector('#elementoPrincipal');
+        const contenedorVista = document.querySelector('#ElementoInventario');
         const body = document.body;
+
+        const inventorySheet = document.getElementById('InventarioCartasCSS') as HTMLLinkElement;
+        inventorySheet.disabled = true;
+        inventorySheet.parentNode?.removeChild(inventorySheet);
+
+
+        const cardInventorySheet = document.getElementById('CartaInventarioCSS') as HTMLLinkElement;
+        cardInventorySheet.disabled = true;
+        cardInventorySheet.parentNode?.removeChild(cardInventorySheet);
 
         if (contenedorVista) {
             contenedorVista.innerHTML = "";

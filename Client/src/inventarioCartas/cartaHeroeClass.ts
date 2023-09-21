@@ -1,4 +1,4 @@
-export default class CartaHeroe {
+export default class CartaHeroeInv {
     activo: any;
     ataqueBase: any;
     ataqueDado: any;

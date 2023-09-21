@@ -30,7 +30,7 @@ export default class InventarioView {
   this.iniciarBtn = document.getElementById('iniciarBtn');
   }
 
-  llenarCartasEnHTML(cartas:any) {
+  llenarCartasEnHTML(cartas:any,selected_array:Array<string>) {
     try {
       const container = document.querySelector('.card-container');
       if(container != null) container.innerHTML = "";
@@ -62,7 +62,7 @@ export default class InventarioView {
               </div>
             </div>
           </div>
-          <button class="seleccionarBtn" data-seleccionada="false" data-id="${carta.id}">Seleccionar</button>
+          <button class="seleccionarBtn" data-seleccionada="false" value="${carta.id}">Seleccionar</button>
         `;
             break;
           default:
@@ -78,7 +78,7 @@ export default class InventarioView {
                 </div>
               </div>
             </div>
-            <button class="seleccionarBtn" data-seleccionada="false" data-id="${carta.id}">Seleccionar</button>`
+            <button class="seleccionarBtn" data-seleccionada="false" value="${carta.id}">Seleccionar</button>`
             break;
         }
 
@@ -90,6 +90,7 @@ export default class InventarioView {
         if(seleccionarBtn!=null)seleccionarBtn.addEventListener('click', () => {
           const seleccionada = seleccionarBtn.getAttribute('data-seleccionada');
           if (seleccionada === 'false') {
+            selected_array.push(seleccionarBtn.value as string);
             seleccionarBtn.style.backgroundColor = 'green'; 
             seleccionarBtn.setAttribute('data-seleccionada', 'true');
             this.cartasSeleccionadas++;

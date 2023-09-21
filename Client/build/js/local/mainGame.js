@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import controladorSalaEspera from "./componenteSalaEspera/controller/controllerSalaEspera.js";
 import modelSalaEspera from "./componenteSalaEspera/model/modelSalaEspera.js";
 import viewSalaEspera from "./componenteSalaEspera/view/viewSalaEspera.js";
@@ -147,25 +138,14 @@ const HandleJoinAction = (room) => {
     });
 };
 const StartInventario = () => {
-    inventario_controller.init();
+    inventario_controller.init(StartGameView);
 };
-const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
+const StartGameView = (mazo) => {
     juego_controller.init(sala_espera_controller.getPlayerMap().size);
-    //Carta Seleccionada:
-    const my_hero_card_api = fetch('https://cards.thenexusbattles2.cloud/api/heroes/65035fb3cd1283c97b876f9d');
-    let my_hero_card = {};
-    yield my_hero_card_api.then(response => response.json()).then(data => {
-        my_hero_card.vidaActual = data.Vida,
-            my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
-            my_hero_card.vida = data.Vida,
-            my_hero_card.defensa = data.Defensa,
-            my_hero_card.ataque_base = data.AtaqueBase,
-            my_hero_card.poder = 1,
-            my_hero_card.ataque_maximo = data.AtaqueDado,
-            my_hero_card.daño_maximo = data.DanoMax;
-        my_hero_card.descripcion = data.Desc;
-    });
     let player_pos = 1;
+    const my_hero_card = mazo[0];
+    mazo.slice(0, 1);
+    console.log(my_hero_card);
     for (let [key, value] of sala_espera_controller.getPlayerMap().entries()) {
         if (key == juego_controller.getLocalSessionID()) {
             juego_controller.registerClient(value.sessionID, my_hero_card, 0);
@@ -175,13 +155,13 @@ const StartGameView = () => __awaiter(void 0, void 0, void 0, function* () {
             player_pos++;
         }
     }
-    juego_controller.getLocalRoom().send(0, { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
     juego_controller.updateCardValue(juego_controller.getLocalSessionID(), my_hero_card);
-    juego_controller.handleTurnChange();
+    juego_controller.getLocalRoom().send(0, { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
     turnos_controller.init();
     mazo_controller.init();
-    if (juego_controller.checkPermission()) {
+    /*if(juego_controller.checkPermission()){
+        juego_controller.handleTurnChange();
         juego_controller.removeTimer();
         juego_controller.countdown();
-    }
-});
+    }*/
+};

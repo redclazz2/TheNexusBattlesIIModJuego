@@ -9,10 +9,17 @@ export default class viewJuego {
             3: "carta_der" //En 3
         };
         this.viewInit = (permissionFunction, passFunction) => {
+            var _a, _b;
             this.permissionControllerFunction = permissionFunction;
             this.passTurnFunction = passFunction;
-            const contenedorVista = document.querySelector('#elementoPrincipal');
+            const contenedorVista = document.querySelector('#ElementoInventario');
             const body = document.body;
+            const inventorySheet = document.getElementById('InventarioCartasCSS');
+            inventorySheet.disabled = true;
+            (_a = inventorySheet.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(inventorySheet);
+            const cardInventorySheet = document.getElementById('CartaInventarioCSS');
+            cardInventorySheet.disabled = true;
+            (_b = cardInventorySheet.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(cardInventorySheet);
             if (contenedorVista) {
                 contenedorVista.innerHTML = "";
                 body.classList.remove('body');

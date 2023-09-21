@@ -10,16 +10,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 export default class InventarioController {
     constructor(model, view) {
         this.cartasSeleccionadas = [];
-        this.init = () => __awaiter(this, void 0, void 0, function* () {
+        this.init = (funcionIniciarJuego) => __awaiter(this, void 0, void 0, function* () {
             this.inventarioView.init();
             try {
                 const cartas = yield this.getInventario();
-                this.inventarioView.llenarCartasEnHTML(cartas);
+                this.inventarioView.llenarCartasEnHTML(cartas, this.cartasSeleccionadas);
                 this.inventarioView.iniciarBtn.addEventListener('click', () => {
                     if (this.inventarioView.cartasSeleccionadas >= 10) {
                         alert('Guardando Cartas Seleccionadas');
-                        //funcion para guardar las cartas (Index de cartas)
-                        //y autocompletado.
+                        console.log("Mapa maestro de cartas:");
+                        console.log(this.inventarioModelo.getMasterMap());
+                        console.log("Cartas Seleccionadas: ");
+                        console.log(this.cartasSeleccionadas);
+                        console.log("Mazo: ");
+                        const mazo = this.inventarioModelo.autoCompletePlayerSelection(this.cartasSeleccionadas);
+                        console.log(mazo);
+                        console.log("----------Iniciando Juego-----------");
+                        funcionIniciarJuego(mazo);
                     }
                     else {
                         alert('Debes seleccionar 10 cartas para iniciar el juego');

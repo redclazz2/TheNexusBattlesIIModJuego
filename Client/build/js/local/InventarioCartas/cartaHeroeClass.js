@@ -1,2 +1,2 @@
-export default class CartaHeroe {
+export default class CartaHeroeInv {
 }

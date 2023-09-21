@@ -155,31 +155,15 @@ const HandleJoinAction = (room:any):void =>{
 }
 
 const StartInventario = ():void => {
-    inventario_controller.init();
+    inventario_controller.init(StartGameView);
 }
 
-const StartGameView = async():Promise<void> => {
+const StartGameView = (mazo:Array<any>):void => {
     juego_controller.init(sala_espera_controller.getPlayerMap().size);
-
-     //Carta Seleccionada:
-    const my_hero_card_api = fetch('https://cards.thenexusbattles2.cloud/api/heroes/65035fb3cd1283c97b876f9d');
-    let my_hero_card:CartaHeroe = {} as CartaHeroe;
-        
-    await my_hero_card_api.then(response => response.json()).then(
-        data=>{
-            my_hero_card.vidaActual = data.Vida,
-            my_hero_card.tipo_heroe = data.Clase + " " + data.Tipo,
-            my_hero_card.vida = data.Vida,
-            my_hero_card.defensa = data.Defensa,
-            my_hero_card.ataque_base = data.AtaqueBase,
-            my_hero_card.poder = 1,
-            my_hero_card.ataque_maximo = data.AtaqueDado,
-            my_hero_card.daño_maximo = data.DanoMax
-            my_hero_card.descripcion = data.Desc
-        }
-    );
-
     let player_pos = 1;
+    const my_hero_card = mazo[0];
+    mazo.slice(0,1);
+    console.log(my_hero_card);
     for(let [key,value] of sala_espera_controller.getPlayerMap().entries()){
         if(key == juego_controller.getLocalSessionID()){
             juego_controller.registerClient(value.sessionID,my_hero_card,0);
@@ -187,16 +171,17 @@ const StartGameView = async():Promise<void> => {
             juego_controller.registerClient(value.sessionID,{} as CartaHeroe,player_pos);
             player_pos++;
         }
-    }
-    
-    juego_controller.getLocalRoom().send(0,{sender:juego_controller.getLocalSessionID(),card:my_hero_card});
+    }  
     juego_controller.updateCardValue(juego_controller.getLocalSessionID(),my_hero_card);
-    juego_controller.handleTurnChange();
+    juego_controller.getLocalRoom().send(0,{sender:juego_controller.getLocalSessionID(),card:my_hero_card});
     turnos_controller.init();
     mazo_controller.init();
 
-    if(juego_controller.checkPermission()){
+    /*if(juego_controller.checkPermission()){
+        juego_controller.handleTurnChange();
         juego_controller.removeTimer();
         juego_controller.countdown();
-    }
+    }*/
+
+    
 }

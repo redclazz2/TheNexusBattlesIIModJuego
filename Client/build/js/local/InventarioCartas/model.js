@@ -8,9 +8,169 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Carta from "./cartaClass.js";
-import CartaHeroe from "./cartaHeroeClass.js";
+import CartaHeroeInv from "./cartaHeroeClass.js";
 export default class InventarioModel {
-    constructor() { }
+    constructor() {
+        /*
+           Este método registra cartas en el mapa maestro. Como es un mapa
+           se puede verificar con el ID si la carta ya está registrada.
+      
+           El mapa guarda:
+           {llave,[data_api,tipo_carta]}
+        */
+        this.addCardToMasterMap = (card_id, card_api_data, card_type) => {
+            //Verifica que no exista la carta no esté registrada
+            if (!this.cardMasterMap.has(card_id)) {
+                this.cardMasterMap.set(card_id, [card_api_data, card_type]);
+            }
+        };
+        //Este método retorna el mapa de cartas maestro entero
+        this.getMasterMap = () => {
+            return this.cardMasterMap;
+        };
+        //Cambiar el tipo any x lo q retorne la API (string?)
+        /*
+           Este método permite obtener la data de la carta guardado en el
+           mapa maestro.
+        */
+        this.getCardFromMasterMap = (card_id) => {
+            if (this.cardMasterMap.has(card_id))
+                return this.cardMasterMap.get(card_id);
+            else
+                return "";
+        };
+        //Auto completado del mazo, perdón x el any en el localfinalcards pero
+        //No estoy segurodel tipo q tenga la carta dentro! 
+        /*
+          Esta función autocompleta la selección del usuario y pasa las cartas
+          de un modelo de vista inventario al modelo de datos utilizado en el juego.
+      
+          Se le pasa una array de los IDs de las cartas seleccionadas en la vista.
+        */
+        this.autoCompletePlayerSelection = (player_selection) => {
+            let local_final_cards = [];
+            let all_armas = 0;
+            let all_armaduras = 0;
+            let all_items = 0;
+            let all_epicas = 0;
+            let all_epicas_hero = 0;
+            let my_hero_type = "";
+            //forma temporal de encontrar primero al heroe
+            for (let key of player_selection) {
+                let current_card = this.getCardFromMasterMap(key);
+                if (current_card[1] == "Heroe") {
+                    my_hero_type = current_card[0].Clase + " " + current_card[0].Tipo;
+                    let hero = {};
+                    hero.urlImagen = current_card[0].UrlImagen;
+                    hero.nombre = current_card[0].Clase + " " + current_card[0].Tipo;
+                    hero.poder = current_card[0].Poder;
+                    hero.vida = current_card[0].Vida;
+                    hero.vidaActual = current_card[0].Vida;
+                    hero.defensa = current_card[0].Defensa;
+                    hero.ataque_base = current_card[0].AtaqueBase;
+                    hero.ataque_maximo = current_card[0].AtaqueDado;
+                    hero.daño_maximo = current_card[0].DanoMax;
+                    hero.descripcion = current_card[0].Desc;
+                    hero.coleccion = current_card[1];
+                    local_final_cards.push(hero);
+                    player_selection.slice(player_selection.indexOf(key), 1);
+                    break;
+                }
+            }
+            for (let current_card_id of player_selection) {
+                //En el mapa se guarda [api,tipo_arma]
+                let current_card_api_data = this.getCardFromMasterMap(current_card_id);
+                //Verifica x el tipo de arma cómo la va a completar
+                switch (current_card_api_data[1]) {
+                    case "Arma":
+                        if (this.autoCompleteCardDuplicationHelper(all_armas, 8, 4, local_final_cards, current_card_api_data))
+                            all_armas += 4;
+                        break;
+                    case "Armadura":
+                        if (this.autoCompleteCardDuplicationHelper(all_armaduras, 4, 4, local_final_cards, current_card_api_data))
+                            all_armaduras += 4;
+                        break;
+                    case "Item":
+                        if (this.autoCompleteCardDuplicationHelper(all_items, 4, 4, local_final_cards, current_card_api_data))
+                            all_items += 4;
+                        break;
+                    case "Epica":
+                        if (my_hero_type == current_card_api_data[0].Heroe) {
+                            if (this.autoCompleteCardDuplicationHelper(all_epicas_hero, 4, 4, local_final_cards, current_card_api_data))
+                                all_epicas_hero += 4;
+                        }
+                        else {
+                            if (this.autoCompleteCardDuplicationHelper(all_epicas, 10, 2, local_final_cards, current_card_api_data))
+                                all_epicas += 2;
+                        }
+                        break;
+                }
+            }
+            return local_final_cards;
+        };
+        /*
+          Esta función se encarga de clonar la carta, toma como parametro:
+      
+          la cantidad de cartas q hay en el mazo, el maximo de cartas que puede haber de esetipo,
+          el numero de veces q se debe clonar la carta, la estructura a la que se añadira el clonado y
+          la informacion de la carta a duplicar.
+      
+          Se revisa que se pueda añadir una carta y se hace un loop con la cantidad de veces
+          a insertar.
+        */
+        //Ok, este método se vuelve no necesario xq depende de lo que esté en la API
+        //y muchos campos den la API y la BD no están estandarizados.  -> Error de diseño!
+        this.autoCompleteCardDuplicationHelper = (current_card_count, card_max, card_number_to_duplicate, final_structure, card_to_duplicate) => {
+            let my_return = false;
+            if (current_card_count < card_max) {
+                let to_insert = {};
+                switch (card_to_duplicate[1]) {
+                    case "Arma":
+                        to_insert.tipo_heroe = card_to_duplicate[0].TipoHeroe;
+                        to_insert.nombre = card_to_duplicate[0].Nombre;
+                        to_insert.descripcion = card_to_duplicate[0].Desc;
+                        to_insert.coleccion = card_to_duplicate[1];
+                        to_insert.urlImagen = card_to_duplicate[0].UrlImagen;
+                        to_insert.efecto = card_to_duplicate[0].Efecto;
+                        to_insert.efecto_heroe = null;
+                        break;
+                    case "Armadura":
+                        to_insert.tipo_heroe = card_to_duplicate[0].Heroe;
+                        to_insert.nombre = card_to_duplicate[0].Tipo;
+                        to_insert.descripcion = card_to_duplicate[0].Desc;
+                        to_insert.coleccion = card_to_duplicate[1];
+                        to_insert.urlImagen = card_to_duplicate[0].UrlImagen;
+                        to_insert.efecto = card_to_duplicate[0].Efecto;
+                        to_insert.efecto_heroe = null;
+                        break;
+                    case "Item":
+                        to_insert.tipo_heroe = card_to_duplicate[0].Heroe;
+                        to_insert.nombre = card_to_duplicate[0].Nombre;
+                        to_insert.descripcion = card_to_duplicate[0].Desc;
+                        to_insert.coleccion = card_to_duplicate[1];
+                        to_insert.urlImagen = card_to_duplicate[0].UrlImagen;
+                        to_insert.efecto = card_to_duplicate[0].Efecto;
+                        to_insert.efecto_heroe = null;
+                        break;
+                    case "Epica":
+                        to_insert.tipo_heroe = card_to_duplicate[0].Heroe;
+                        to_insert.nombre = card_to_duplicate[0].Nombre;
+                        to_insert.descripcion = card_to_duplicate[0].Desc;
+                        to_insert.coleccion = card_to_duplicate[1];
+                        to_insert.urlImagen = card_to_duplicate[0].UrlImagen;
+                        to_insert.efecto = card_to_duplicate[0].EfectoGlobal;
+                        to_insert.efecto_heroe = card_to_duplicate[0].EfectoHeroe;
+                        break;
+                }
+                for (let i = 0; i < card_number_to_duplicate; i++) {
+                    final_structure.push(to_insert);
+                }
+                my_return = true;
+            }
+            return my_return;
+        };
+        this.cardMasterMap = new Map();
+    }
     getArmaCard(e) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,6 +182,7 @@ export default class InventarioModel {
                 _current_card.desc = card.Desc;
                 _current_card.coleccion = "Arma";
                 _current_card.urlImagen = card.UrlImagen;
+                this.addCardToMasterMap(card.Id, card, "Arma");
                 return _current_card;
             }
             catch (error) {
@@ -40,6 +201,7 @@ export default class InventarioModel {
                 _current_card.coleccion = "Armadura";
                 _current_card.desc = card.Desc;
                 _current_card.urlImagen = card.UrlImagen;
+                this.addCardToMasterMap(card.Id, card, "Armadura");
                 return _current_card;
             }
             catch (error) {
@@ -58,6 +220,7 @@ export default class InventarioModel {
                 _current_card.desc = card.Desc;
                 _current_card.coleccion = "Item";
                 _current_card.urlImagen = card.UrlImagen;
+                this.addCardToMasterMap(card.Id, card, "Item");
                 return _current_card;
             }
             catch (error) {
@@ -76,6 +239,7 @@ export default class InventarioModel {
                 _current_card.desc = card.Desc;
                 _current_card.coleccion = "Epica";
                 _current_card.urlImagen = card.UrlImagen;
+                this.addCardToMasterMap(card.Id, card, "Epica");
                 return _current_card;
             }
             catch (error) {
@@ -88,7 +252,7 @@ export default class InventarioModel {
             try {
                 const response = yield fetch('https://cards.thenexusbattles2.cloud/api/heroes/' + e.id_carta);
                 const card = yield response.json();
-                const _current_card = new CartaHeroe();
+                const _current_card = new CartaHeroeInv();
                 _current_card.ataqueBase = card.AtaqueBase;
                 _current_card.ataqueDado = card.AtaqueDado;
                 _current_card.clase = card.Clase;
@@ -101,6 +265,7 @@ export default class InventarioModel {
                 _current_card.urlImagen = card.UrlImagen;
                 _current_card.vida = card.Vida;
                 _current_card.coleccion = "Heroe";
+                this.addCardToMasterMap(card.Id, card, "Heroe");
                 return _current_card;
             }
             catch (error) {
@@ -168,24 +333,6 @@ export default class InventarioModel {
                         "id": 7,
                         "user": "Administrador",
                         "id_carta": "64eb906091c55d02fe369b27",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b28",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b28",
-                        "type": "Epica"
-                    },
-                    {
-                        "id": 7,
-                        "user": "Administrador",
-                        "id_carta": "64eb906091c55d02fe369b28",
                         "type": "Epica"
                     },
                     {
