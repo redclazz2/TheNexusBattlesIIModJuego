@@ -134,12 +134,12 @@ export default class InventarioModel {
 
   // En InventarioModel
   async getUserInventory() {
-    const _dataSource = "../cartas.json"; // Cambiar esta línea por la API
+    const _dataSource = "https://store.thenexusbattles2.cloud/webserver/ver-inventario"; // Cambiar esta línea por la API
     try {
-      //const userInventory = await fetch(_dataSource);
-      //const cartasJSON = await userInventory.json();
+      const userInventory = await fetch(_dataSource);
+      const cartasJSON = await userInventory.json();
 
-      const cartasJSON = [
+      /*const cartasJSON = [
         {
           "id": 2,
           "user": "Administrador",
@@ -206,7 +206,7 @@ export default class InventarioModel {
           "id_carta": "65035fefcd1283c97b876fa1",
           "type": "Heroe"
         }
-      ]
+      ]*/
 
       const cartasPromises = [];
 
