@@ -45,7 +45,7 @@ export default class viewJuego{
                 <div class="v49_6"></div>
                 <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_izq"></div>
 
-                <span class="v49_9" id="clase_carta_izq"></span>
+                <span class="v49_9" id="clase_carta_izq">Esperando</span>
                 <span class="v49_10" id="poder_carta_izq"></span>
                 <span class="v49_11" id="vida_carta_izq"></span>
                 <span class="v49_12" id="defensa_carta_izq"></span>
@@ -55,7 +55,6 @@ export default class viewJuego{
                 <span class="v49_16"></span>
                 <div class="v49_17"></div>
                 <span class="v49_18">Atacar</span>
-                <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_izq"></span>
@@ -72,7 +71,7 @@ export default class viewJuego{
                 <div class="v49_6"></div>
                 <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_sup"></div>
 
-                <span class="v49_9" id="clase_carta_sup"></span>
+                <span class="v49_9" id="clase_carta_sup">Esperando</span>
                 <span class="v49_10" id="poder_carta_sup"></span>
                 <span class="v49_11" id="vida_carta_sup"></span>
                 <span class="v49_12" id="defensa_carta_sup"></span>
@@ -82,7 +81,6 @@ export default class viewJuego{
                 <span class="v49_16"></span>
                 <div class="v49_17"></div>
                 <span class="v49_18">Atacar</span>
-                <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_sup"></span>
@@ -97,7 +95,7 @@ export default class viewJuego{
                 <div class="v49_6"></div>
                 <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_inf"></div>
 
-                <span class="v49_9" id="clase_carta_inf"></span>
+                <span class="v49_9" id="clase_carta_inf">Esperando</span>
                 <span class="v49_10" id="poder_carta_inf"></span>
                 <span class="v49_11" id="vida_carta_inf"></span>
                 <span class="v49_12" id="defensa_carta_inf"></span>
@@ -111,7 +109,6 @@ export default class viewJuego{
                 <div class="v49_20"></div>
                 <span class="v49_21" id="controlTurnoPasar">P</span>
                 <span class="v49_22">+</span>
-                <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_inf"></span>
@@ -127,7 +124,7 @@ export default class viewJuego{
                 <div class="v49_6"></div>
                 <div class="v49_8"><img src=""../../img/componenteMazo/v858_305.png"" id="imagen_carta_der"></div>
 
-                <span class="v49_9" id="clase_carta_der"></span>
+                <span class="v49_9" id="clase_carta_der">Esperando</span>
                 <span class="v49_10" id="poder_carta_der"></span>
                 <span class="v49_11" id="vida_carta_der"></span>
                 <span class="v49_12" id="defensa_carta_der"></span>
@@ -137,7 +134,6 @@ export default class viewJuego{
                 <span class="v49_16"></span>
                 <div class="v49_17"></div>
                 <span class="v49_18">Atacar</span>
-                <span class="v49_23">Progreso</span>
                 <div class="v49_24"></div>
                 <div class="v49_25"></div>
                 <span class="v49_26" id="vida_actual_carta_der"></span>
@@ -194,7 +190,7 @@ export default class viewJuego{
         if(img != null) img.src = `${card.urlImagen}`;
         if(clase != null) clase.innerText = ` ${card.nombre}`;
         if(poder != null) poder.innerText = `Poder: ${card.poder}`;
-        if(vida != null) vida.innerText = `Vida: ${card.vida}`;
+        if(vida != null) vida.innerText = `D/EFCT: ${card.daño_maximo}`; //
         if(vidaActual !=null) vidaActual.innerText = card.vidaActual.toString();
         if(defensa != null) defensa.innerText = `Defensa: ${card.defensa}`;
         if(ataqueDado != null) ataqueDado.innerText = `Ataque: ${card.ataque_maximo}`;
@@ -213,6 +209,6 @@ export default class viewJuego{
     viewUpdateActionTimer = (current:number|string):void =>{
         const docHTMLTimer = document.getElementById('tiempo-juego');
 
-        if(docHTMLTimer != null) docHTMLTimer.innerText = "Tiempo Desición: " + current.toString();
+        if(docHTMLTimer != null) docHTMLTimer.innerText = "Tiempo Decisión: " + current.toString();
     }
 }

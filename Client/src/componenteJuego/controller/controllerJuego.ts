@@ -54,15 +54,15 @@ export default class controllerJuego{
         return this.model.getTurnRegister();
     }
 
+    //TODO: Quitar el alert y poner un modal bonito
     handleTurnChange = ():void =>{
         const turnData = this.model.getTurnRegister();
 
         if(turnData[this.local_current_turn] == this.local_session_id){
             this.playerHasPermission = true;
-            console.log("Turno Local");
+            alert("Te toca!");
         }else{
             this.playerHasPermission = false;
-            console.log("Turno Enemigo");
         }
     }
 
@@ -80,7 +80,7 @@ export default class controllerJuego{
     //#region Acciones en los turnos
     /* 
         Tabla de Acciones:
-        0 - Sync Inicial de las Cartas
+        0 - Sync de las Cartas
         1 - Pasar de Turno
         2 - Indicar que el cliente está listo
     */
@@ -91,6 +91,14 @@ export default class controllerJuego{
 
     match_status_ready = ():void => {
         this.local_room.send(2);
+    }
+
+    /*
+       Esta funcion sincroniza una carta entre los clientes. Se envia el objetivo (SessionID de la carta a modificar)
+       y la card data (Valores nuevos de la carta)
+    */
+    match_sync_set_card = (session_id_objective:string,card_data:any):void =>{
+        this.local_room.send(0,{sender:session_id_objective,card:card_data});
     }
 
     //#endregion

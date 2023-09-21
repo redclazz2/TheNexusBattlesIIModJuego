@@ -18,19 +18,19 @@ export default class InventarioController {
 
       this.inventarioView.iniciarBtn.addEventListener('click', () => {
         if (this.inventarioView.cartasSeleccionadas >= 10) {
-          alert('Guardando Cartas Seleccionadas');
+          //alert('Guardando Cartas Seleccionadas');
           
-          console.log("Mapa maestro de cartas:")
-          console.log(this.inventarioModelo.getMasterMap());
+          //console.log("Mapa maestro de cartas:")
+          //console.log(this.inventarioModelo.getMasterMap());
           
-          console.log("Cartas Seleccionadas: ")
-          console.log(this.cartasSeleccionadas);
+          //console.log("Cartas Seleccionadas: ")
+          //console.log(this.cartasSeleccionadas);
           
-          console.log("Mazo: ")
+         // console.log("Mazo: ")
           const mazo = this.inventarioModelo.autoCompletePlayerSelection(this.cartasSeleccionadas)
-          console.log(mazo)
+        // console.log(mazo)
 
-          console.log("----------Iniciando Juego-----------");
+          //console.log("----------Iniciando Juego-----------");
           funcionIniciarJuego(mazo);
         } else {
           alert('Debes seleccionar 10 cartas para iniciar el juego');

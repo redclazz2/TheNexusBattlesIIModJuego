@@ -128,9 +128,7 @@ const HandleJoinAction = (room:any):void =>{
 
     room.state.listen("matchReady",(currentValue:any) =>{
         if(currentValue == 1){
-            juego_controller.getLocalRoom().send(0,{sender:juego_controller.getLocalSessionID(),card:my_hero_card});
-            console.log("Iniciando Turno:");
-            
+            juego_controller.match_sync_set_card(juego_controller.getLocalSessionID(),my_hero_card);
             juego_controller.handleTurnChange();
             juego_controller.countdown();
         }
@@ -160,7 +158,7 @@ const HandleJoinAction = (room:any):void =>{
     //#endregion
 
     room.onMessage(0,(message:any)=>{
-        console.log(message);
+        //console.log(message);
         juego_controller.updateCardValue(message.sender,message.card);
     });
 }
