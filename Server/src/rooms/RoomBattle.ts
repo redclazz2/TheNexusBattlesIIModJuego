@@ -3,6 +3,7 @@ import { RoomBattleState, Player } from "./schema/RoomBattleState";
 
 export class room_battle extends Room<RoomBattleState> {
   maxClients = 1;
+  currentMatchReadyNotices:number = 0;
 
   onCreate (options: any) {
     this.setState(new RoomBattleState());
@@ -16,6 +17,7 @@ export class room_battle extends Room<RoomBattleState> {
     this.state.expectedUsers = this.maxClients.toString();
     this.state.clients;
 
+    //Card Initial Sync
     this.onMessage(0, (client, message) => {
         this.broadcast(0, message, { except: client });
     });
@@ -24,6 +26,13 @@ export class room_battle extends Room<RoomBattleState> {
     this.onMessage(1,()=>{
       this.handleTurnTermination();
     });
+
+    //A client is ready to begin
+    this.onMessage(2,()=>{
+      if(this.currentMatchReadyNotices == Number(this.state.expectedUsers)){
+        this.state.matchReady = true;
+      }
+    })
   }
 
   onJoin (client: Client, options: any) {

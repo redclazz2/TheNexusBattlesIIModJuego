@@ -15,6 +15,5 @@ export default class TurnosController {
     }
     init() {
         this.vista.init();
-        this.vista.drawTurnData(this.turno_actual);
     }
 }

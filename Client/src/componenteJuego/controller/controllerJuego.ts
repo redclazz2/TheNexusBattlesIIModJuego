@@ -82,10 +82,15 @@ export default class controllerJuego{
         Tabla de Acciones:
         0 - Sync Inicial de las Cartas
         1 - Pasar de Turno
+        2 - Indicar que el cliente está listo
     */
 
     turn_action_pass=():void =>{
         this.local_room.send(1);
+    }
+
+    match_status_ready = ():void => {
+        this.local_room.send(2);
     }
 
     //#endregion

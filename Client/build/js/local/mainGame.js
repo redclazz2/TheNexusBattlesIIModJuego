@@ -62,7 +62,7 @@ const turnos_controller = new TurnosController(new TurnosView());
 const mazo_controller = new MazoController(new MazoModel(), new MazoView());
 const inventario_controller = new InventarioController(new inventarioModel(), new inventarioVista());
 //#endregion
-let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data;
+let client = new Colyseus.Client('https://game.thenexusbattles2.cloud/server-0'), cookie_data, my_hero_card;
 //Bloque de unión a la partida
 try {
     //En caso de que se intente crear una partida
@@ -111,7 +111,18 @@ const HandleJoinAction = (room) => {
         sala_espera_controller.setExpectedUsers(currentValue.toString());
     });
     room.state.listen("localTurnStatus", (currentValue) => {
-        juego_controller.registerCurrentTurnChange(currentValue);
+        if (room.state.matchReady)
+            juego_controller.registerCurrentTurnChange(currentValue);
+    });
+    room.state.listen("matchReady", (currentValue) => {
+        if (currentValue) {
+            juego_controller.getLocalRoom().send(0, { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
+            if (juego_controller.checkPermission()) {
+                juego_controller.handleTurnChange();
+                juego_controller.removeTimer();
+                juego_controller.countdown();
+            }
+        }
     });
     room.state.turnos.onAdd((client, key) => {
         //console.log(client, "turn has been added at", key);
@@ -141,11 +152,13 @@ const StartInventario = () => {
     inventario_controller.init(StartGameView);
 };
 const StartGameView = (mazo) => {
+    //Dibuja las cartas de heroe
     juego_controller.init(sala_espera_controller.getPlayerMap().size);
+    //Definicion de Variables
     let player_pos = 1;
-    const my_hero_card = mazo[0];
+    //Obtiene la carta del heroe q siempre es la primera
+    my_hero_card = mazo[0];
     mazo.slice(0, 1);
-    console.log(my_hero_card);
     for (let [key, value] of sala_espera_controller.getPlayerMap().entries()) {
         if (key == juego_controller.getLocalSessionID()) {
             juego_controller.registerClient(value.sessionID, my_hero_card, 0);
@@ -156,12 +169,7 @@ const StartGameView = (mazo) => {
         }
     }
     juego_controller.updateCardValue(juego_controller.getLocalSessionID(), my_hero_card);
-    juego_controller.getLocalRoom().send(0, { sender: juego_controller.getLocalSessionID(), card: my_hero_card });
     turnos_controller.init();
     mazo_controller.init();
-    /*if(juego_controller.checkPermission()){
-        juego_controller.handleTurnChange();
-        juego_controller.removeTimer();
-        juego_controller.countdown();
-    }*/
+    juego_controller.match_status_ready();
 };
